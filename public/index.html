@@ -3,10 +3,15 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>مجلس بلدية الجيزة</title>
-<meta name="description" content="مجلس بلدية الجيزة — ريف درعا — الجمهورية العربية السورية" />
-<link rel="icon" type="image/png" href="/logo.png" />
-<meta name="theme-color" content="#1a472a" />
+<title>بلدية الجيزة</title>
+<meta name="description" content="بلدية الجيزة — ريف درعا — الجمهورية العربية السورية" />
+<link rel="icon" type="image/png" href="/icon-192.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/manifest.json" />
+<meta name="theme-color" content="#1b4332" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="بلدية الجيزة" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
 <style>
 :root{--bg:#f5f0e6;--card:#fff;--card2:#eef5e8;--line:#d4cfc0;--txt:#1a2e1a;--mut:#6b7b6b;--acc:#1b4332;--acc2:#0f2d1f;--gold:#c9a227;--gold2:#a88520}
@@ -120,8 +125,8 @@ a{color:inherit;text-decoration:none}
 <header class="top">
   <div class="top-in">
     <a class="logo" href="#" onclick="go('home');return false">
-      <img src="/bg.jpg" alt="مجلس بلدية الجيزة" style="width:44px;height:44px;border-radius:50%;border:2px solid var(--gold);object-fit:cover" />
-      <span>مجلس بلدية الجيزة<small>ريف درعا — سوريا</small></span>
+      <img src="/bg.jpg" alt="بلدية الجيزة" style="width:44px;height:44px;border-radius:50%;border:2px solid var(--gold);object-fit:cover" />
+      <span>بلدية الجيزة<small>ريف درعا — سوريا</small></span>
     </a>
     <span class="sp"></span>
     <button class="burger" onclick="toggleNav()">☰</button>
@@ -143,7 +148,7 @@ a{color:inherit;text-decoration:none}
 <div class="page active" id="p-home">
 
   <div class="hero-text">
-    <h1>مجلس بلدية <span>الجيزة</span></h1>
+    <h1>بلدية <span>الجيزة</span></h1>
     <p class="hero-country">الجمهورية العربية السورية</p>
     <p class="hero-region">ريف درعا</p>
     <span class="badge">نعمل لخدمة المواطنين</span>
@@ -178,7 +183,7 @@ a{color:inherit;text-decoration:none}
     <div class="chairman" id="aboutContent"></div>
   </div>
   <div class="section">
-    <div class="sec-head"><h2>أعضاء المجلس البلدي</h2></div>
+    <div class="sec-head"><h2>أعضاء البلدي</h2></div>
     <div class="grid grid-3" id="membersGrid"></div>
   </div>
   <div class="section">
@@ -190,7 +195,7 @@ a{color:inherit;text-decoration:none}
 <!-- DEPARTMENTS -->
 <div class="page" id="p-departments">
   <div class="section">
-    <div class="sec-head"><h2>الدوائر والأقسام</h2><p>دوائر وأقسام مجلس بلدية الجيزة</p></div>
+    <div class="sec-head"><h2>الدوائر والأقسام</h2><p>دوائر وأقسام بلدية الجيزة</p></div>
     <div class="grid grid-3" id="deptGrid"></div>
   </div>
 </div>
@@ -279,7 +284,7 @@ a{color:inherit;text-decoration:none}
 <!-- CONTACT -->
 <div class="page" id="p-contact">
   <div class="section">
-    <div class="sec-head"><h2>اتصل بنا</h2><p>تواصل مع مجلس بلدية الجيزة</p></div>
+    <div class="sec-head"><h2>اتصل بنا</h2><p>تواصل مع بلدية الجيزة</p></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:800px;margin:0 auto">
       <div>
         <h3 style="color:var(--acc);margin-bottom:14px">معلومات التواصل</h3>
@@ -300,7 +305,7 @@ a{color:inherit;text-decoration:none}
 <footer class="footer">
   <div class="inner">
     <div>
-      <h4>مجلس بلدية الجيزة</h4>
+      <h4>بلدية الجيزة</h4>
       <p>ريف درعا — الجمهورية العربية السورية</p>
       <p>نعمل جاهدين لخدمة المواطنين وتحسين البنية التحتية</p>
     </div>
@@ -319,7 +324,7 @@ a{color:inherit;text-decoration:none}
       <div id="footerContact"></div>
     </div>
   </div>
-  <div class="copy">مجلس بلدية الجيزة © 2026 — جميع الحقوق محفوظة</div>
+  <div class="copy">بلدية الجيزة © 2026 — جميع الحقوق محفوظة</div>
 </footer>
 
 <script>
@@ -388,7 +393,7 @@ async function loadHome() {
 
   // Chairman
   document.getElementById('chairman').innerHTML =
-    '<div class="txt"><h3>أخي الزائر الكريم</h3><p>يسعدني أن أرحب بكم في موقع مجلس بلدية الجيزة. هذا الموقع جاء للتعريف بهذا الجزء العزيز من الوطن وخدمة المواطنين الأعزاء. نعمل جاهدين لتحسين البنية التحتية وتقديم أفضل الخدمات لمجتمعنا الكريم.</p><div class="name">الاستاذ: باسم الحريري — رئيس البلدية</div></div>';
+    '<div class="txt"><h3>أخي الزائر الكريم</h3><p>يسعدني أن أرحب بكم في موقع بلدية الجيزة. هذا الموقع جاء للتعريف بهذا الجزء العزيز من الوطن وخدمة المواطنين الأعزاء. نعمل جاهدين لتحسين البنية التحتية وتقديم أفضل الخدمات لمجتمعنا الكريم.</p><div class="name">الاستاذ: باسم الحريري — رئيس البلدية</div></div>';
 
   // News ticker
   var ticker = document.getElementById('ticker');
@@ -416,7 +421,7 @@ async function loadHome() {
   }).join('') || '<div class="empty" style="grid-column:1/-1;text-align:center;color:var(--mut);padding:40px">لا توجد مشاريع بعد</div>';
 
   // Contact info
-  var ci = '<div style="font-size:14px;line-height:2.2"><p>🏛️ ' + esc(settings.name || 'مجلس بلدية الجيزة') + '</p><p>📍 ' + esc(settings.address || 'ريف درعا — سوريا') + '</p><p>📞 ' + esc(settings.phone || '-') + '</p><p>✉️ ' + esc(settings.email || '-') + '</p></div>';
+  var ci = '<div style="font-size:14px;line-height:2.2"><p>🏛️ ' + esc(settings.name || 'بلدية الجيزة') + '</p><p>📍 ' + esc(settings.address || 'ريف درعا — سوريا') + '</p><p>📞 ' + esc(settings.phone || '-') + '</p><p>✉️ ' + esc(settings.email || '-') + '</p></div>';
   document.getElementById('contactInfo').innerHTML = ci;
   document.getElementById('footerContact').innerHTML = ci;
 }
@@ -427,7 +432,7 @@ async function loadAbout() {
     api('GET', '/api/settings')
   ]);
   document.getElementById('aboutContent').innerHTML =
-    '<div class="txt"><h3>نبذة عن مجلس بلدية الجيزة</h3><p>مجلس بلدية الجيزة هو الجهة الإدارية المسؤولة عن إدارة شؤون بلدية الجيزة في ريف محافظة درعا. يضم المجلس أعضاءً مختارين من أبناء المنطقة يعملون لخدمة المواطنين وتحسين البنية التحتية وتقديم الخدمات البلدية.</p><div class="name">ريف درعا — الجمهورية العربية السورية</div></div>';
+    '<div class="txt"><h3>نبذة عن بلدية الجيزة</h3><p>بلدية الجيزة هو الجهة الإدارية المسؤولة عن إدارة شؤون بلدية الجيزة في ريف محافظة درعا. يضم أعضاءً مختارين من أبناء المنطقة يعملون لخدمة المواطنين وتحسين البنية التحتية وتقديم الخدمات البلدية.</p><div class="name">ريف درعا — الجمهورية العربية السورية</div></div>';
 
   document.getElementById('membersGrid').innerHTML = members.map(function(m) {
     var hasName = m.name && m.name.trim();
@@ -476,7 +481,7 @@ async function loadPage(page) {
   if (page === 'media') return showMediaTab('news');
   if (page === 'contact') {
     var settings = await api('GET', '/api/settings');
-    var ci = '<div style="font-size:14px;line-height:2.2"><p>🏛️ ' + esc(settings.name || 'مجلس بلدية الجيزة') + '</p><p>📍 ' + esc(settings.address || 'ريف درعا — سوريا') + '</p><p>📞 ' + esc(settings.phone || '-') + '</p><p>✉️ ' + esc(settings.email || '-') + '</p></div>';
+    var ci = '<div style="font-size:14px;line-height:2.2"><p>🏛️ ' + esc(settings.name || 'بلدية الجيزة') + '</p><p>📍 ' + esc(settings.address || 'ريف درعا — سوريا') + '</p><p>📞 ' + esc(settings.phone || '-') + '</p><p>✉️ ' + esc(settings.email || '-') + '</p></div>';
     document.getElementById('contactInfo').innerHTML = ci;
   }
   if (page === 'complaints') {}
