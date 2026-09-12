@@ -59,6 +59,7 @@ tr:hover{background:#f9f6ef}
   <a onclick="showSection('videos')">🎬 الفيديو</a>
   <a onclick="showSection('slider')">🎞️ السلايدر</a>
   <a onclick="showSection('complaints')">⚠️ الشكاوى</a>
+  <a onclick="showSection('maintenance_requests')">🔧 طلبات الصيانة</a>
   <a onclick="showSection('inquiries')">💬 الرسائل</a>
   <a onclick="showSection('settings')">⚙️ الإعدادات</a>
   <a onclick="logout()" style="color:#ff9999;margin-top:20px;border-top:1px solid rgba(255,255,255,.1);padding-top:14px">🚪 خروج</a>
@@ -173,7 +174,7 @@ async function loadSection(section) {
     members: '👥 الأعضاء', services: '⚙️ الخدمات', tenders: '📋 المناقصات',
     procedures: '📝 الإجراءات', activities: '📢 النشاطات', photos: '🖼️ الصور',
     videos: '🎬 الفيديو', slider: '🎞️ السلايدر', complaints: '⚠️ الشكاوى',
-    inquiries: '💬 الرسائل', settings: '⚙️ الإعدادات'
+    maintenance_requests: '🔧 طلبات الصيانة', inquiries: '💬 الرسائل', settings: '⚙️ الإعدادات'
   };
   document.getElementById('sectionTitle').textContent = titles[section] || section;
   var items = await api('GET', '/api/admin/' + section);
@@ -235,6 +236,7 @@ function getColumns(section) {
     videos: [{ key: 'title', label: 'العنوان' }, { key: 'url', label: 'الرابط' }],
     slider: [{ key: 'title', label: 'العنوان' }, { key: 'active', label: 'نشط' }, { key: 'sort_order', label: 'الترتيب' }],
     complaints: [{ key: 'name', label: 'الاسم' }, { key: 'subject', label: 'الموضوع' }, { key: 'status', label: 'الحالة' }],
+    maintenance_requests: [{ key: 'name', label: 'الاسم' }, { key: 'type', label: 'النوع' }, { key: 'hara', label: 'الحارة' }, { key: 'street', label: 'الشارع' }, { key: 'status', label: 'الحالة' }],
     inquiries: [{ key: 'name', label: 'الاسم' }, { key: 'message', label: 'الرسالة' }, { key: 'read', label: 'الحالة' }]
   };
   return m[section] || [{ key: 'title', label: 'العنوان' }];

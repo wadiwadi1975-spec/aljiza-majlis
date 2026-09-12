@@ -327,6 +327,21 @@ a{color:inherit;text-decoration:none}
   <div class="copy">بلدية الجيزة © 2026 — جميع الحقوق محفوظة</div>
 </footer>
 
+<div class="modal-bg" id="maintModal" onclick="if(event.target===this) closeMaintModal()">
+  <div class="modal" style="max-width:520px">
+    <button class="close" onclick="closeMaintModal()">×</button>
+    <h2>طلب صيانة</h2>
+    <div class="form-group"><label>نوع الصيانة *</label><select id="maint-type"><option value="">اختر نوع الصيانة</option><option>صيانة اضاءة شوارع</option><option>صيانة كهرباء</option><option>صيانة طرق</option><option>صيانة مياه</option><option>صيانة ارصفة</option></select></div>
+    <div class="form-group"><label>اسم صاحب الطلب *</label><input id="maint-name" placeholder="الاسم الكامل"></div>
+    <div class="form-group"><label>رقم الهاتف *</label><input id="maint-phone" dir="ltr" placeholder="09xxxxxxxx"></div>
+    <div class="form-group"><label>التاريخ *</label><input id="maint-date" type="date"></div>
+    <div class="form-group"><label>اسم الحارة *</label><input id="maint-hara" placeholder="اسم الحارة"></div>
+    <div class="form-group"><label>اسم الشارع *</label><input id="maint-street" placeholder="اسم الشارع"></div>
+    <div class="form-group"><label>تفاصيل إضافية</label><textarea id="maint-details" placeholder="وصف المشكلة أو الطلب..."></textarea></div>
+    <button class="btn btn-gold" onclick="submitMaint()" style="width:100%">إرسال الطلب</button>
+  </div>
+</div>
+
 <script>
 var SITE = {};
 
@@ -480,7 +495,9 @@ async function loadPage(page) {
     document.getElementById('svcGrid').innerHTML = svcs.map(function(s) {
       var imgFile = serviceImages[s.title] || serviceImages[s.title.trim()] || null;
       var iconHtml = imgFile ? '<img src="/icons/' + imgFile + '" alt="' + esc(s.title) + '" style="width:72px;height:72px;object-fit:contain">' : '<div style="font-size:48px">' + esc(s.icon) + '</div>';
-      return '<div class="service-card" onclick="window.open(\'' + esc(s.link || '#') + '\',\'_blank\')"><div class="icon">' + iconHtml + '</div><h3>' + esc(s.title) + '</h3><p>' + esc(s.description) + '</p></div>';
+      var isMaint = s.title.trim() === 'طلبات الصيانة';
+      var onclick = isMaint ? 'openMaintModal()' : 'window.open(\'' + esc(s.link || '#') + '\',\'_blank\')';
+      return '<div class="service-card" onclick="' + onclick + '"><div class="icon">' + iconHtml + '</div><h3>' + esc(s.title) + '</h3><p>' + esc(s.description) + '</p></div>';
     }).join('');
     var procEl = document.getElementById('procList');
     if (procEl) {
@@ -647,6 +664,23 @@ async function submitInquiry() {
   document.getElementById('inq-phone').value = '';
   document.getElementById('inq-email').value = '';
   document.getElementById('inq-msg').value = '';
+}
+
+function openMaintModal(){ document.getElementById('maintModal').classList.add('open'); }
+function closeMaintModal(){ document.getElementById('maintModal').classList.remove('open'); }
+async function submitMaint(){
+  var type=document.getElementById('maint-type').value;
+  var name=document.getElementById('maint-name').value.trim();
+  var phone=document.getElementById('maint-phone').value.trim();
+  var date=document.getElementById('maint-date').value;
+  var hara=document.getElementById('maint-hara').value.trim();
+  var street=document.getElementById('maint-street').value.trim();
+  var details=document.getElementById('maint-details').value.trim();
+  if(!type||!name||!phone||!date||!hara||!street){ alert('يرجى ملء جميع الحقول المطلوبة *'); return; }
+  await api('POST','/api/maintenance',{ type:type, name:name, phone:phone, request_date:date, hara:hara, street:street, details:details });
+  alert('تم إرسال طلب الصيانة بنجاح');
+  closeMaintModal();
+  document.getElementById('maint-type').value='';document.getElementById('maint-name').value='';document.getElementById('maint-phone').value='';document.getElementById('maint-date').value='';document.getElementById('maint-hara').value='';document.getElementById('maint-street').value='';document.getElementById('maint-details').value='';
 }
 
 loadHome();

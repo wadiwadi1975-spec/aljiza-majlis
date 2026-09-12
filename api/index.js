@@ -172,6 +172,20 @@ module.exports = async (req, res) => {
     return json(res, 200, rows);
   }
 
+  // ---- PUBLIC: maintenance submit ----
+  if (url === '/api/maintenance' && method === 'POST') {
+    if (!body.name || !body.phone || !body.type) return json(res, 400, { error: 'name, phone & type required' });
+    await pool.query(
+      `INSERT INTO maintenance_requests (name, phone, type, hara, street, request_date, details) VALUES ($1,$2,$3,$4,$5,$6,$7)`,
+      [body.name, body.phone, body.type, body.hara || '', body.street || '', body.request_date || null, body.details || '']
+    );
+    return json(res, 201, { ok: true });
+  }
+  if (url === '/api/maintenance/list' && method === 'GET') {
+    const { rows } = await pool.query('SELECT * FROM maintenance_requests ORDER BY created_at DESC LIMIT 50');
+    return json(res, 200, rows);
+  }
+
   // ---- PUBLIC: inquiries submit ----
   if (url === '/api/inquiries' && method === 'POST') {
     if (!body.name || !body.message) return json(res, 400, { error: 'name & message required' });
@@ -188,7 +202,7 @@ module.exports = async (req, res) => {
     const me = await needAdmin(req, res);
     if (!me) return;
     const table = adminCrud[1];
-    const allowed = ['news', 'projects', 'departments', 'members', 'services', 'tenders', 'procedures', 'activities', 'photos', 'videos', 'slider', 'org_chart', 'complaints', 'inquiries', 'settings'];
+    const allowed = ['news', 'projects', 'departments', 'members', 'services', 'tenders', 'procedures', 'activities', 'photos', 'videos', 'slider', 'org_chart', 'complaints', 'inquiries', 'settings', 'maintenance_requests'];
     if (!allowed.includes(table)) return json(res, 404, { error: 'not found' });
     if (table === 'settings') {
       const { rows } = await pool.query('SELECT * FROM settings');
@@ -201,7 +215,7 @@ module.exports = async (req, res) => {
     const me = await needAdmin(req, res);
     if (!me) return;
     const table = adminCrud[1];
-    const allowed = ['news', 'projects', 'departments', 'members', 'services', 'tenders', 'procedures', 'activities', 'photos', 'videos', 'slider', 'org_chart'];
+    const allowed = ['news', 'projects', 'departments', 'members', 'services', 'tenders', 'procedures', 'activities', 'photos', 'videos', 'slider', 'org_chart', 'maintenance_requests'];
     if (!allowed.includes(table)) return json(res, 404, { error: 'not found' });
 
     if (table === 'settings') {
@@ -222,7 +236,7 @@ module.exports = async (req, res) => {
     const me = await needAdmin(req, res);
     if (!me) return;
     const table = adminCrud[1];
-    const allowed = ['news', 'projects', 'departments', 'members', 'services', 'tenders', 'procedures', 'activities', 'photos', 'videos', 'slider', 'org_chart', 'settings'];
+    const allowed = ['news', 'projects', 'departments', 'members', 'services', 'tenders', 'procedures', 'activities', 'photos', 'videos', 'slider', 'org_chart', 'settings', 'maintenance_requests'];
     if (!allowed.includes(table)) return json(res, 404, { error: 'not found' });
 
     if (table === 'settings') {
@@ -246,7 +260,7 @@ module.exports = async (req, res) => {
     const me = await needAdmin(req, res);
     if (!me) return;
     const table = adminCrud[1];
-    const allowed = ['news', 'projects', 'departments', 'members', 'services', 'tenders', 'procedures', 'activities', 'photos', 'videos', 'slider', 'org_chart', 'complaints', 'inquiries'];
+    const allowed = ['news', 'projects', 'departments', 'members', 'services', 'tenders', 'procedures', 'activities', 'photos', 'videos', 'slider', 'org_chart', 'complaints', 'inquiries', 'maintenance_requests'];
     if (!allowed.includes(table)) return json(res, 404, { error: 'not found' });
     const id = body.id;
     if (!id) return json(res, 400, { error: 'id required' });

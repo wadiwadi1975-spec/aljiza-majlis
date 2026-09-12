@@ -174,6 +174,19 @@ async function ensureSchema() {
       sort_order INTEGER DEFAULT 0,
       created_at TIMESTAMPTZ DEFAULT now()
     );
+
+    CREATE TABLE IF NOT EXISTS maintenance_requests (
+      id SERIAL PRIMARY KEY,
+      name TEXT NOT NULL,
+      phone TEXT NOT NULL,
+      type TEXT NOT NULL,
+      hara TEXT DEFAULT '',
+      street TEXT DEFAULT '',
+      request_date DATE,
+      details TEXT DEFAULT '',
+      status TEXT DEFAULT 'new',
+      created_at TIMESTAMPTZ DEFAULT now()
+    );
   `);
 }
 
