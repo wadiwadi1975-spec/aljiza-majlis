@@ -1,0 +1,17 @@
+{
+  "name": "aljiza-majlis",
+  "version": "1.0.0",
+  "description": "مجلس بلدية الجيزة — ريف درعا — الجمهورية العربية السورية",
+  "main": "api/index.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check api/index.js && node --check api/db.js && echo CHECK-OK"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "pg": "^8.13.0"
+  }
+}

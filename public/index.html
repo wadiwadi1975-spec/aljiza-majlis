@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>مجلس بلدية الجيزة</title>
+<meta name="description" content="مجلس بلدية الجيزة — ريف درعا — الجمهورية العربية السورية" />
+<link rel="icon" type="image/png" href="/logo.png" />
+<meta name="theme-color" content="#1a472a" />
+<style>
+:root{--bg:#f5f0e6;--card:#fff;--card2:#eef5e8;--line:#d4cfc0;--txt:#1a2e1a;--mut:#6b7b6b;--acc:#1a472a;--acc2:#0f3620;--gold:#c9a227;--gold2:#a88520}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;z-index:50;background:rgba(26,71,42,.96);backdrop-filter:blur(8px);border-bottom:3px solid var(--gold)}
+.top-in{max-width:1200px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;color:#fff;font-weight:800;font-size:16px}
+.logo img{width:44px;height:44px;border-radius:50%;border:2px solid var(--gold)}
+.logo small{display:block;font-size:10px;color:#a0c8a0;font-weight:400}
+.sp{flex:1}
+.nav{display:flex;gap:4px;flex-wrap:wrap}
+.nav a{color:#d0e8d0;padding:8px 12px;border-radius:8px;font-size:13px;font-weight:600;transition:.2s}
+.nav a:hover,.nav a.on{background:var(--gold);color:#1a2e1a}
+.burger{display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer}
+.hero{background:linear-gradient(135deg,#0f3620,#1a472a 50%,#2a5a3a);position:relative;overflow:hidden;min-height:420px;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff}
+.hero-bg{position:absolute;inset:0;background:url('/hero-bg.jpg') center/cover;opacity:.3}
+.hero-content{position:relative;z-index:2;padding:60px 20px;max-width:700px}
+.hero h1{font-size:clamp(28px,5vw,48px);font-weight:800;margin-bottom:12px;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+.hero h1 span{color:var(--gold)}
+.hero p{font-size:18px;color:#b8d8b8;margin-bottom:24px}
+.hero .badge{display:inline-block;background:var(--gold);color:#1a2e1a;padding:8px 24px;border-radius:999px;font-weight:700;font-size:14px}
+.news-ticker{background:var(--card);border-bottom:2px solid var(--gold);padding:10px 0;overflow:hidden}
+.news-ticker .inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:0 20px}
+.news-ticker .label{background:var(--acc);color:#fff;padding:4px 14px;border-radius:6px;font-size:12px;font-weight:700;white-space:nowrap}
+.news-ticker .items{overflow:hidden;flex:1}
+.news-ticker ul{list-style:none;display:flex;gap:40px;animation:scroll 30s linear infinite;white-space:nowrap}
+.news-ticker li{font-size:13px;color:var(--mut)}
+@keyframes scroll{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1200px;margin:-40px auto 0;position:relative;z-index:3;padding:0 20px}
+.stat{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:16px;padding:24px 16px;text-align:center}
+.stat .num{font-size:32px;font-weight:800;color:var(--acc)}
+.stat .lbl{font-size:13px;color:var(--mut);margin-top:4px}
+.section{max-width:1200px;margin:0 auto;padding:40px 20px}
+.sec-head{text-align:center;margin-bottom:30px}
+.sec-head h2{font-size:26px;font-weight:800;color:var(--acc);border-inline-end:4px solid var(--gold);display:inline-block;padding-inline-end:12px}
+.sec-head p{color:var(--mut);margin-top:8px}
+.grid{display:grid;gap:20px}
+.grid-2{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.grid-3{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.grid-4{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:transform .2s}
+.card:hover{transform:translateY(-4px)}
+.card img{width:100%;height:180px;object-fit:cover}
+.card .body{padding:16px}
+.card h3{font-size:16px;margin-bottom:6px;color:var(--acc)}
+.card p{font-size:13px;color:var(--mut);line-height:1.8}
+.card .date{font-size:11px;color:var(--gold);font-weight:700}
+.card .tag{display:inline-block;background:var(--acc);color:#fff;padding:2px 10px;border-radius:999px;font-size:11px;margin-bottom:6px}
+.dept-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;text-align:center;transition:transform .2s}
+.dept-card:hover{transform:translateY(-4px)}
+.dept-card .icon{font-size:40px;margin-bottom:10px}
+.dept-card h3{font-size:15px;color:var(--acc)}
+.dept-card p{font-size:12px;color:var(--mut);margin-top:4px}
+.member-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;text-align:center}
+.member-card .avatar{width:80px;height:80px;border-radius:50%;background:var(--card2);border:3px solid var(--gold);display:grid;place-items:center;font-size:32px;margin:0 auto 10px}
+.member-card h3{font-size:15px;color:var(--acc)}
+.member-card p{font-size:12px;color:var(--gold);font-weight:700}
+.service-card{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:14px;padding:20px;text-align:center;transition:transform .2s;cursor:pointer}
+.service-card:hover{transform:translateY(-4px)}
+.service-card .icon{font-size:36px;margin-bottom:8px}
+.service-card h3{font-size:15px;color:var(--acc)}
+.service-card p{font-size:12px;color:var(--mut);margin-top:4px}
+.chairman{background:linear-gradient(135deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:16px;padding:30px;display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.chairman img{width:160px;height:180px;border-radius:14px;object-fit:cover;border:3px solid var(--gold)}
+.chairman .txt h3{color:var(--acc);margin-bottom:8px}
+.chairman .txt p{font-size:14px;line-height:2;color:var(--mut)}
+.chairman .txt .name{color:var(--gold);font-weight:700;font-size:15px;margin-top:10px}
+.footer{background:var(--acc);color:#b8d8b8;padding:40px 20px 20px;margin-top:40px}
+.footer .inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:30px}
+.footer h4{color:var(--gold);margin-bottom:12px;font-size:16px}
+.footer p,.footer li{font-size:13px;line-height:2}
+.footer ul{list-style:none}
+.footer .social{display:flex;gap:10px;margin-top:10px}
+.footer .social a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.1);display:grid;place-items:center;font-size:18px}
+.footer .copy{text-align:center;padding-top:20px;margin-top:20px;border-top:1px solid rgba(255,255,255,.15);font-size:12px;color:#6b9b6b}
+.page{display:none}
+.page.active{display:block}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;display:none;align-items:center;justify-content:center;padding:14px}
+.modal-bg.open{display:flex}
+.modal{background:var(--card);border-radius:18px;max-width:600px;width:100%;max-height:90vh;overflow:auto;padding:24px}
+.modal h2{color:var(--acc);margin-bottom:14px}
+.modal .close{float:left;background:none;border:none;font-size:24px;cursor:pointer;color:var(--mut)}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:13px;font-weight:700;margin-bottom:5px;color:var(--acc)}
+.form-group input,.form-group textarea,.form-group select{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px;font-family:inherit;background:#fff}
+.form-group textarea{min-height:100px;resize:vertical}
+.btn{border:none;padding:10px 24px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:.2s}
+.btn-gold{background:var(--gold);color:#1a2e1a}
+.btn-gold:hover{background:var(--gold2)}
+.btn-green{background:var(--acc);color:#fff}
+.btn-green:hover{background:var(--acc2)}
+.ticker-wrap{position:relative}
+.ticker-wrap .arrow{position:absolute;top:50%;transform:translateY(-50%);background:var(--acc);color:#fff;border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;z-index:2}
+.ticker-wrap .arrow.left{left:0}
+.ticker-wrap .arrow.right{right:0}
+@media(max-width:768px){
+  .nav{display:none}.nav.open{display:flex;flex-direction:column;position:absolute;top:100%;right:0;left:0;background:var(--acc);padding:10px;z-index:50}
+  .burger{display:block}
+  .stats{grid-template-columns:repeat(2,1fr);margin-top:-30px}
+  .chairman{flex-direction:column;text-align:center}
+  .hero{min-height:320px}
+}
+@media(max-width:480px){
+  .stats{grid-template-columns:1fr 1fr}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <a class="logo" href="#" onclick="go('home');return false">
+      <div style="width:44px;height:44px;border-radius:50%;background:var(--gold);display:grid;place-items:center;font-size:20px">🏛️</div>
+      <span>مجلس بلدية الجيزة<small>ريف درعا — سوريا</small></span>
+    </a>
+    <span class="sp"></span>
+    <button class="burger" onclick="toggleNav()">☰</button>
+    <nav class="nav" id="mainNav">
+      <a href="#" class="on" onclick="go('home');return false">الرئيسية</a>
+      <a href="#" onclick="go('about');return false">عن البلدية</a>
+      <a href="#" onclick="go('departments');return false">الدوائر</a>
+      <a href="#" onclick="go('projects');return false">المشاريع</a>
+      <a href="#" onclick="go('services');return false">الخدمات</a>
+      <a href="#" onclick="go('tenders');return false">المناقصات</a>
+      <a href="#" onclick="go('media');return false">المركز الإعلامي</a>
+      <a href="#" onclick="go('contact');return false">اتصل بنا</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HOME -->
+<div class="page active" id="p-home">
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1>مجلس بلدية <span>الجيزة</span></h1>
+      <p>ريف درعا — الجمهورية العربية السورية</p>
+      <span class="badge">نعمل لخدمة المواطنين</span>
+    </div>
+  </section>
+
+  <div class="news-ticker">
+    <div class="inner">
+      <span class="label">جديد البلدية</span>
+      <div class="ticker-wrap">
+        <div class="items"><ul id="ticker"></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="section">
+    <div class="sec-head"><h2>كلمة رئيس البلدية</h2></div>
+    <div class="chairman" id="chairman"></div>
+  </div>
+
+  <div class="section">
+    <div class="sec-head"><h2>أخبار البلدية</h2><p>آخر الأخبار والإعلانات</p></div>
+    <div class="grid grid-3" id="homeNews"></div>
+  </div>
+
+  <div class="section">
+    <div class="sec-head"><h2>الخدمات الإلكترونية</h2><p>خدمات البلدية للمواطنين</p></div>
+    <div class="grid grid-4" id="homeServices"></div>
+  </div>
+
+  <div class="section">
+    <div class="sec-head"><h2>مشاريع البلدية</h2><p>المشاريع الحالية والمنجزة</p></div>
+    <div class="grid grid-3" id="homeProjects"></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="page" id="p-about">
+  <div class="section">
+    <div class="sec-head"><h2>عن بلدية الجيزة</h2></div>
+    <div class="chairman" id="aboutContent"></div>
+  </div>
+  <div class="section">
+    <div class="sec-head"><h2>أعضاء المجلس البلدي</h2></div>
+    <div class="grid grid-3" id="membersGrid"></div>
+  </div>
+  <div class="section">
+    <div class="sec-head"><h2>الهيكل التنظيمي</h2></div>
+    <div id="orgChart"></div>
+  </div>
+</div>
+
+<!-- DEPARTMENTS -->
+<div class="page" id="p-departments">
+  <div class="section">
+    <div class="sec-head"><h2>الدوائر والأقسام</h2><p>دوائر وأقسام مجلس بلدية الجيزة</p></div>
+    <div class="grid grid-3" id="deptGrid"></div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="page" id="p-projects">
+  <div class="section">
+    <div class="sec-head"><h2>مشاريع البلدية</h2><p>المشاريع الحالية والمنجزة</p></div>
+    <div class="grid grid-2" id="projGrid"></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div class="page" id="p-services">
+  <div class="section">
+    <div class="sec-head"><h2>الخدمات الإلكترونية</h2><p>خدمات البلدية الإلكترونية</p></div>
+    <div class="grid grid-3" id="svcGrid"></div>
+  </div>
+  <div class="section">
+    <div class="sec-head"><h2>دليل الإجراءات</h2><p>خطوات الحصول على الخدمات</p></div>
+    <div id="procList"></div>
+  </div>
+</div>
+
+<!-- TENDERS -->
+<div class="page" id="p-tenders">
+  <div class="section">
+    <div class="sec-head"><h2>المناقصات والعطاءات</h2><p>إعلانات المناقصات الحالية</p></div>
+    <div class="grid grid-2" id="tenderGrid"></div>
+  </div>
+</div>
+
+<!-- MEDIA -->
+<div class="page" id="p-media">
+  <div class="section">
+    <div class="sec-head"><h2>المركز الإعلامي</h2></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:24px">
+      <button class="btn btn-green" onclick="showMediaTab('news')">الأخبار</button>
+      <button class="btn btn-green" onclick="showMediaTab('activities')">النشاطات</button>
+      <button class="btn btn-green" onclick="showMediaTab('photos')">الصور</button>
+      <button class="btn btn-green" onclick="showMediaTab('videos')">الفيديو</button>
+    </div>
+    <div id="mediaContent"></div>
+  </div>
+</div>
+
+<!-- COMPLAINTS -->
+<div class="page" id="p-complaints">
+  <div class="section">
+    <div class="sec-head"><h2>شكاوى المواطنين</h2><p>يمكنك تقديم شكوى أو ملاحظة</p></div>
+    <div style="max-width:600px;margin:0 auto">
+      <div class="form-group"><label>الاسم *</label><input id="comp-name"></div>
+      <div class="form-group"><label>الهاتف</label><input id="comp-phone" dir="ltr"></div>
+      <div class="form-group"><label>الموضوع *</label><input id="comp-subject"></div>
+      <div class="form-group"><label>الشكوى *</label><textarea id="comp-msg"></textarea></div>
+      <button class="btn btn-gold" onclick="submitComplaint()">إرسال الشكوى</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="page" id="p-contact">
+  <div class="section">
+    <div class="sec-head"><h2>اتصل بنا</h2><p>تواصل مع مجلس بلدية الجيزة</p></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:800px;margin:0 auto">
+      <div>
+        <h3 style="color:var(--acc);margin-bottom:14px">معلومات التواصل</h3>
+        <div id="contactInfo"></div>
+      </div>
+      <div>
+        <h3 style="color:var(--acc);margin-bottom:14px">أرسل رسالة</h3>
+        <div class="form-group"><label>الاسم *</label><input id="inq-name"></div>
+        <div class="form-group"><label>الهاتف</label><input id="inq-phone" dir="ltr"></div>
+        <div class="form-group"><label>البريد الإلكتروني</label><input id="inq-email" dir="ltr"></div>
+        <div class="form-group"><label>الرسالة *</label><textarea id="inq-msg"></textarea></div>
+        <button class="btn btn-gold" onclick="submitInquiry()">إرسال</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="inner">
+    <div>
+      <h4>مجلس بلدية الجيزة</h4>
+      <p>ريف درعا — الجمهورية العربية السورية</p>
+      <p>نعمل جاهدين لخدمة المواطنين وتحسين البنية التحتية</p>
+    </div>
+    <div>
+      <h4>روابط سريعة</h4>
+      <ul>
+        <li><a href="#" onclick="go('about');return false">عن البلدية</a></li>
+        <li><a href="#" onclick="go('services');return false">الخدمات الإلكترونية</a></li>
+        <li><a href="#" onclick="go('projects');return false">المشاريع</a></li>
+        <li><a href="#" onclick="go('tenders');return false">المناقصات</a></li>
+        <li><a href="#" onclick="go('complaints');return false">شكاوى المواطنين</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>تواصل معنا</h4>
+      <div id="footerContact"></div>
+    </div>
+  </div>
+  <div class="copy">مجلس بلدية الجيزة © 2026 — جميع الحقوق محفوظة</div>
+</footer>
+
+<script>
+var SITE = {};
+var currentPage = 'home';
+
+async function api(method, url, data) {
+  var o = { method: method, headers: { 'Content-Type': 'application/json' } };
+  var tok = localStorage.getItem('majlis_token');
+  if (tok) o.headers['Authorization'] = 'Bearer ' + tok;
+  if (data) o.body = JSON.stringify(data);
+  var r = await fetch(url, o);
+  return r.json().catch(function() { return {}; });
+}
+
+function go(page) {
+  currentPage = page;
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  var el = document.getElementById('p-' + page);
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.nav a').forEach(function(a) { a.classList.remove('on'); });
+  document.querySelectorAll('.nav a').forEach(function(a) {
+    if (a.textContent.trim() === getPageTitle(page)) a.classList.add('on');
+  });
+  window.scrollTo(0, 0);
+  loadPage(page);
+}
+
+function getPageTitle(p) {
+  var m = {home:'الرئيسية',about:'عن البلدية',departments:'الدوائر',projects:'المشاريع',services:'الخدمات',tenders:'المناقصات',media:'المركز الإعلامي',contact:'اتصل بنا',complaints:'شكاوى المواطنين'};
+  return m[p] || '';
+}
+
+function toggleNav() {
+  document.getElementById('mainNav').classList.toggle('open');
+}
+
+function esc(s) { return String(s || '').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+async function loadHome() {
+  var [news, services, projects, slider, settings] = await Promise.all([
+    api('GET', '/api/news'),
+    api('GET', '/api/services'),
+    api('GET', '/api/projects'),
+    api('GET', '/api/slider'),
+    api('GET', '/api/settings')
+  ]);
+  SITE = settings;
+
+  // Stats
+  var s = settings.stats || {};
+  document.getElementById('stats').innerHTML = [
+    ['+600', 'موظف'],
+    ['+' + (s.population || 89000).toLocaleString(), 'نسمة بخدمتكم'],
+    ['+' + (s.regions || 9), 'مناطق'],
+    ['+' + (s.villages || 34), 'قرية']
+  ].map(function(x) { return '<div class="stat"><div class="num">' + x[0] + '</div><div class="lbl">' + x[1] + '</div></div>'; }).join('');
+
+  // Chairman
+  document.getElementById('chairman').innerHTML =
+    '<div class="txt"><h3>أخي الزائر الكريم</h3><p>يسعدني أن أرحب بكم في موقع مجلس بلدية الجيزة. هذا الموقع جاء للتعريف بهذا الجزء العزيز من الوطن وخدمة المواطنين الأعزاء. نعمل جاهدين لتحسين البنية التحتية وتقديم أفضل الخدمات لمجتمعنا الكريم.</p><div class="name">المهندس / مراد ظاهر سلطان — رئيس البلدية</div></div>';
+
+  // News ticker
+  var ticker = document.getElementById('ticker');
+  if (news.length) {
+    ticker.innerHTML = news.slice(0, 8).map(function(n) {
+      return '<li><a href="#" onclick="go(\'media\');return false">' + esc(n.title) + '</a></li>';
+    }).join('');
+  }
+
+  // Home news
+  document.getElementById('homeNews').innerHTML = news.slice(0, 6).map(function(n) {
+    return '<div class="card">' + (n.image ? '<img src="' + esc(n.image) + '" alt="">' : '<div style="height:120px;background:var(--card2);display:grid;place-items:center;font-size:40px">📰</div>') + '<div class="body">' + (n.pinned ? '<span class="tag">مميز</span>' : '') + '<div class="date">' + new Date(n.created_at).toLocaleDateString('ar') + '</div><h3>' + esc(n.title) + '</h3><p>' + esc(n.body).slice(0, 120) + '</p></div></div>';
+  }).join('') || '<div class="empty" style="grid-column:1/-1;text-align:center;color:var(--mut);padding:40px">لا توجد أخبار بعد</div>';
+
+  // Services
+  document.getElementById('homeServices').innerHTML = services.slice(0, 8).map(function(s) {
+    return '<div class="service-card" onclick="go(\'services\')"><div class="icon">' + esc(s.icon) + '</div><h3>' + esc(s.title) + '</h3><p>' + esc(s.description) + '</p></div>';
+  }).join('');
+
+  // Projects
+  document.getElementById('homeProjects').innerHTML = projects.slice(0, 3).map(function(p) {
+    return '<div class="card">' + (p.image ? '<img src="' + esc(p.image) + '" alt="">' : '<div style="height:160px;background:var(--card2);display:grid;place-items:center;font-size:40px">🏗️</div>') + '<div class="body"><span class="tag">' + (p.status === 'current' ? 'حالي' : 'منجز') + '</span><div class="date">' + new Date(p.created_at).toLocaleDateString('ar') + '</div><h3>' + esc(p.title) + '</h3><p>' + esc(p.body).slice(0, 120) + '</p></div></div>';
+  }).join('') || '<div class="empty" style="grid-column:1/-1;text-align:center;color:var(--mut);padding:40px">لا توجد مشاريع بعد</div>';
+
+  // Contact info
+  var ci = '<div style="font-size:14px;line-height:2.2"><p>🏛️ ' + esc(settings.name || 'مجلس بلدية الجيزة') + '</p><p>📍 ' + esc(settings.address || 'ريف درعا — سوريا') + '</p><p>📞 ' + esc(settings.phone || '-') + '</p><p>✉️ ' + esc(settings.email || '-') + '</p></div>';
+  document.getElementById('contactInfo').innerHTML = ci;
+  document.getElementById('footerContact').innerHTML = ci;
+}
+
+async function loadAbout() {
+  var [members, settings] = await Promise.all([
+    api('GET', '/api/members'),
+    api('GET', '/api/settings')
+  ]);
+  document.getElementById('aboutContent').innerHTML =
+    '<div class="txt"><h3>نبذة عن مجلس بلدية الجيزة</h3><p>مجلس بلدية الجيزة هو الجهة الإدارية المسؤولة عن إدارة شؤون بلدية الجيزة في ريف محافظة درعا. يضم المجلس أعضاءً مختارين من أبناء المنطقة يعملون لخدمة المواطنين وتحسين البنية التحتية وتقديم الخدمات البلدية.</p><div class="name">ريف درعا — الجمهورية العربية السورية</div></div>';
+
+  document.getElementById('membersGrid').innerHTML = members.map(function(m) {
+    return '<div class="member-card"><div class="avatar">' + (m.image ? '<img src="' + esc(m.image) + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover">' : '👤') + '</div><h3>' + esc(m.name) + '</h3><p>' + esc(m.role) + '</p></div>';
+  }).join('');
+}
+
+async function loadPage(page) {
+  if (page === 'home') return loadHome();
+  if (page === 'about') return loadAbout();
+  if (page === 'departments') {
+    var depts = await api('GET', '/api/departments');
+    document.getElementById('deptGrid').innerHTML = depts.map(function(d) {
+      return '<div class="dept-card"><div class="icon">' + esc(d.icon) + '</div><h3>' + esc(d.name) + '</h3>' + (d.head_name ? '<p>' + esc(d.head_name) + '</p>' : '') + '</div>';
+    }).join('');
+  }
+  if (page === 'projects') {
+    var projs = await api('GET', '/api/projects');
+    document.getElementById('projGrid').innerHTML = projs.map(function(p) {
+      return '<div class="card">' + (p.image ? '<img src="' + esc(p.image) + '" alt="">' : '<div style="height:200px;background:var(--card2);display:grid;place-items:center;font-size:40px">🏗️</div>') + '<div class="body"><span class="tag">' + (p.status === 'current' ? 'مشروع حالي' : 'مشروع منجز') + '</span><div class="date">' + new Date(p.created_at).toLocaleDateString('ar') + '</div><h3>' + esc(p.title) + '</h3><p>' + esc(p.body) + '</p></div></div>';
+    }).join('');
+  }
+  if (page === 'services') {
+    var svcs = await api('GET', '/api/services');
+    var procs = await api('GET', '/api/procedures');
+    document.getElementById('svcGrid').innerHTML = svcs.map(function(s) {
+      return '<div class="service-card"><div class="icon">' + esc(s.icon) + '</div><h3>' + esc(s.title) + '</h3><p>' + esc(s.description) + '</p></div>';
+    }).join('');
+    document.getElementById('procList').innerHTML = procs.map(function(p) {
+      return '<div class="card" style="margin-bottom:12px"><div class="body"><h3>' + esc(p.title) + '</h3><p style="white-space:pre-line">' + esc(p.steps) + '</p></div></div>';
+    }).join('') || '<div style="text-align:center;color:var(--mut);padding:20px">لا توجد إجراءات بعد</div>';
+  }
+  if (page === 'tenders') {
+    var tenders = await api('GET', '/api/tenders');
+    document.getElementById('tenderGrid').innerHTML = tenders.map(function(t) {
+      return '<div class="card">' + (t.image ? '<img src="' + esc(t.image) + '" alt="">' : '<div style="height:160px;background:var(--card2);display:grid;place-items:center;font-size:40px">📋</div>') + '<div class="body"><span class="tag">' + (t.status === 'open' ? 'مفتوح' : 'مغلق') + '</span><div class="date">الموعد النهائي: ' + esc(t.deadline || '-') + '</div><h3>' + esc(t.title) + '</h3><p>' + esc(t.body).slice(0, 200) + '</p></div></div>';
+    }).join('') || '<div class="empty" style="grid-column:1/-1;text-align:center;color:var(--mut);padding:40px">لا توجد مناقصات حالياً</div>';
+  }
+  if (page === 'media') return showMediaTab('news');
+  if (page === 'contact') {
+    var settings = await api('GET', '/api/settings');
+    var ci = '<div style="font-size:14px;line-height:2.2"><p>🏛️ ' + esc(settings.name || 'مجلس بلدية الجيزة') + '</p><p>📍 ' + esc(settings.address || 'ريف درعا — سوريا') + '</p><p>📞 ' + esc(settings.phone || '-') + '</p><p>✉️ ' + esc(settings.email || '-') + '</p></div>';
+    document.getElementById('contactInfo').innerHTML = ci;
+  }
+  if (page === 'complaints') {}
+}
+
+async function showMediaTab(tab) {
+  var box = document.getElementById('mediaContent');
+  if (tab === 'news') {
+    var items = await api('GET', '/api/news');
+    box.innerHTML = '<div class="grid grid-2">' + items.map(function(n) {
+      return '<div class="card">' + (n.image ? '<img src="' + esc(n.image) + '" alt="">' : '<div style="height:160px;background:var(--card2);display:grid;place-items:center;font-size:40px">📰</div>') + '<div class="body"><div class="date">' + new Date(n.created_at).toLocaleDateString('ar') + '</div><h3>' + esc(n.title) + '</h3><p>' + esc(n.body) + '</p></div></div>';
+    }).join('') + '</div>';
+  } else if (tab === 'activities') {
+    var items = await api('GET', '/api/activities');
+    box.innerHTML = '<div class="grid grid-2">' + items.map(function(a) {
+      return '<div class="card">' + (a.image ? '<img src="' + esc(a.image) + '" alt="">' : '<div style="height:160px;background:var(--card2);display:grid;place-items:center;font-size:40px">📢</div>') + '<div class="body"><div class="date">' + new Date(a.created_at).toLocaleDateString('ar') + '</div><h3>' + esc(a.title) + '</h3><p>' + esc(a.body) + '</p></div></div>';
+    }).join('') + '</div>';
+  } else if (tab === 'photos') {
+    var items = await api('GET', '/api/photos');
+    box.innerHTML = '<div class="grid grid-4">' + items.map(function(p) {
+      return '<div class="card"><img src="' + esc(p.image) + '" alt="" style="height:200px"><div class="body"><p>' + esc(p.title) + '</p></div></div>';
+    }).join('') + '</div>';
+  } else if (tab === 'videos') {
+    var items = await api('GET', '/api/videos');
+    box.innerHTML = '<div class="grid grid-2">' + items.map(function(v) {
+      return '<div class="card"><div class="body"><h3>' + esc(v.title) + '</h3><p>' + esc(v.url) + '</p></div></div>';
+    }).join('') + '</div>';
+  }
+}
+
+async function submitComplaint() {
+  var name = document.getElementById('comp-name').value.trim();
+  var phone = document.getElementById('comp-phone').value.trim();
+  var subject = document.getElementById('comp-subject').value.trim();
+  var message = document.getElementById('comp-msg').value.trim();
+  if (!name || !subject || !message) { alert('يرجى ملء جميع الحقول المطلوبة'); return; }
+  await api('POST', '/api/complaints', { name: name, phone: phone, subject: subject, message: message });
+  alert('تم إرسال شكواك بنجاح');
+  document.getElementById('comp-name').value = '';
+  document.getElementById('comp-phone').value = '';
+  document.getElementById('comp-subject').value = '';
+  document.getElementById('comp-msg').value = '';
+}
+
+async function submitInquiry() {
+  var name = document.getElementById('inq-name').value.trim();
+  var phone = document.getElementById('inq-phone').value.trim();
+  var email = document.getElementById('inq-email').value.trim();
+  var message = document.getElementById('inq-msg').value.trim();
+  if (!name || !message) { alert('يرجى ملء جميع الحقول المطلوبة'); return; }
+  await api('POST', '/api/inquiries', { name: name, phone: phone, email: email, message: message });
+  alert('تم إرسال رسالتك بنجاح');
+  document.getElementById('inq-name').value = '';
+  document.getElementById('inq-phone').value = '';
+  document.getElementById('inq-email').value = '';
+  document.getElementById('inq-msg').value = '';
+}
+
+loadHome();
+</script>
+</body>
+</html>
