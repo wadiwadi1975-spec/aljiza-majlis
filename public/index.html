@@ -64,11 +64,13 @@ a{color:inherit;text-decoration:none}
 .member-card .avatar{width:80px;height:80px;border-radius:50%;background:var(--card2);border:3px solid var(--gold);display:grid;place-items:center;font-size:32px;margin:0 auto 10px}
 .member-card h3{font-size:15px;color:var(--acc)}
 .member-card p{font-size:12px;color:var(--gold);font-weight:700}
-.service-card{background:rgba(255,255,255,.75);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:14px;padding:20px;text-align:center;transition:transform .2s;cursor:pointer}
-.service-card:hover{transform:translateY(-4px)}
-.service-card .icon{font-size:36px;margin-bottom:8px}
-.service-card h3{font-size:15px;color:var(--acc)}
-.service-card p{font-size:12px;color:var(--mut);margin-top:4px}
+.service-card{background:#fff;border:1px solid var(--line);border-top:4px solid var(--acc);border-radius:14px;padding:28px 16px;text-align:center;transition:transform .2s;cursor:pointer}
+.service-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.service-card .icon{width:72px;height:72px;margin:0 auto 14px;display:grid;place-items:center}
+.service-card .icon img{width:72px;height:72px;object-fit:contain}
+.service-card .icon svg{width:64px;height:64px}
+.service-card h3{font-size:16px;font-weight:800;color:var(--acc);margin-bottom:4px}
+.service-card p{font-size:13px;color:var(--mut);margin-top:4px;line-height:1.6}
 .chairman{background:linear-gradient(135deg,rgba(255,255,255,.75),rgba(238,245,232,.75));border:1px solid var(--line);border-radius:16px;padding:30px;display:flex;gap:24px;align-items:center;flex-wrap:wrap}
 .chairman img{width:160px;height:180px;border-radius:14px;object-fit:cover;border:3px solid var(--gold)}
 .chairman .txt h3{color:var(--acc);margin-bottom:8px}
@@ -205,7 +207,7 @@ a{color:inherit;text-decoration:none}
 <div class="page" id="p-services">
   <div class="section">
     <div class="sec-head"><h2>الخدمات الإلكترونية</h2><p>خدمات البلدية الإلكترونية</p></div>
-    <div class="grid grid-3" id="svcGrid"></div>
+    <div class="grid grid-4" id="svcGrid"></div>
   </div>
 </div>
 
@@ -322,6 +324,17 @@ a{color:inherit;text-decoration:none}
 
 <script>
 var SITE = {};
+
+var svgIcons = {
+  '📐': '<svg viewBox="0 0 80 80" fill="#1b4332"><path d="M62 16c0-4-3-7-7-7H25c-4 0-7 3-7 7v48c0 4 3 7 7 7h30c4 0 7-3 7-7V16z"/><circle cx="40" cy="30" r="6" fill="#fff"/><path d="M32 42h16M32 50h12" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="30" cy="24" r="4" fill="#fff"/><circle cx="50" cy="24" r="4" fill="#fff"/><path d="M30 28v8M50 28v8M34 24h12" stroke="#fff" stroke-width="2" fill="none"/></svg>',
+  '📋': '<svg viewBox="0 0 80 80" fill="#1b4332"><rect x="18" y="10" width="44" height="60" rx="4"/><rect x="26" y="22" width="28" height="4" rx="2" fill="#fff"/><rect x="26" y="32" width="28" height="4" rx="2" fill="#fff"/><rect x="26" y="42" width="20" height="4" rx="2" fill="#fff"/><path d="M30 10h20v8H30z" fill="#1b4332" stroke="#1b4332" stroke-width="2"/></svg>',
+  '🌐': '<svg viewBox="0 0 80 80" fill="none" stroke="#1b4332" stroke-width="4"><circle cx="40" cy="40" r="28"/><path d="M12 40h56M40 12c-10 10-10 26 0 28M40 12c10 10 10 26 0 28"/><circle cx="40" cy="40" r="6" fill="#1b4332"/><line x1="40" y1="12" x2="40" y2="68" stroke-width="3"/></svg>',
+  '🔧': '<svg viewBox="0 0 80 80" fill="#1b4332"><path d="M56 16c-10-2-20 4-26 12L16 52c-3 3-3 8 0 11s8 3 11 0l18-16c8-6 14-16 12-26z"/><circle cx="56" cy="16" r="8" fill="#fff" stroke="#1b4332" stroke-width="3"/><path d="M20 60l8-8" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>',
+  '💬': '<svg viewBox="0 0 80 80" fill="#1b4332"><path d="M12 16h56v36H28l-12 12V52H12V16z" rx="6"/><circle cx="32" cy="34" r="4" fill="#fff"/><circle cx="48" cy="34" r="4" fill="#fff"/><path d="M36 44h8" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>',
+  '🏗️': '<svg viewBox="0 0 80 80" fill="#1b4332"><rect x="34" y="8" width="12" height="52" rx="2"/><rect x="16" y="28" width="12" height="32" rx="2"/><rect x="52" y="20" width="12" height="40" rx="2"/><rect x="10" y="60" width="60" height="8" rx="3"/><circle cx="40" cy="16" r="4" fill="#fff"/></svg>',
+  '🗑️': '<svg viewBox="0 0 80 80" fill="#1b4332"><path d="M24 20h32v44H24V20z"/><path d="M16 14h48v6H16v-6z"/><rect x="30" y="10" width="20" height="4" rx="2"/><path d="M32 28v28M40 28v28M48 28v28" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="M28 28h24" stroke="#fff" stroke-width="2"/></svg>',
+  '💡': '<svg viewBox="0 0 80 80" fill="#1b4332"><rect x="36" y="36" width="8" height="32" rx="2"/><path d="M20 20c0-12 24-12 24 0v12H20V20z"/><path d="M28 48h24" stroke="#fff" stroke-width="2"/><path d="M30 54h20" stroke="#fff" stroke-width="2"/><circle cx="40" cy="28" r="4" fill="#fff"/><path d="M40 10V6M52 14l6-6M28 14l-6-6M56 28h6M18 28h6" stroke="#1b4332" stroke-width="3" stroke-linecap="round"/></svg>'
+};
 var currentPage = 'home';
 
 async function api(method, url, data) {
