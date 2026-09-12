@@ -428,7 +428,10 @@ async function loadAbout() {
     '<div class="txt"><h3>نبذة عن مجلس بلدية الجيزة</h3><p>مجلس بلدية الجيزة هو الجهة الإدارية المسؤولة عن إدارة شؤون بلدية الجيزة في ريف محافظة درعا. يضم المجلس أعضاءً مختارين من أبناء المنطقة يعملون لخدمة المواطنين وتحسين البنية التحتية وتقديم الخدمات البلدية.</p><div class="name">ريف درعا — الجمهورية العربية السورية</div></div>';
 
   document.getElementById('membersGrid').innerHTML = members.map(function(m) {
-    return '<div class="member-card"><div class="avatar">' + (m.image ? '<img src="' + esc(m.image) + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover">' : '👤') + '</div><h3>' + esc(m.name) + '</h3><p>' + esc(m.role) + '</p></div>';
+    var hasName = m.name && m.name.trim();
+    var title = hasName ? esc(m.name) : esc(m.role);
+    var subtitle = hasName ? '<p>' + esc(m.role) + '</p>' : '';
+    return '<div class="member-card"><div class="avatar">' + (m.image ? '<img src="' + esc(m.image) + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover">' : '👤') + '</div><h3>' + title + '</h3>' + subtitle + '</div>';
   }).join('');
 }
 
