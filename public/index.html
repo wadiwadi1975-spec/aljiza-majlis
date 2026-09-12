@@ -207,10 +207,6 @@ a{color:inherit;text-decoration:none}
     <div class="sec-head"><h2>الخدمات الإلكترونية</h2><p>خدمات البلدية الإلكترونية</p></div>
     <div class="grid grid-3" id="svcGrid"></div>
   </div>
-  <div class="section">
-    <div class="sec-head"><h2>دليل الإجراءات</h2><p>خطوات الحصول على الخدمات</p></div>
-    <div id="procList"></div>
-  </div>
 </div>
 
 <!-- TENDERS -->
@@ -436,7 +432,7 @@ async function loadPage(page) {
     var svcs = await api('GET', '/api/services');
     var procs = await api('GET', '/api/procedures');
     document.getElementById('svcGrid').innerHTML = svcs.map(function(s) {
-      return '<div class="service-card"><div class="icon">' + esc(s.icon) + '</div><h3>' + esc(s.title) + '</h3><p>' + esc(s.description) + '</p></div>';
+      return '<div class="service-card" onclick="window.open(\'' + esc(s.link || '#') + '\',\'_blank\')"><div class="icon">' + esc(s.icon) + '</div><h3>' + esc(s.title) + '</h3><p>' + esc(s.description) + '</p></div>';
     }).join('');
     document.getElementById('procList').innerHTML = procs.map(function(p) {
       return '<div class="card" style="margin-bottom:12px"><div class="body"><h3>' + esc(p.title) + '</h3><p style="white-space:pre-line">' + esc(p.steps) + '</p></div></div>';
