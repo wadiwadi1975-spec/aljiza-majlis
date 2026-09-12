@@ -51,6 +51,12 @@ async function ensureSchema() {
       body TEXT DEFAULT '',
       image TEXT DEFAULT '',
       status TEXT DEFAULT 'current',
+      start_date DATE,
+      end_date DATE,
+      nature TEXT DEFAULT '',
+      location TEXT DEFAULT '',
+      goals TEXT DEFAULT '',
+      images JSONB DEFAULT '[]',
       created_at TIMESTAMPTZ DEFAULT now()
     );
 

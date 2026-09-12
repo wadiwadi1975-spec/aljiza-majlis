@@ -417,7 +417,11 @@ async function loadHome() {
 
   // Projects
   document.getElementById('homeProjects').innerHTML = projects.slice(0, 3).map(function(p) {
-    return '<div class="card">' + (p.image ? '<img src="' + esc(p.image) + '" alt="">' : '<div style="height:160px;background:var(--card2);display:grid;place-items:center;font-size:40px">🏗️</div>') + '<div class="body"><span class="tag">' + (p.status === 'current' ? 'حالي' : 'منجز') + '</span><div class="date">' + new Date(p.created_at).toLocaleDateString('ar') + '</div><h3>' + esc(p.title) + '</h3><p>' + esc(p.body).slice(0, 120) + '</p></div></div>';
+    var imgs=[]; try{var arr=typeof p.images==='string'?JSON.parse(p.images):p.images; if(Array.isArray(arr)) imgs=arr;}catch(e){}
+    var cover = imgs[0] || p.image;
+    var dateInfo = p.start_date ? '<div style="font-size:11px;color:var(--mut)">📅 ' + new Date(p.start_date).toLocaleDateString('ar') + (p.end_date ? ' → ' + new Date(p.end_date).toLocaleDateString('ar') : '') + '</div>' : '<div class="date">' + new Date(p.created_at).toLocaleDateString('ar') + '</div>';
+    var loc = p.location ? '<div style="font-size:11px;color:var(--mut)">📍 ' + esc(p.location) + '</div>' : '';
+    return '<div class="card">' + (cover ? '<img src="' + esc(cover) + '" alt="" style="height:160px;object-fit:cover;width:100%">' : '<div style="height:160px;background:var(--card2);display:grid;place-items:center;font-size:40px">🏗️</div>') + '<div class="body"><span class="tag">' + (p.status === 'current' ? 'حالي' : p.status === 'completed' ? 'منجز' : 'مخطط') + '</span>' + dateInfo + loc + '<h3>' + esc(p.title) + '</h3><p>' + esc(p.body).slice(0, 120) + '</p></div></div>';
   }).join('') || '<div class="empty" style="grid-column:1/-1;text-align:center;color:var(--mut);padding:40px">لا توجد مشاريع بعد</div>';
 
   // Contact info
@@ -454,8 +458,22 @@ async function loadPage(page) {
   if (page === 'projects') {
     var projs = await api('GET', '/api/projects');
     document.getElementById('projGrid').innerHTML = projs.map(function(p) {
-      return '<div class="card">' + (p.image ? '<img src="' + esc(p.image) + '" alt="">' : '<div style="height:200px;background:var(--card2);display:grid;place-items:center;font-size:40px">🏗️</div>') + '<div class="body"><span class="tag">' + (p.status === 'current' ? 'مشروع حالي' : 'مشروع منجز') + '</span><div class="date">' + new Date(p.created_at).toLocaleDateString('ar') + '</div><h3>' + esc(p.title) + '</h3><p>' + esc(p.body) + '</p></div></div>';
-    }).join('');
+      var imgs = [];
+      try { var arr = typeof p.images === 'string' ? JSON.parse(p.images) : p.images; if (Array.isArray(arr)) imgs = arr; } catch(e) { imgs = []; }
+      var cover = imgs[0] || p.image;
+      var gallery = imgs.length ? '<div style="display:flex;gap:6px;overflow-x:auto;padding:8px 0">' + imgs.map(function(src){ return '<img src="'+esc(src)+'" style="width:80px;height:80px;object-fit:cover;border-radius:8px;flex-shrink:0;cursor:pointer" onclick="window.open(this.src)">'; }).join('') + '</div>' : '';
+      var dates = '';
+      if (p.start_date || p.end_date) {
+        var s = p.start_date ? new Date(p.start_date).toLocaleDateString('ar') : '-';
+        var e = p.end_date ? new Date(p.end_date).toLocaleDateString('ar') : '-';
+        dates = '<div style="font-size:12px;color:var(--mut);margin:4px 0">📅 من ' + s + ' إلى ' + e + '</div>';
+      }
+      var meta = '';
+      if (p.nature) meta += '<span style="background:var(--card2);padding:2px 8px;border-radius:6px;font-size:11px;margin-left:6px">📌 ' + esc(p.nature) + '</span>';
+      if (p.location) meta += '<span style="background:var(--card2);padding:2px 8px;border-radius:6px;font-size:11px">📍 ' + esc(p.location) + '</span>';
+      var goals = p.goals ? '<div style="margin-top:8px;font-size:13px;color:var(--acc)"><strong>الأهداف:</strong> ' + esc(p.goals) + '</div>' : '';
+      return '<div class="card"><div style="height:200px;overflow:hidden">' + (cover ? '<img src="' + esc(cover) + '" alt="" style="width:100%;height:100%;object-fit:cover">' : '<div style="height:100%;background:var(--card2);display:grid;place-items:center;font-size:40px">🏗️</div>') + '</div><div class="body"><span class="tag">' + (p.status === 'current' ? 'حالي' : p.status === 'completed' ? 'منجز' : 'مخطط') + '</span>' + dates + '<div style="margin:6px 0">' + meta + '</div><h3>' + esc(p.title) + '</h3><p>' + esc(p.body) + '</p>' + goals + gallery + '</div></div>';
+    }).join('') || '<div class="empty" style="grid-column:1/-1;text-align:center;color:var(--mut);padding:40px">لا توجد مشاريع بعد — أضف مشروعاً جديداً من لوحة التحكم</div>';
   }
   if (page === 'services') {
     var svcs = await api('GET', '/api/services');
