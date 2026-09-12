@@ -247,13 +247,42 @@ a{color:inherit;text-decoration:none}
 <!-- COMPLAINTS -->
 <div class="page" id="p-complaints">
   <div class="section">
-    <div class="sec-head"><h2>شكاوى المواطنين</h2><p>يمكنك تقديم شكوى أو ملاحظة</p></div>
-    <div style="max-width:600px;margin:0 auto">
-      <div class="form-group"><label>الاسم *</label><input id="comp-name"></div>
-      <div class="form-group"><label>الهاتف</label><input id="comp-phone" dir="ltr"></div>
-      <div class="form-group"><label>الموضوع *</label><input id="comp-subject"></div>
-      <div class="form-group"><label>الشكوى *</label><textarea id="comp-msg"></textarea></div>
-      <button class="btn btn-gold" onclick="submitComplaint()">إرسال الشكوى</button>
+    <div class="sec-head"><h2>الشكاوى والاقتراحات</h2><p>نypedyour公民您的声音对我们很重要 — سجّل شكواك أو اقتراحك</p></div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px;max-width:1000px;margin:0 auto">
+
+      <div>
+        <h3 style="color:var(--acc);margin-bottom:16px;font-size:18px">📝 تقديم شكوى أو اقتراح</h3>
+        <div class="card" style="padding:20px">
+          <div class="form-group"><label>الاسم الكامل *</label><input id="comp-name" placeholder="أدخل اسمك"></div>
+          <div class="form-group"><label>رقم الهاتف *</label><input id="comp-phone" dir="ltr" placeholder="09xxxxxxxx"></div>
+          <div class="form-group"><label>البريد الإلكتروني</label><input id="comp-email" dir="ltr" placeholder="example@email.com"></div>
+          <div class="form-group"><label>نوع الرسالة *</label>
+            <select id="comp-type">
+              <option value="complaint">شكوى</option>
+              <option value="suggestion">اقتراح</option>
+              <option value="inquiry">استفسار</option>
+              <option value="praise"> củatherush</option>
+            </select>
+          </div>
+          <div class="form-group"><label>الموضوع *</label><input id="comp-subject" placeholder="موضوع الرسالة"></div>
+          <div class="form-group"><label>تفاصيل الرسالة *</label><textarea id="comp-msg" placeholder="اكتب تفاصيل شكواك أو اقتراحك هنا..." style="min-height:120px"></textarea></div>
+          <div class="form-group"><label>📷 صور مرفقة (اختياري)</label>
+            <input type="file" id="comp-images" accept="image/*" multiple style="display:none" onchange="previewCompImages(this)">
+            <div onclick="document.getElementById('comp-images').click()" style="border:2px dashed var(--line);border-radius:10px;padding:20px;text-align:center;cursor:pointer;color:var(--mut);font-size:13px">
+              اضغط هنا لاختيار صور (حد أقصى 3 صور)
+            </div>
+            <div id="comp-preview" style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"></div>
+          </div>
+          <button class="btn btn-gold" onclick="submitComplaint()" style="width:100%">إرسال الرسالة</button>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="color:var(--acc);margin-bottom:16px;font-size:18px">📋 آخر الشكاوى والاقتراحات</h3>
+        <div id="complaintsList" class="card" style="padding:16px;max-height:500px;overflow-y:auto"></div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -462,18 +491,109 @@ async function showMediaTab(tab) {
   }
 }
 
+function previewCompImages(input) {
+  var box = document.getElementById('comp-preview');
+  box.innerHTML = '';
+  var files = Array.from(input.files).slice(0, 3);
+  files.forEach(function(f) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var div = document.createElement('div');
+      div.style.cssText = 'position:relative;width:80px;height:80px;border-radius:8px;overflow:hidden;border:2px solid var(--line)';
+      div.innerHTML = '<img src="' + e.target.result + '" style="width:100%;height:100%;object-fit:cover">';
+      box.appendChild(div);
+    };
+    reader.readAsDataURL(f);
+  });
+}
+
+async function compressImage(file) {
+  return new Promise(function(resolve) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var img = new Image();
+      img.onload = function() {
+        var canvas = document.createElement('canvas');
+        var max = 800;
+        var w = img.width, h = img.height;
+        if (w > max || h > max) {
+          if (w > h) { h = h * max / w; w = max; }
+          else { w = w * max / h; h = max; }
+        }
+        canvas.width = w;
+        canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', 0.7));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+var _compImages = [];
+
 async function submitComplaint() {
   var name = document.getElementById('comp-name').value.trim();
   var phone = document.getElementById('comp-phone').value.trim();
+  var type = document.getElementById('comp-type').value;
   var subject = document.getElementById('comp-subject').value.trim();
   var message = document.getElementById('comp-msg').value.trim();
-  if (!name || !subject || !message) { alert('يرجى ملء جميع الحقول المطلوبة'); return; }
-  await api('POST', '/api/complaints', { name: name, phone: phone, subject: subject, message: message });
-  alert('تم إرسال شكواك بنجاح');
+  if (!name || !phone || !subject || !message) { alert('يرجى ملء جميع الحقول المطلوبة'); return; }
+
+  var fileInput = document.getElementById('comp-images');
+  var images = [];
+  if (fileInput.files.length > 0) {
+    var files = Array.from(fileInput.files).slice(0, 3);
+    for (var i = 0; i < files.length; i++) {
+      var compressed = await compressImage(files[i]);
+      images.push(compressed);
+    }
+  }
+
+  var typeLabels = {complaint:'شكوى',suggestion:'اقتراح',inquiry:'استفسار',praise:'شكر وتقدير'};
+  await api('POST', '/api/complaints', { name: name, phone: phone, subject: '[' + typeLabels[type] + '] ' + subject, message: message, images: images });
+  alert('تم إرسال رسالتك بنجاح');
   document.getElementById('comp-name').value = '';
   document.getElementById('comp-phone').value = '';
   document.getElementById('comp-subject').value = '';
   document.getElementById('comp-msg').value = '';
+  document.getElementById('comp-images').value = '';
+  document.getElementById('comp-preview').innerHTML = '';
+  loadComplaints();
+}
+
+async function loadComplaints() {
+  var list = document.getElementById('complaintsList');
+  if (!list) return;
+  try {
+    var items = await api('GET', '/api/complaints/list');
+    if (!items || !items.length) {
+      list.innerHTML = '<div style="text-align:center;color:var(--mut);padding:30px">لا توجد شكاوى أو اقتراحات بعد</div>';
+      return;
+    }
+    var statusColors = {new:'var(--gold)',pending:'orange',replied:'var(--grn)',closed:'var(--mut)'};
+    var statusLabels = {new:'جديدة',pending:'قيد المراجعة',replied:'تم الرد',closed:'مغلقة'};
+    list.innerHTML = items.map(function(c) {
+      var imgs = '';
+      if (c.images && c.images.length) {
+        imgs = '<div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap">' +
+          c.images.map(function(img) { return '<img src="' + img + '" style="width:60px;height:60px;object-fit:cover;border-radius:6px;border:1px solid var(--line);cursor:pointer" onclick="window.open(this.src)">'; }).join('') + '</div>';
+      }
+      return '<div style="border-bottom:1px solid var(--line);padding:12px 0">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">' +
+          '<strong style="color:var(--acc)">' + esc(c.name) + '</strong>' +
+          '<span style="background:' + (statusColors[c.status]||'var(--gold)') + ';color:#fff;padding:2px 8px;border-radius:6px;font-size:11px">' + (statusLabels[c.status]||c.status) + '</span>' +
+        '</div>' +
+        '<div style="font-size:12px;color:var(--gold);font-weight:700;margin-bottom:4px">' + esc(c.subject) + '</div>' +
+        '<div style="font-size:13px;color:var(--mut)">' + esc(c.message).slice(0, 150) + '</div>' +
+        imgs +
+        '<div style="font-size:11px;color:var(--mut);margin-top:4px">' + new Date(c.created_at).toLocaleDateString('ar') + '</div>' +
+      '</div>';
+    }).join('');
+  } catch(e) {
+    list.innerHTML = '<div style="text-align:center;color:var(--mut);padding:30px">لا توجد بيانات</div>';
+  }
 }
 
 async function submitInquiry() {

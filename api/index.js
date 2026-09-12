@@ -158,11 +158,18 @@ module.exports = async (req, res) => {
   // ---- PUBLIC: complaints submit ----
   if (url === '/api/complaints' && method === 'POST') {
     if (!body.name || !body.message) return json(res, 400, { error: 'name & message required' });
+    const images = body.images || [];
     await pool.query(
-      `INSERT INTO complaints (name, phone, subject, message) VALUES ($1, $2, $3, $4)`,
-      [body.name, body.phone || '', body.subject || '', body.message]
+      `INSERT INTO complaints (name, phone, subject, message, images) VALUES ($1, $2, $3, $4, $5)`,
+      [body.name, body.phone || '', body.subject || '', body.message, JSON.stringify(images)]
     );
     return json(res, 201, { ok: true });
+  }
+
+  // ---- PUBLIC: complaints list ----
+  if (url === '/api/complaints/list' && method === 'GET') {
+    const { rows } = await pool.query('SELECT id, name, phone, subject, message, COALESCE(images,\'[]\')::jsonb AS images, status, created_at FROM complaints ORDER BY created_at DESC LIMIT 50');
+    return json(res, 200, rows);
   }
 
   // ---- PUBLIC: inquiries submit ----
