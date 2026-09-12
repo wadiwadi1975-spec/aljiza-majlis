@@ -325,15 +325,21 @@ a{color:inherit;text-decoration:none}
 <script>
 var SITE = {};
 
-var svgIcons = {
-  '📐': '<svg viewBox="0 0 80 80" fill="#1b4332"><path d="M58 20c0-6-5-10-10-10H32c-6 0-10 4-10 10v40c0 6 4 10 10 10h16c6 0 10-4 10-10V20z"/><circle cx="40" cy="36" r="8" fill="#fff"/><circle cx="40" cy="36" r="3" fill="#1b4332"/><path d="M40 44v12M34 50h12" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/></svg>',
-  '📋': '<svg viewBox="0 0 80 80" fill="#1b4332"><rect x="18" y="12" width="44" height="56" rx="4"/><rect x="28" y="8" width="24" height="10" rx="3" fill="#1b4332"/><rect x="28" y="28" width="24" height="3" rx="1.5" fill="#fff"/><rect x="28" y="36" width="24" height="3" rx="1.5" fill="#fff"/><rect x="28" y="44" width="16" height="3" rx="1.5" fill="#fff"/></svg>',
-  '🌐': '<svg viewBox="0 0 80 80" fill="#1b4332"><circle cx="40" cy="40" r="6"/><circle cx="20" cy="20" r="5"/><circle cx="60" cy="20" r="5"/><circle cx="20" cy="60" r="5"/><circle cx="60" cy="60" r="5"/><circle cx="40" cy="14" r="4"/><circle cx="40" cy="66" r="4"/><circle cx="14" cy="40" r="4"/><circle cx="66" cy="40" r="4"/><path d="M40 34V20M40 46v14M34 40H20M46 40h14M36 36l-12-12M44 44l12 12M44 36l12-12M36 44l-12 12" stroke="#1b4332" stroke-width="2.5" fill="none"/></svg>',
-  '🔧': '<svg viewBox="0 0 80 80" fill="#1b4332"><path d="M52 12c-12-2-22 6-28 16L14 52c-4 4-4 10 0 14s10 4 14 0l16-16c10-8 18-20 14-32z"/><circle cx="54" cy="14" r="8" fill="#fff" stroke="#1b4332" stroke-width="3"/><path d="M18 62l8-8" stroke="#fff" stroke-width="4" stroke-linecap="round"/></svg>',
-  '💬': '<svg viewBox="0 0 80 80" fill="#1b4332"><path d="M14 18h52a4 4 0 014 4v28a4 4 0 01-4 4H30l-14 12V50H14a4 4 0 01-4-4V22a4 4 0 014-4z" transform="translate(2,2)"/><circle cx="32" cy="36" r="4" fill="#fff"/><circle cx="48" cy="36" r="4" fill="#fff"/><rect x="36" y="44" width="12" height="4" rx="2" fill="#fff"/></svg>',
-  '🏗️': '<svg viewBox="0 0 80 80" fill="#1b4332"><path d="M36 8h8v52h-8V8zM18 28h8v32h-8V28zM54 20h8v40h-8V20z"/><rect x="12" y="60" width="56" height="8" rx="3"/><circle cx="40" cy="18" r="4" fill="#fff"/></svg>',
-  '🗑️': '<svg viewBox="0 0 80 80" fill="#1b4332"><path d="M24 22h32v42H24V22z"/><path d="M16 16h48v6H16v-6z"/><rect x="30" y="10" width="20" height="6" rx="3"/><path d="M32 30v26M40 30v26M48 30v26" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>',
-  '💡': '<svg viewBox="0 0 80 80" fill="#1b4332"><rect x="36" y="40" width="8" height="28" rx="2"/><path d="M22 24c0-10 18-16 18-16s18 6 18 16v14H22V24z"/><path d="M30 50h20" stroke="#fff" stroke-width="2"/><path d="M32 56h16" stroke="#fff" stroke-width="2"/><circle cx="40" cy="32" r="3" fill="#fff"/><path d="M40 8V4M54 14l4-4M26 14l-4-4M58 28h4M18 28h4" stroke="#1b4332" stroke-width="3" stroke-linecap="round"/></svg>'
+var serviceImages = {
+  'المسقفات':'masqafat.png',
+  'رخص المهن':'rokkhas.png',
+  'موقع الخدمات الإلكترونية':'khadamat.png',
+  'موقع الخدمات الالكترونية':'khadamat.png',
+  'خدمات الكترونية':'khadamat.png',
+  'طلبات الصيانة':'siyana.png',
+  'الشكاوى':'shakawi.png',
+  'الشكاوي':'shakawi.png',
+  'وحدة إزالة':'izala.png',
+  'وحدة الازالة':'izala.png',
+  'وضع حاوية':'hawiya.png',
+  'الإنارة':'inara.png',
+  'الانارة':'inara.png',
+  'وحدة انارة':'inara.png'
 };
 var currentPage = 'home';
 
@@ -443,13 +449,18 @@ async function loadPage(page) {
   }
   if (page === 'services') {
     var svcs = await api('GET', '/api/services');
-    var procs = await api('GET', '/api/procedures');
     document.getElementById('svcGrid').innerHTML = svcs.map(function(s) {
-      return '<div class="service-card" onclick="window.open(\'' + esc(s.link || '#') + '\',\'_blank\')"><div class="icon">' + esc(s.icon) + '</div><h3>' + esc(s.title) + '</h3><p>' + esc(s.description) + '</p></div>';
+      var imgFile = serviceImages[s.title] || serviceImages[s.title.trim()] || null;
+      var iconHtml = imgFile ? '<img src="/icons/' + imgFile + '" alt="' + esc(s.title) + '" style="width:72px;height:72px;object-fit:contain">' : '<div style="font-size:48px">' + esc(s.icon) + '</div>';
+      return '<div class="service-card" onclick="window.open(\'' + esc(s.link || '#') + '\',\'_blank\')"><div class="icon">' + iconHtml + '</div><h3>' + esc(s.title) + '</h3><p>' + esc(s.description) + '</p></div>';
     }).join('');
-    document.getElementById('procList').innerHTML = procs.map(function(p) {
+    var procEl = document.getElementById('procList');
+    if (procEl) {
+      var procs = await api('GET', '/api/procedures');
+      procEl.innerHTML = procs.map(function(p) {
       return '<div class="card" style="margin-bottom:12px"><div class="body"><h3>' + esc(p.title) + '</h3><p style="white-space:pre-line">' + esc(p.steps) + '</p></div></div>';
-    }).join('') || '<div style="text-align:center;color:var(--mut);padding:20px">لا توجد إجراءات بعد</div>';
+      }).join('') || '<div style="text-align:center;color:var(--mut);padding:20px">لا توجد إجراءات بعد</div>';
+    }
   }
   if (page === 'tenders') {
     var tenders = await api('GET', '/api/tenders');
