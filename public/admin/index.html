@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>لوحة التحكم — مجلس بلدية الجيزة</title>
+<style>
+:root{--bg:#f5f0e6;--card:#fff;--line:#d4cfc0;--txt:#1a2e1a;--mut:#6b7b6b;--acc:#1a472a;--acc2:#0f3620;--gold:#c9a227;--red:#dc3545;--grn:#28a745}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:var(--bg);color:var(--txt);display:flex;min-height:100vh}
+.sidebar{width:240px;background:var(--acc);color:#fff;padding:20px 0;position:fixed;top:0;bottom:0;overflow-y:auto}
+.sidebar h2{color:var(--gold);text-align:center;padding:14px;font-size:16px;border-bottom:1px solid rgba(255,255,255,.15)}
+.sidebar a{display:block;padding:12px 20px;color:#b8d8b8;font-size:14px;cursor:pointer;transition:.2s}
+.sidebar a:hover,.sidebar a.on{background:rgba(255,255,255,.1);color:var(--gold)}
+.main{margin-right:240px;flex:1;padding:24px}
+.main h1{font-size:22px;color:var(--acc);margin-bottom:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:24px}
+.stat-card{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:12px;padding:16px;text-align:center}
+.stat-card .num{font-size:28px;font-weight:800;color:var(--acc)}
+.stat-card .lbl{font-size:12px;color:var(--mut);margin-top:4px}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px 12px;text-align:right;border-bottom:1px solid var(--line);font-size:13px}
+th{background:var(--card2);font-weight:700;color:var(--acc)}
+tr:hover{background:#f9f6ef}
+.btn{border:none;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-gold{background:var(--gold);color:#1a2e1a}
+.btn-green{background:var(--acc);color:#fff}
+.btn-red{background:var(--red);color:#fff}
+.btn-sm{padding:5px 10px;font-size:12px}
+.form-group{margin-bottom:12px}
+.form-group label{display:block;font-size:12px;font-weight:700;margin-bottom:4px;color:var(--acc)}
+.form-group input,.form-group textarea,.form-group select{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px;font-family:inherit}
+.form-group textarea{min-height:80px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.tabs button{padding:8px 16px;border:1px solid var(--line);background:var(--card);border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit}
+.tabs button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.hidden{display:none}
+.login-box{max-width:400px;margin:80px auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:30px;text-align:center}
+.login-box h2{color:var(--acc);margin-bottom:20px}
+.login-page{display:flex;min-height:100vh;font-family:'Cairo',sans-serif}
+.login-left{flex:1;background:#faf7f0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;position:relative}
+.login-back{position:absolute;top:24px;right:32px;font-size:13px;color:var(--mut);text-decoration:none;display:flex;align-items:center;gap:6px}
+.login-left h1{font-size:28px;font-weight:800;color:#094239;margin-bottom:6px}
+.login-left .sub{font-size:13px;color:var(--mut);margin-bottom:32px}
+.login-card{width:100%;max-width:420px;background:#fff;border-radius:16px;padding:28px;box-shadow:0 8px 32px rgba(0,0,0,0.08);border:1px solid #eee}
+.login-tabs{display:flex;background:#f5f0e6;border-radius:10px;padding:4px;margin-bottom:20px;gap:4px}
+.login-tabs button{flex:1;padding:10px;border:none;background:transparent;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--mut);display:flex;align-items:center;justify-content:center;gap:6px;transition:0.2s}
+.login-tabs button.on{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.1);color:#094239}
+.login-card .form-group{margin-bottom:16px;text-align:right}
+.login-card label{font-size:13px;font-weight:700;color:#094239;margin-bottom:6px;display:block}
+.login-card input{width:100%;border:1px solid #e5ddd0;border-radius:10px;padding:12px 14px;font-size:14px;font-family:inherit;background:#fff}
+.login-card input:focus{outline:none;border-color:#b9a779;box-shadow:0 0 0 3px rgba(185,167,121,0.15)}
+.login-card .input-wrap{position:relative}
+.login-card .input-wrap .icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--mut);font-size:16px}
+.login-options{display:flex;justify-content:space-between;align-items:center;margin:16px 0;font-size:13px}
+.login-options a{color:#094239;text-decoration:none}
+.login-options label{display:flex;align-items:center;gap:6px;font-weight:400;color:var(--mut);cursor:pointer}
+.login-btn{width:100%;background:#b9a779;color:#fff;border:none;padding:14px;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;transition:0.2s}
+.login-btn:hover{background:#a68b5a}
+.login-ssl{font-size:11px;color:var(--mut);text-align:center;margin-top:16px;padding-top:16px;border-top:1px solid #eee;display:flex;align-items:center;justify-content:center;gap:6px}
+.login-right{flex:1;background:#094239;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;padding:40px;text-align:center}
+.login-right::before{content:'';position:absolute;inset:0;background-image:url('/bg.jpg');background-size:cover;background-position:center;opacity:0.08;pointer-events:none}
+.login-right .pattern{position:absolute;inset:0;opacity:0.05;background-image:radial-gradient(circle at 20% 20%, #b9a779 0%, transparent 2%), radial-gradient(circle at 80% 80%, #b9a779 0%, transparent 2%);background-size:100px 100px}
+.login-eagle{width:120px;height:120px;object-fit:contain;margin-bottom:16px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3))}
+.login-right h2{font-size:18px;font-weight:800;margin-bottom:4px;position:relative;z-index:1}
+.login-right .subtitle{font-size:12px;opacity:0.7;margin-bottom:32px;position:relative;z-index:1}
+.login-features{display:flex;flex-direction:column;gap:16px;width:100%;max-width:300px;position:relative;z-index:1}
+.login-feature{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.08);padding:12px 16px;border-radius:10px;backdrop-filter:blur(4px)}
+.login-feature .ico{width:36px;height:36px;background:rgba(185,167,121,0.2);border-radius:8px;display:grid;place-items:center;font-size:18px;flex-shrink:0}
+.login-feature span{font-size:13px;font-weight:600}
+.login-copy{position:absolute;bottom:20px;font-size:11px;opacity:0.5}
+@media(max-width:768px){.login-page{flex-direction:column}.login-right{display:none}.sidebar{width:200px}.main{margin-right:200px}.form-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="login-page" id="loginPage">
+  <div class="login-left">
+    <a href="/" class="login-back">العودة للرئيسية <span>›</span></a>
+    <h1>تسجيل الدخول</h1>
+    <p class="sub">سجل دخولك للوصول إلى خدماتك الحكومية</p>
+    <div class="login-card">
+      <div class="login-tabs">
+        <button onclick="switchLoginTab('national')"><span>وطني</span> <span>🪪</span></button>
+        <button onclick="switchLoginTab('phone')" class="on"><span>هاتف</span> <span>📞</span></button>
+        <button onclick="switchLoginTab('email')"><span>بريد</span> <span>✉️</span></button>
+      </div>
+      <div id="loginFormPhone">
+        <div class="form-group"><label>رقم الهاتف</label><div class="input-wrap"><input id="lg-phone" dir="ltr" placeholder="أدخل رقم هاتفك"><span class="icon">📞</span></div></div>
+        <div class="form-group"><label>كلمة المرور *</label><div class="input-wrap"><input id="lg-pass" type="password" placeholder="أدخل كلمة المرور"><span class="icon" onclick="togglePass('lg-pass')" style="cursor:pointer">👁️</span></div></div>
+      </div>
+      <div id="loginFormEmail" class="hidden">
+        <div class="form-group"><label>البريد الإلكتروني</label><div class="input-wrap"><input id="lg-email" dir="ltr" placeholder="أدخل بريدك الإلكتروني"><span class="icon">✉️</span></div></div>
+        <div class="form-group"><label>كلمة المرور *</label><div class="input-wrap"><input id="lg-pass2" type="password" placeholder="أدخل كلمة المرور"><span class="icon" onclick="togglePass('lg-pass2')" style="cursor:pointer">👁️</span></div></div>
+      </div>
+      <div id="loginFormNational" class="hidden">
+        <div class="form-group"><label>الرقم الوطني</label><div class="input-wrap"><input id="lg-national" dir="ltr" placeholder="أدخل الرقم الوطني"><span class="icon">🪪</span></div></div>
+        <div class="form-group"><label>كلمة المرور *</label><div class="input-wrap"><input id="lg-pass3" type="password" placeholder="أدخل كلمة المرور"><span class="icon" onclick="togglePass('lg-pass3')" style="cursor:pointer">👁️</span></div></div>
+      </div>
+      <div class="login-options">
+        <label><input type="checkbox" id="remember"> تذكرني</label>
+        <a href="#" onclick="alert('تواصل مع الإدارة لاستعادة كلمة المرور');return false">نسيت كلمة المرور؟</a>
+      </div>
+      <button class="login-btn" onclick="doLogin()">تسجيل الدخول <span>←</span></button>
+      <div class="login-ssl">🔒 اتصال آمن ومشفّر بتقنية SSL</div>
+    </div>
+  </div>
+  <div class="login-right">
+    <div class="pattern"></div>
+    <img src="/icon-512.png" alt="بلدية الجيزة" class="login-eagle">
+    <h2>بلدية الجيزة</h2>
+    <p class="subtitle">الجمهورية العربية السورية</p>
+    <div style="margin:24px 0 16px;position:relative;z-index:1">
+      <div style="font-size:15px;font-weight:800">بلدية الجيزة</div>
+      <div style="font-size:11px;opacity:0.6">الجمهورية العربية السورية</div>
+    </div>
+    <div class="login-features">
+      <div class="login-feature"><span class="ico">🛡️</span><span>اتصال آمن ومشفّر</span></div>
+      <div class="login-feature"><span class="ico">👆</span><span>تحقق من الهوية</span></div>
+      <div class="login-feature"><span class="ico">🔒</span><span>حماية بياناتك الشخصية</span></div>
+    </div>
+    <div class="login-copy">جميع الحقوق محفوظة</div>
+  </div>
+</div>
+
+<div class="sidebar hidden" id="sidebar">
+  <h2>🏛️ لوحة التحكم</h2>
+  <a onclick="showSection('dashboard')" class="on">📊 الرئيسية</a>
+  <a onclick="showSection('news')">📰 الأخبار</a>
+  <a onclick="showSection('projects')">🏗️ المشاريع</a>
+  <a onclick="showSection('departments')">🏢 الدوائر</a>
+  <a onclick="showSection('members')">👥 الأعضاء</a>
+  <a onclick="showSection('services')">⚙️ الخدمات</a>
+  <a onclick="showSection('tenders')">📋 المناقصات</a>
+  <a onclick="showSection('procedures')">📝 الإجراءات</a>
+  <a onclick="showSection('activities')">📢 النشاطات</a>
+  <a onclick="showSection('photos')">🖼️ الصور</a>
+  <a onclick="showSection('videos')">🎬 الفيديو</a>
+  <a onclick="showSection('slider')">🎞️ السلايدر</a>
+  <a onclick="showSection('complaints')">⚠️ الشكاوى</a>
+  <a onclick="showSection('maintenance_requests')">🔧 طلبات الصيانة</a>
+  <a onclick="showSection('container_requests')">🗑️ طلبات الحاويات</a>
+  <a onclick="showSection('lighting_requests')">💡 طلبات الإنارة</a>
+  <a onclick="showSection('removal_requests')">🏗️ طلبات الإزالة</a>
+  <a onclick="showSection('inquiries')">💬 الرسائل</a>
+  <a onclick="showSection('settings')">⚙️ الإعدادات</a>
+  <a onclick="logout()" style="color:#ff9999;margin-top:20px;border-top:1px solid rgba(255,255,255,.1);padding-top:14px">🚪 خروج</a>
+</div>
+
+<div class="main hidden" id="main">
+  <div id="loginView" class="hidden"></div>
+
+  <div id="dashboardView" class="hidden">
+    <h1>مرحباً بك في لوحة التحكم</h1>
+    <div class="stats-grid" id="dashStats"></div>
+  </div>
+
+  <div id="contentView" class="hidden">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <h1 id="sectionTitle"></h1>
+      <button class="btn btn-green" onclick="openForm()">+ إضافة جديد</button>
+    </div>
+    <div class="card" id="tableArea"></div>
+  </div>
+
+  <div id="formView" class="hidden">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <h1 id="formTitle"></h1>
+      <button class="btn btn-gold" onclick="closeForm()">← رجوع</button>
+    </div>
+    <div class="card" id="formArea"></div>
+  </div>
+</div>
+
+<script>
+var TOKEN = localStorage.getItem('majlis_admin_token');
+var ME = null;
+var currentSection = '';
+var editId = null;
+
+async function api(method, url, data) {
+  var o = { method: method, headers: { 'Content-Type': 'application/json' } };
+  if (TOKEN) o.headers['Authorization'] = 'Bearer ' + TOKEN;
+  if (data) o.body = JSON.stringify(data);
+  var r = await fetch(url, o);
+  return r.json().catch(function() { return {}; });
+}
+
+function esc(s) { return String(s || '').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+var loginTab = 'phone';
+function switchLoginTab(tab){
+  loginTab = tab;
+  document.querySelectorAll('.login-tabs button').forEach(function(b){ b.classList.remove('on'); });
+  if(tab==='phone') document.querySelector('.login-tabs button:nth-child(2)').classList.add('on');
+  if(tab==='email') document.querySelector('.login-tabs button:nth-child(3)').classList.add('on');
+  if(tab==='national') document.querySelector('.login-tabs button:nth-child(1)').classList.add('on');
+  document.getElementById('loginFormPhone').classList.add('hidden');
+  document.getElementById('loginFormEmail').classList.add('hidden');
+  document.getElementById('loginFormNational').classList.add('hidden');
+  if(tab==='phone') document.getElementById('loginFormPhone').classList.remove('hidden');
+  if(tab==='email') document.getElementById('loginFormEmail').classList.remove('hidden');
+  if(tab==='national') document.getElementById('loginFormNational').classList.remove('hidden');
+}
+function togglePass(id){
+  var el=document.getElementById(id);
+  el.type = el.type==='password'?'text':'password';
+}
+async function doLogin() {
+  var phone='', pass='';
+  if(loginTab==='phone'){
+    phone = document.getElementById('lg-phone').value.trim();
+    pass = document.getElementById('lg-pass').value;
+  }else if(loginTab==='email'){
+    phone = document.getElementById('lg-email').value.trim();
+    pass = document.getElementById('lg-pass2').value;
+  }else{
+    phone = document.getElementById('lg-national').value.trim();
+    pass = document.getElementById('lg-pass3').value;
+  }
+  if(!phone||!pass){ alert('يرجى إدخال بيانات الدخول'); return; }
+  var r = await api('POST', '/api/auth/login', { phone: phone, password: pass });
+  if (r.accessToken) {
+    TOKEN = r.accessToken;
+    ME = r.user;
+    localStorage.setItem('majlis_admin_token', TOKEN);
+    document.getElementById('loginPage').classList.add('hidden');
+    document.getElementById('sidebar').classList.remove('hidden');
+    document.getElementById('main').classList.remove('hidden');
+    showSection('dashboard');
+  } else {
+    alert(r.error || 'خطأ في بيانات الدخول — تأكد من الهاتف وكلمة المرور');
+  }
+}
+
+function logout() {
+  TOKEN = null;
+  ME = null;
+  localStorage.removeItem('majlis_admin_token');
+  document.getElementById('loginPage').classList.remove('hidden');
+  document.getElementById('sidebar').classList.add('hidden');
+  document.getElementById('main').classList.add('hidden');
+  document.getElementById('dashboardView').classList.add('hidden');
+  document.getElementById('contentView').classList.add('hidden');
+  document.getElementById('formView').classList.add('hidden');
+}
+
+function showSection(section) {
+  if (!TOKEN) {
+    document.getElementById('loginPage').classList.remove('hidden');
+    document.getElementById('sidebar').classList.add('hidden');
+    document.getElementById('main').classList.add('hidden');
+    return;
+  }
+  document.getElementById('loginPage').classList.add('hidden');
+  document.getElementById('sidebar').classList.remove('hidden');
+  document.getElementById('main').classList.remove('hidden');
+  currentSection = section;
+  editId = null;
+  document.getElementById('loginView').classList.add('hidden');
+  document.getElementById('formView').classList.add('hidden');
+
+  document.querySelectorAll('.sidebar a').forEach(function(a) { a.classList.remove('on'); });
+
+  if (section === 'dashboard') {
+    document.getElementById('dashboardView').classList.remove('hidden');
+    document.getElementById('contentView').classList.add('hidden');
+    loadDashboard();
+  } else {
+    document.getElementById('dashboardView').classList.add('hidden');
+    document.getElementById('contentView').classList.remove('hidden');
+    loadSection(section);
+  }
+}
+
+async function loadDashboard() {
+  var r = await api('GET', '/api/admin/stats');
+  document.getElementById('dashStats').innerHTML = [
+    [r.news || 0, 'أخبار'],
+    [r.projects || 0, 'مشاريع'],
+    [r.complaints || 0, 'شكاوى جديدة'],
+    [r.inquiries || 0, 'رسائل غير مقروءة'],
+    [r.tenders || 0, 'مناقصات مفتوحة']
+  ].map(function(x) { return '<div class="stat-card"><div class="num">' + x[0] + '</div><div class="lbl">' + x[1] + '</div></div>'; }).join('');
+}
+
+async function loadSection(section) {
+  var titles = {
+    news: '📰 الأخبار', projects: '🏗️ المشاريع', departments: '🏢 الدوائر',
+    members: '👥 الأعضاء', services: '⚙️ الخدمات', tenders: '📋 المناقصات',
+    procedures: '📝 الإجراءات', activities: '📢 النشاطات', photos: '🖼️ الصور',
+    videos: '🎬 الفيديو', slider: '🎞️ السلايدر', complaints: '⚠️ الشكاوى',
+    maintenance_requests: '🔧 طلبات الصيانة', container_requests: '🗑️ طلبات الحاويات', lighting_requests: '💡 طلبات الإنارة', removal_requests: '🏗️ طلبات الإزالة', inquiries: '💬 الرسائل', settings: '⚙️ الإعدادات'
+  };
+  document.getElementById('sectionTitle').textContent = titles[section] || section;
+  var items = await api('GET', '/api/admin/' + section);
+  renderTable(section, items);
+}
+
+function renderTable(section, items) {
+  var box = document.getElementById('tableArea');
+  if (!items.length) { box.innerHTML = '<div style="text-align:center;color:var(--mut);padding:30px">لا توجد بيانات</div>'; return; }
+
+  if (section === 'settings') {
+    var s = items.find(function(x) { return x.key === 'site'; });
+    var v = s ? s.value : {};
+    box.innerHTML = '<div class="form-row"><div class="form-group"><label>اسم المجلس</label><input id="s-name" value="' + esc(v.name || '') + '"></div><div class="form-group"><label>العنوان الفرعي</label><input id="s-subtitle" value="' + esc(v.subtitle || '') + '"></div></div>'
+      + '<div class="form-row"><div class="form-group"><label>الهاتف</label><input id="s-phone" value="' + esc(v.phone || '') + '" dir="ltr"></div><div class="form-group"><label>البريد الإلكتروني</label><input id="s-email" value="' + esc(v.email || '') + '" dir="ltr"></div></div>'
+      + '<div class="form-group"><label>العنوان</label><input id="s-address" value="' + esc(v.address || '') + '"></div>'
+      + '<div class="form-row"><div class="form-group"><label>فيسبوك</label><input id="s-facebook" value="' + esc(v.facebook || '') + '" dir="ltr"></div><div class="form-group"><label>تويتر</label><input id="s-twitter" value="' + esc(v.twitter || '') + '" dir="ltr"></div></div>'
+      + '<div class="form-row"><div class="form-group"><label>تيليجرام</label><input id="s-telegram" value="' + esc(v.telegram || '') + '" dir="ltr"></div><div class="form-group"><label>تيك توك</label><input id="s-tiktok" value="' + esc(v.tiktok || '') + '" dir="ltr"></div></div>'
+      + '<div class="form-row"><div class="form-group"><label>عدد الموظفين</label><input id="s-emp" type="number" value="' + (v.stats?.employees || 600) + '"></div><div class="form-group"><label>عدد السكان</label><input id="s-pop" type="number" value="' + (v.stats?.population || 89000) + '"></div></div>'
+      + '<div class="form-row"><div class="form-group"><label>عدد المناطق</label><input id="s-reg" type="number" value="' + (v.stats?.regions || 9) + '"></div><div class="form-group"><label>عدد القرى</label><input id="s-vil" type="number" value="' + (v.stats?.villages || 34) + '"></div></div>'
+      + '<button class="btn btn-gold" onclick="saveSettings()">حفظ الإعدادات</button>';
+    return;
+  }
+
+  var cols = getColumns(section);
+  var html = '<table><tr>' + cols.map(function(c) { return '<th>' + c.label + '</th>'; }).join('') + '<th>إجراءات</th></tr>';
+  items.forEach(function(item) {
+    html += '<tr>';
+    cols.forEach(function(c) {
+      var val = item[c.key];
+      if (c.key === 'image' || c.key === 'cover') {
+        html += '<td>' + (val ? '<img src="' + esc(val) + '" style="width:40px;height:40px;object-fit:cover;border-radius:6px">' : '-') + '</td>';
+      } else if (c.key === 'status') {
+        html += '<td><span style="background:' + (val === 'new' || val === 'open' ? 'var(--gold)' : 'var(--grn)') + ';color:#fff;padding:2px 8px;border-radius:6px;font-size:11px">' + esc(val) + '</span></td>';
+      } else if (c.key === 'read') {
+        html += '<td>' + (val ? '✓ مقروءة' : '● جديدة') + '</td>';
+      } else {
+        html += '<td>' + esc(String(val || '').slice(0, 60)) + '</td>';
+      }
+    });
+    html += '<td><button class="btn btn-green btn-sm" onclick="editItem(' + item.id + ')">تعديل</button> <button class="btn btn-red btn-sm" onclick="deleteItem(' + item.id + ')">حذف</button></td>';
+    html += '</tr>';
+  });
+  html += '</table>';
+  box.innerHTML = html;
+}
+
+function getColumns(section) {
+  var m = {
+    news: [{ key: 'title', label: 'العنوان' }, { key: 'pinned', label: 'مميز' }, { key: 'created_at', label: 'التاريخ' }],
+    projects: [{ key: 'title', label: 'اسم المشروع' }, { key: 'nature', label: 'الطبيعة' }, { key: 'location', label: 'المكان' }, { key: 'status', label: 'الحالة' }],
+    departments: [{ key: 'name', label: 'الاسم' }, { key: 'icon', label: 'الأيقونة' }, { key: 'head_name', label: 'المسؤول' }],
+    members: [{ key: 'name', label: 'الاسم' }, { key: 'role', label: 'الدور' }],
+    services: [{ key: 'title', label: 'العنوان' }, { key: 'icon', label: 'الأيقونة' }, { key: 'description', label: 'الوصف' }],
+    tenders: [{ key: 'title', label: 'العنوان' }, { key: 'status', label: 'الحالة' }, { key: 'deadline', label: 'الموعد' }],
+    procedures: [{ key: 'title', label: 'العنوان' }],
+    activities: [{ key: 'title', label: 'العنوان' }, { key: 'created_at', label: 'التاريخ' }],
+    photos: [{ key: 'title', label: 'العنوان' }, { key: 'image', label: 'الصورة' }],
+    videos: [{ key: 'title', label: 'العنوان' }, { key: 'url', label: 'الرابط' }],
+    slider: [{ key: 'title', label: 'العنوان' }, { key: 'active', label: 'نشط' }, { key: 'sort_order', label: 'الترتيب' }],
+    complaints: [{ key: 'name', label: 'الاسم' }, { key: 'subject', label: 'الموضوع' }, { key: 'status', label: 'الحالة' }],
+    maintenance_requests: [{ key: 'name', label: 'الاسم' }, { key: 'type', label: 'النوع' }, { key: 'hara', label: 'الحارة' }, { key: 'street', label: 'الشارع' }, { key: 'status', label: 'الحالة' }],
+    container_requests: [{ key: 'name', label: 'الاسم' }, { key: 'location', label: 'المكان' }, { key: 'reason', label: 'السبب' }, { key: 'status', label: 'الحالة' }],
+    lighting_requests: [{ key: 'name', label: 'الاسم' }, { key: 'location', label: 'المكان' }, { key: 'quantity', label: 'العدد' }, { key: 'hara', label: 'الحارة' }, { key: 'status', label: 'الحالة' }],
+    removal_requests: [{ key: 'name', label: 'الاسم' }, { key: 'nature', label: 'الطبيعة' }, { key: 'removal_date', label: 'التاريخ' }, { key: 'status', label: 'الحالة' }],
+    inquiries: [{ key: 'name', label: 'الاسم' }, { key: 'message', label: 'الرسالة' }, { key: 'read', label: 'الحالة' }]
+  };
+  return m[section] || [{ key: 'title', label: 'العنوان' }];
+}
+
+async function openForm(id) {
+  editId = id || null;
+  document.getElementById('contentView').classList.add('hidden');
+  document.getElementById('formView').classList.remove('hidden');
+
+  var fields = getFormFields(currentSection);
+  document.getElementById('formTitle').textContent = (editId ? 'تعديل' : 'إضافة') + ' — ' + document.getElementById('sectionTitle').textContent;
+
+  var html = '<div class="card">';
+  fields.forEach(function(f) {
+    html += '<div class="form-group"><label>' + f.label + '</label>';
+    if (f.type === 'textarea') html += '<textarea id="f-' + f.key + '"></textarea>';
+    else if (f.type === 'select') html += '<select id="f-' + f.key + '">' + f.options.map(function(o) { return '<option value="' + o.v + '">' + o.l + '</option>'; }).join('') + '</select>';
+    else if (f.type === 'checkbox') html += '<input type="checkbox" id="f-' + f.key + '" style="width:auto">';
+    else html += '<input id="f-' + f.key + '" type="' + (f.type || 'text') + '">';
+    html += '</div>';
+  });
+  if (currentSection === 'projects') {
+    html += '<div class="form-group"><label>صور المشروع (حد أقصى 5)</label><input type="file" id="f-images" accept="image/*" multiple style="display:none" onchange="previewProjectImages(this)"><div onclick="document.getElementById(\'f-images\').click()" style="border:2px dashed var(--line);border-radius:10px;padding:16px;text-align:center;cursor:pointer;color:var(--mut)">اضغط لاختيار صور</div><div id="proj-preview" style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"></div></div>';
+  }
+  html += '<button class="btn btn-gold" onclick="saveItem()">حفظ</button> <button class="btn" onclick="closeForm()" style="margin-right:8px">إلغاء</button></div>';
+  document.getElementById('formArea').innerHTML = html;
+
+  _projExistingImages = [];
+  if (editId) {
+    var items = await api('GET', '/api/admin/' + currentSection);
+    var item = items.find(function(x) { return x.id === editId; });
+    if (item) {
+      fields.forEach(function(f) {
+        var el = document.getElementById('f-' + f.key);
+        if (el) {
+          if (f.type === 'checkbox') el.checked = !!item[f.key];
+          else if (f.type === 'date') el.value = item[f.key] ? String(item[f.key]).slice(0,10) : '';
+          else el.value = item[f.key] || '';
+        }
+      });
+      if (currentSection === 'projects' && item.images) {
+        try {
+          var arr = typeof item.images === 'string' ? JSON.parse(item.images) : item.images;
+          if (Array.isArray(arr) && arr.length) {
+            _projExistingImages = arr;
+            var box = document.getElementById('proj-preview');
+            if (box) {
+              box.innerHTML = '';
+              arr.forEach(function(src){
+                var div=document.createElement('div');div.style.cssText='position:relative;width:80px;height:80px;border-radius:8px;overflow:hidden;border:2px solid var(--line)';div.innerHTML='<img src="'+src+'" style="width:100%;height:100%;object-fit:cover">';box.appendChild(div);
+              });
+            }
+          }
+        } catch(e) {}
+      }
+    }
+  }
+}
+
+function closeForm() {
+  editId = null;
+  document.getElementById('formView').classList.add('hidden');
+  document.getElementById('contentView').classList.remove('hidden');
+}
+
+var _projExistingImages = [];
+function previewProjectImages(input) {
+  var box = document.getElementById('proj-preview');
+  box.innerHTML = '';
+  _projExistingImages.forEach(function(src){
+    var div=document.createElement('div');div.style.cssText='position:relative;width:80px;height:80px;border-radius:8px;overflow:hidden;border:2px solid var(--line)';div.innerHTML='<img src="'+src+'" style="width:100%;height:100%;object-fit:cover">';box.appendChild(div);
+  });
+  var files = Array.from(input.files).slice(0,5);
+  files.forEach(function(f){
+    var reader=new FileReader();
+    reader.onload=function(e){
+      var div=document.createElement('div');div.style.cssText='position:relative;width:80px;height:80px;border-radius:8px;overflow:hidden;border:2px solid var(--line)';div.innerHTML='<img src="'+e.target.result+'" style="width:100%;height:100%;object-fit:cover">';box.appendChild(div);
+    };
+    reader.readAsDataURL(f);
+  });
+}
+function compressAdminImage(file){
+  return new Promise(function(resolve){
+    var reader=new FileReader();
+    reader.onload=function(e){
+      var img=new Image();
+      img.onload=function(){
+        var canvas=document.createElement('canvas');
+        var max=800;var w=img.width,h=img.height;
+        if(w>max||h>max){if(w>h){h=h*max/w;w=max;}else{w=w*max/h;h=max;}}
+        canvas.width=w;canvas.height=h;
+        canvas.getContext('2d').drawImage(img,0,0,w,h);
+        resolve(canvas.toDataURL('image/jpeg',0.7));
+      };
+      img.src=e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function getFormFields(section) {
+  var m = {
+    news: [{ key: 'title', label: 'العنوان *' }, { key: 'body', label: 'المحتوى', type: 'textarea' }, { key: 'image', label: 'رابط الصورة' }, { key: 'pinned', label: 'مميز', type: 'checkbox' }],
+    projects: [{ key: 'title', label: 'اسم المشروع *' }, { key: 'nature', label: 'طبيعة المشروع' }, { key: 'location', label: 'مكان المشروع' }, { key: 'start_date', label: 'تاريخ البداية', type: 'date' }, { key: 'end_date', label: 'تاريخ الانتهاء', type: 'date' }, { key: 'goals', label: 'أهداف المشروع', type: 'textarea' }, { key: 'body', label: 'وصف المشروع', type: 'textarea' }, { key: 'status', label: 'الحالة', type: 'select', options: [{ v: 'current', l: 'حالي' }, { v: 'completed', l: 'منجز' }, { v: 'planned', l: 'مخطط' }] }],
+    departments: [{ key: 'name', label: 'الاسم *' }, { key: 'icon', label: 'الأيقونة (إيموجي)' }, { key: 'head_name', label: 'اسم المسؤول' }, { key: 'head_phone', label: 'هاتف المسؤول' }, { key: 'description', label: 'الوصف', type: 'textarea' }, { key: 'sort_order', label: 'الترتيب', type: 'number' }],
+    members: [{ key: 'name', label: 'الاسم *' }, { key: 'role', label: 'الدور' }, { key: 'phone', label: 'الهاتف' }, { key: 'image', label: 'رابط الصورة' }, { key: 'sort_order', label: 'الترتيب', type: 'number' }],
+    services: [{ key: 'title', label: 'العنوان *' }, { key: 'description', label: 'الوصف', type: 'textarea' }, { key: 'icon', label: 'الأيقونة (إيموجي)' }, { key: 'link', label: 'الرابط' }, { key: 'sort_order', label: 'الترتيب', type: 'number' }],
+    tenders: [{ key: 'title', label: 'العنوان *' }, { key: 'body', label: 'التفاصيل', type: 'textarea' }, { key: 'image', label: 'رابط الصورة' }, { key: 'deadline', label: 'الموعد النهائي' }, { key: 'status', label: 'الحالة', type: 'select', options: [{ v: 'open', l: 'مفتوح' }, { v: 'closed', l: 'مغلق' }] }],
+    procedures: [{ key: 'title', label: 'عنوان الإجراء *' }, { key: 'steps', label: 'الخطوات', type: 'textarea' }, { key: 'sort_order', label: 'الترتيب', type: 'number' }],
+    activities: [{ key: 'title', label: 'العنوان *' }, { key: 'body', label: 'الوصف', type: 'textarea' }, { key: 'image', label: 'رابط الصورة' }, { key: 'type', label: 'النوع', type: 'select', options: [{ v: 'activity', l: 'نشاط' }, { v: 'announcement', l: 'إعلان' }] }],
+    photos: [{ key: 'title', label: 'العنوان' }, { key: 'image', label: 'رابط الصورة *' }],
+    videos: [{ key: 'title', label: 'العنوان' }, { key: 'url', label: 'رابط الفيديو *' }],
+    slider: [{ key: 'title', label: 'العنوان' }, { key: 'subtitle', label: 'العنوان الفرعي' }, { key: 'image', label: 'رابط الصورة' }, { key: 'link', label: 'الرابط' }, { key: 'sort_order', label: 'الترتيب', type: 'number' }, { key: 'active', label: 'نشط', type: 'checkbox' }],
+    maintenance_requests: [{ key: 'name', label: 'الاسم' }, { key: 'phone', label: 'الهاتف' }, { key: 'type', label: 'النوع' }, { key: 'hara', label: 'الحارة' }, { key: 'street', label: 'الشارع' }, { key: 'request_date', label: 'التاريخ', type: 'date' }, { key: 'details', label: 'التفاصيل', type: 'textarea' }],
+    container_requests: [{ key: 'name', label: 'الاسم' }, { key: 'phone', label: 'الهاتف' }, { key: 'location', label: 'المكان' }, { key: 'details', label: 'التفاصيل', type: 'textarea' }, { key: 'reason', label: 'السبب', type: 'textarea' }],
+    lighting_requests: [{ key: 'name', label: 'الاسم' }, { key: 'phone', label: 'الهاتف' }, { key: 'location', label: 'المكان' }, { key: 'street', label: 'الشارع' }, { key: 'hara', label: 'الحارة' }, { key: 'quantity', label: 'العدد', type: 'number' }, { key: 'reason', label: 'السبب', type: 'textarea' }],
+    removal_requests: [{ key: 'name', label: 'الاسم *' }, { key: 'phone', label: 'الهاتف' }, { key: 'nature', label: 'الطبيعة' }, { key: 'removal_date', label: 'التاريخ', type: 'date' }, { key: 'reason', label: 'الأسباب', type: 'textarea' }, { key: 'warning', label: 'الإنذار', type: 'textarea' }]
+  };
+  return m[section] || [{ key: 'title', label: 'العنوان' }];
+}
+
+async function saveItem() {
+  var fields = getFormFields(currentSection);
+  var data = {};
+  fields.forEach(function(f) {
+    var el = document.getElementById('f-' + f.key);
+    if (el) {
+      if (f.type === 'checkbox') data[f.key] = el.checked;
+      else if (f.type === 'number') data[f.key] = Number(el.value) || 0;
+      else data[f.key] = el.value.trim();
+    }
+  });
+  if (currentSection === 'projects') {
+    var fileInput = document.getElementById('f-images');
+    var newImages = [];
+    if (fileInput && fileInput.files && fileInput.files.length) {
+      var files = Array.from(fileInput.files).slice(0,5);
+      for (var i=0;i<files.length;i++) {
+        var c = await compressAdminImage(files[i]);
+        newImages.push(c);
+      }
+    }
+    var allImages = (_projExistingImages || []).concat(newImages).slice(0,5);
+    data.images = JSON.stringify(allImages);
+    if (!data.start_date) data.start_date = null;
+    if (!data.end_date) data.end_date = null;
+  }
+  if (editId) data.id = editId;
+  // For projects PATCH, we need to handle images as string, but generic handler will handle
+  var method = editId ? 'PATCH' : 'POST';
+  // Use POST for create, PATCH for update to handle id correctly
+  if (editId) {
+    await api('PATCH', '/api/admin/' + currentSection, data);
+  } else {
+    await api('POST', '/api/admin/' + currentSection, data);
+  }
+  alert('تم الحفظ');
+  closeForm();
+  loadSection(currentSection);
+}
+
+async function editItem(id) {
+  openForm(id);
+}
+
+async function deleteItem(id) {
+  if (!confirm('هل أنت متأكد من الحذف؟')) return;
+  await api('DELETE', '/api/admin/' + currentSection, { id: id });
+  alert('تم الحذف');
+  loadSection(currentSection);
+}
+
+async function saveSettings() {
+  var value = {
+    name: document.getElementById('s-name').value.trim(),
+    subtitle: document.getElementById('s-subtitle').value.trim(),
+    phone: document.getElementById('s-phone').value.trim(),
+    email: document.getElementById('s-email').value.trim(),
+    address: document.getElementById('s-address').value.trim(),
+    facebook: document.getElementById('s-facebook').value.trim(),
+    twitter: document.getElementById('s-twitter').value.trim(),
+    telegram: document.getElementById('s-telegram').value.trim(),
+    tiktok: document.getElementById('s-tiktok').value.trim(),
+    stats: {
+      employees: Number(document.getElementById('s-emp').value) || 600,
+      population: Number(document.getElementById('s-pop').value) || 89000,
+      regions: Number(document.getElementById('s-reg').value) || 9,
+      villages: Number(document.getElementById('s-vil').value) || 34
+    }
+  };
+  await api('PATCH', '/api/admin/settings', { key: 'site', value: value });
+  alert('تم حفظ الإعدادات');
+}
+
+if (TOKEN) {
+  document.getElementById('loginPage').classList.add('hidden');
+  document.getElementById('sidebar').classList.remove('hidden');
+  document.getElementById('main').classList.remove('hidden');
+  showSection('dashboard');
+} else {
+  document.getElementById('loginPage').classList.remove('hidden');
+  document.getElementById('sidebar').classList.add('hidden');
+  document.getElementById('main').classList.add('hidden');
+}
+</script>
+</body>
+</html>
