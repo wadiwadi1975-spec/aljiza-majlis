@@ -25,7 +25,7 @@ a{color:inherit;text-decoration:none}
 .logo small{display:block;font-size:10px;color:#a0c8a0;font-weight:400}
 .sp{flex:1}
 .nav{display:flex;gap:4px;flex-wrap:wrap}
-.nav a{color:#d0e8d0;padding:8px 12px;border-radius:8px;font-size:13px;font-weight:600;transition:.2s}
+.nav a{color:var(--gold);padding:8px 12px;border-radius:8px;font-size:13px;font-weight:600;transition:.2s}
 .nav a:hover,.nav a.on{background:var(--gold);color:#1a2e1a}
 .burger{display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer}
 .hero-text{background:linear-gradient(180deg,rgba(9,66,57,.94),rgba(6,48,37,.94));text-align:center;padding:24px 20px;color:#fff}
@@ -43,10 +43,10 @@ a{color:inherit;text-decoration:none}
 .news-ticker .label{background:var(--gold);color:#1a2e1a;padding:4px 14px;border-radius:6px;font-size:12px;font-weight:700;white-space:nowrap;flex-shrink:0}
 .news-ticker .items{overflow:hidden;flex:1;white-space:nowrap}
 .news-ticker ul{list-style:none;display:flex;gap:40px;animation:scroll 30s linear infinite;white-space:nowrap;width:max-content}
-.news-ticker li{font-size:13px;color:#d0e8d0}
+.news-ticker li{font-size:13px;color:var(--gold)}
 @keyframes scroll{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
 .sec-head{text-align:center;margin-bottom:30px}
-.sec-head h2{font-size:26px;font-weight:800;color:var(--acc);border-inline-end:4px solid var(--gold);display:inline-block;padding-inline-end:12px}
+.sec-head h2{font-size:26px;font-weight:800;color:var(--gold);border-inline-end:4px solid var(--gold);display:inline-block;padding-inline-end:12px}
 .sec-head p{color:var(--mut);margin-top:8px}
 .grid{display:grid;gap:20px}
 .grid-2{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
@@ -56,30 +56,30 @@ a{color:inherit;text-decoration:none}
 .card:hover{transform:translateY(-4px)}
 .card img{width:100%;height:180px;object-fit:cover}
 .card .body{padding:16px}
-.card h3{font-size:16px;margin-bottom:6px;color:var(--acc)}
+.card h3{font-size:16px;margin-bottom:6px;color:var(--gold)}
 .card p{font-size:13px;color:var(--mut);line-height:1.8}
 .card .date{font-size:11px;color:var(--gold);font-weight:700}
 .card .tag{display:inline-block;background:var(--acc);color:#fff;padding:2px 10px;border-radius:999px;font-size:11px;margin-bottom:6px}
 .dept-card{background:rgba(255,255,255,.75);border:1px solid var(--line);border-radius:14px;padding:20px;text-align:center;transition:transform .2s}
 .dept-card:hover{transform:translateY(-4px)}
 .dept-card .icon{font-size:40px;margin-bottom:10px}
-.dept-card h3{font-size:15px;color:var(--acc)}
+.dept-card h3{font-size:15px;color:var(--gold)}
 .dept-card p{font-size:12px;color:var(--mut);margin-top:4px}
 .member-card{background:rgba(255,255,255,.75);border:1px solid var(--line);border-radius:14px;padding:20px;text-align:center}
 .member-card .avatar{width:80px;height:80px;border-radius:50%;background:var(--card2);border:3px solid var(--gold);display:grid;place-items:center;font-size:32px;margin:0 auto 10px}
-.member-card h3{font-size:15px;color:var(--acc)}
+.member-card h3{font-size:15px;color:var(--gold)}
 .member-card p{font-size:12px;color:var(--gold);font-weight:700}
 .service-card{background:#fff;border:1px solid var(--line);border-top:4px solid var(--acc);border-radius:14px;padding:28px 16px;text-align:center;transition:transform .2s;cursor:pointer}
 .service-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
 .service-card .icon{width:72px;height:72px;margin:0 auto 14px;display:grid;place-items:center}
 .service-card .icon img{width:72px;height:72px;object-fit:contain}
 .service-card .icon svg{width:64px;height:64px}
-.service-card h3{font-size:16px;font-weight:800;color:var(--acc);margin-bottom:4px}
+.service-card h3{font-size:16px;font-weight:800;color:var(--gold);margin-bottom:4px}
 .service-card p{font-size:13px;color:var(--mut);margin-top:4px;line-height:1.6}
 .chairman{background:transparent;border:none;box-shadow:none;border-radius:16px;padding:30px;display:flex;gap:24px;align-items:center;flex-wrap:wrap}
 .chairman img{width:160px;height:180px;border-radius:14px;object-fit:cover;border:3px solid var(--gold)}
 .chairman .txt h3{color:#fff;margin-bottom:8px}
-.chairman .txt p{font-size:14px;line-height:2;color:#d0e8d0}
+.chairman .txt p{font-size:14px;line-height:2;color:var(--gold)}
 .chairman .txt .name{color:#fff;font-weight:700;font-size:15px;margin-top:10px}
 .footer{background:linear-gradient(180deg,rgba(9,66,57,.95),rgba(6,48,37,.95));color:#b8d8b8;padding:40px 20px 20px;margin-top:40px}
 .footer .inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:30px}
@@ -94,10 +94,10 @@ a{color:inherit;text-decoration:none}
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;display:none;align-items:center;justify-content:center;padding:14px}
 .modal-bg.open{display:flex}
 .modal{background:var(--card);border-radius:18px;max-width:600px;width:100%;max-height:90vh;overflow:auto;padding:24px}
-.modal h2{color:var(--acc);margin-bottom:14px}
+.modal h2{color:var(--gold);margin-bottom:14px}
 .modal .close{float:left;background:none;border:none;font-size:24px;cursor:pointer;color:var(--mut)}
 .form-group{margin-bottom:14px}
-.form-group label{display:block;font-size:13px;font-weight:700;margin-bottom:5px;color:var(--acc)}
+.form-group label{display:block;font-size:13px;font-weight:700;margin-bottom:5px;color:var(--gold)}
 .form-group input,.form-group textarea,.form-group select{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px;font-family:inherit;background:#fff}
 .form-group textarea{min-height:100px;resize:vertical}
 .btn{border:none;padding:10px 24px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:.2s}
@@ -256,7 +256,7 @@ a[href*="prayer"],a[href*="Prayer"],a[href*="prayer-clock"],a[href*="prayer-cloc
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px;max-width:1000px;margin:0 auto">
 
       <div>
-        <h3 style="color:var(--acc);margin-bottom:16px;font-size:18px">📝 تقديم شكوى أو اقتراح</h3>
+        <h3 style="color:var(--gold);margin-bottom:16px;font-size:18px">📝 تقديم شكوى أو اقتراح</h3>
         <div class="card" style="padding:20px">
           <div class="form-group"><label>اسم صاحب الشكوى *</label><input id="comp-name" placeholder="أدخل اسمك"></div>
           <div class="form-group"><label>رقم الموبايل *</label><input id="comp-phone" dir="ltr" placeholder="09xxxxxxxx"></div>
@@ -275,7 +275,7 @@ a[href*="prayer"],a[href*="Prayer"],a[href*="prayer-clock"],a[href*="prayer-cloc
       </div>
 
       <div>
-        <h3 style="color:var(--acc);margin-bottom:16px;font-size:18px">📋 آخر الشكاوى والاقتراحات</h3>
+        <h3 style="color:var(--gold);margin-bottom:16px;font-size:18px">📋 آخر الشكاوى والاقتراحات</h3>
         <div id="complaintsList" class="card" style="padding:16px;max-height:500px;overflow-y:auto"></div>
       </div>
 
@@ -289,11 +289,11 @@ a[href*="prayer"],a[href*="Prayer"],a[href*="prayer-clock"],a[href*="prayer-cloc
     <div class="sec-head"><h2>اتصل بنا</h2><p>تواصل مع بلدية الجيزة</p></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:800px;margin:0 auto">
       <div>
-        <h3 style="color:var(--acc);margin-bottom:14px">معلومات التواصل</h3>
+        <h3 style="color:var(--gold);margin-bottom:14px">معلومات التواصل</h3>
         <div id="contactInfo"></div>
       </div>
       <div>
-        <h3 style="color:var(--acc);margin-bottom:14px">أرسل رسالة</h3>
+        <h3 style="color:var(--gold);margin-bottom:14px">أرسل رسالة</h3>
         <div class="form-group"><label>الاسم *</label><input id="inq-name"></div>
         <div class="form-group"><label>الهاتف</label><input id="inq-phone" dir="ltr"></div>
         <div class="form-group"><label>البريد الإلكتروني</label><input id="inq-email" dir="ltr"></div>
@@ -531,7 +531,7 @@ async function loadPage(page) {
       var meta = '';
       if (p.nature) meta += '<span style="background:var(--card2);padding:2px 8px;border-radius:6px;font-size:11px;margin-left:6px">📌 ' + esc(p.nature) + '</span>';
       if (p.location) meta += '<span style="background:var(--card2);padding:2px 8px;border-radius:6px;font-size:11px">📍 ' + esc(p.location) + '</span>';
-      var goals = p.goals ? '<div style="margin-top:8px;font-size:13px;color:var(--acc)"><strong>الأهداف:</strong> ' + esc(p.goals) + '</div>' : '';
+      var goals = p.goals ? '<div style="margin-top:8px;font-size:13px;color:var(--gold)"><strong>الأهداف:</strong> ' + esc(p.goals) + '</div>' : '';
       return '<div class="card"><div style="height:200px;overflow:hidden">' + (cover ? '<img src="' + esc(cover) + '" alt="" style="width:100%;height:100%;object-fit:cover">' : '<div style="height:100%;background:var(--card2);display:grid;place-items:center;font-size:40px">🏗️</div>') + '</div><div class="body"><span class="tag">' + (p.status === 'current' ? 'حالي' : p.status === 'completed' ? 'منجز' : 'مخطط') + '</span>' + dates + '<div style="margin:6px 0">' + meta + '</div><h3>' + esc(p.title) + '</h3><p>' + esc(p.body) + '</p>' + goals + gallery + '</div></div>';
     }).join('') || '<div class="empty" style="grid-column:1/-1;text-align:center;color:var(--mut);padding:40px">لا توجد مشاريع بعد — أضف مشروعاً جديداً من لوحة التحكم</div>';
   }
@@ -723,7 +723,7 @@ async function loadComplaints() {
       var dateText = c.complaint_date ? new Date(c.complaint_date).toLocaleDateString('ar') : new Date(c.created_at).toLocaleDateString('ar');
       return '<div style="border-bottom:1px solid var(--line);padding:12px 0">' +
         '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">' +
-          '<strong style="color:var(--acc)">' + esc(c.name) + ' — ' + esc(c.phone) + '</strong>' +
+          '<strong style="color:var(--gold)">' + esc(c.name) + ' — ' + esc(c.phone) + '</strong>' +
           '<span style="background:' + (statusColors[c.status]||'var(--gold)') + ';color:#fff;padding:2px 8px;border-radius:6px;font-size:11px">' + (statusLabels[c.status]||c.status) + '</span>' +
         '</div>' +
         '<div style="font-size:12px;color:var(--gold);font-weight:700;margin-bottom:4px">' + esc(natureText) + ' — ' + dateText + '</div>' +
