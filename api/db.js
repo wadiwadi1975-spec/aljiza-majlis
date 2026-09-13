@@ -214,6 +214,19 @@ async function ensureSchema() {
       status TEXT DEFAULT 'new',
       created_at TIMESTAMPTZ DEFAULT now()
     );
+
+    CREATE TABLE IF NOT EXISTS removal_requests (
+      id SERIAL PRIMARY KEY,
+      name TEXT NOT NULL,
+      phone TEXT NOT NULL,
+      nature TEXT NOT NULL,
+      removal_date DATE,
+      reason TEXT DEFAULT '',
+      warning TEXT DEFAULT '',
+      images JSONB DEFAULT '[]',
+      status TEXT DEFAULT 'new',
+      created_at TIMESTAMPTZ DEFAULT now()
+    );
   `);
 }
 

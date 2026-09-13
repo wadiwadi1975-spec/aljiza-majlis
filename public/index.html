@@ -364,6 +364,21 @@ a[href*="prayer"],a[href*="Prayer"],a[href*="prayer-clock"],a[href*="prayer-cloc
   </div>
 </div>
 
+<div class="modal-bg" id="removalModal" onclick="if(event.target===this) closeRemovalModal()">
+  <div class="modal" style="max-width:520px">
+    <button class="close" onclick="closeRemovalModal()">×</button>
+    <h2>طلب إزالة</h2>
+    <div class="form-group"><label>اسم صاحب الطلب *</label><input id="rem-name" placeholder="الاسم الكامل"></div>
+    <div class="form-group"><label>رقم الهاتف *</label><input id="rem-phone" dir="ltr" placeholder="09xxxxxxxx"></div>
+    <div class="form-group"><label>طبيعة الإزالة *</label><select id="rem-nature"><option value="">اختر طبيعة الإزالة</option><option>شارع</option><option>بناء</option><option>مطبات صناعية</option><option>تعديات على ارض حكومية</option><option>تعديات على شرفات شوارع</option><option>تعديات على ارض الغير</option></select></div>
+    <div class="form-group"><label>تاريخ الإزالة *</label><input id="rem-date" type="date"></div>
+    <div class="form-group"><label>الأسباب *</label><textarea id="rem-reason" placeholder="أسباب الإزالة..."></textarea></div>
+    <div class="form-group"><label>نص الإنذار</label><textarea id="rem-warning" placeholder="نص الإنذار المتعلق بالإزالة..."></textarea></div>
+    <div class="form-group"><label>📷 صور متعلقة (اختياري)</label><input type="file" id="rem-images" accept="image/*" multiple style="display:none" onchange="previewRemovalImages(this)"><div onclick="document.getElementById('rem-images').click()" style="border:2px dashed var(--line);border-radius:10px;padding:16px;text-align:center;cursor:pointer;color:var(--mut)">اضغط لاختيار صور (حد أقصى 3)</div><div id="rem-preview" style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"></div></div>
+    <button class="btn btn-gold" onclick="submitRemoval()" style="width:100%">إرسال الطلب</button>
+  </div>
+</div>
+
 <script>
 var SITE = {};
 
@@ -520,8 +535,9 @@ async function loadPage(page) {
       var isMaint = s.title.trim() === 'طلبات الصيانة';
       var isShakawi = s.title.trim() === 'الشكاوى';
       var isContainer = s.title.trim() === 'وضع حاوية';
+      var isRemoval = ['وحدة إزالة','وحدة الازالة','ازالة','إزالة'].includes(s.title.trim());
       var isLighting = ['الإنارة','الانارة','وحدة انارة','وحدة إنارة','تركيب عمود الانارة','تركيب عمود الإنارة'].includes(s.title.trim());
-      var onclick = isMaint ? 'openMaintModal()' : isContainer ? 'openContainerModal()' : isLighting ? 'openLightingModal()' : isShakawi ? "go('complaints')" : 'window.open(\'' + esc(s.link || '#') + '\',\'_blank\')';
+      var onclick = isMaint ? 'openMaintModal()' : isContainer ? 'openContainerModal()' : isRemoval ? 'openRemovalModal()' : isLighting ? 'openLightingModal()' : isShakawi ? "go('complaints')" : 'window.open(\'' + esc(s.link || '#') + '\',\'_blank\')';
       return '<div class="service-card" onclick="' + onclick + '"><div class="icon">' + iconHtml + '</div><h3>' + esc(s.title) + '</h3><p>' + esc(s.description) + '</p></div>';
     }).join('');
     var procEl = document.getElementById('procList');
@@ -737,6 +753,39 @@ async function submitLighting(){
   alert('تم إرسال طلب تركيب عمود الإنارة بنجاح');
   closeLightingModal();
   document.getElementById('light-name').value='';document.getElementById('light-phone').value='';document.getElementById('light-location').value='';document.getElementById('light-street').value='';document.getElementById('light-hara').value='';document.getElementById('light-quantity').value='1';document.getElementById('light-reason').value='';
+}
+function previewRemovalImages(input){
+  var box=document.getElementById('rem-preview');
+  box.innerHTML='';
+  var files=Array.from(input.files).slice(0,3);
+  files.forEach(function(f){
+    var reader=new FileReader();
+    reader.onload=function(e){
+      var div=document.createElement('div');div.style.cssText='position:relative;width:80px;height:80px;border-radius:8px;overflow:hidden;border:2px solid var(--line)';div.innerHTML='<img src="'+e.target.result+'" style="width:100%;height:100%;object-fit:cover">';box.appendChild(div);
+    };
+    reader.readAsDataURL(f);
+  });
+}
+function openRemovalModal(){ document.getElementById('removalModal').classList.add('open'); }
+function closeRemovalModal(){ document.getElementById('removalModal').classList.remove('open'); }
+async function submitRemoval(){
+  var name=document.getElementById('rem-name').value.trim();
+  var phone=document.getElementById('rem-phone').value.trim();
+  var nature=document.getElementById('rem-nature').value;
+  var date=document.getElementById('rem-date').value;
+  var reason=document.getElementById('rem-reason').value.trim();
+  var warning=document.getElementById('rem-warning').value.trim();
+  if(!name||!phone||!nature||!date||!reason){ alert('يرجى ملء الحقول المطلوبة *'); return; }
+  var fileInput=document.getElementById('rem-images');
+  var images=[];
+  if(fileInput && fileInput.files.length){
+    var files=Array.from(fileInput.files).slice(0,3);
+    for(var i=0;i<files.length;i++){ var c=await compressImage(files[i]); images.push(c); }
+  }
+  await api('POST','/api/removal',{ name:name, phone:phone, nature:nature, removal_date:date, reason:reason, warning:warning, images:images });
+  alert('تم إرسال طلب الإزالة بنجاح');
+  closeRemovalModal();
+  document.getElementById('rem-name').value='';document.getElementById('rem-phone').value='';document.getElementById('rem-nature').value='';document.getElementById('rem-date').value='';document.getElementById('rem-reason').value='';document.getElementById('rem-warning').value='';document.getElementById('rem-images').value='';document.getElementById('rem-preview').innerHTML='';
 }
 
 loadHome();

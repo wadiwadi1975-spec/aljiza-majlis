@@ -214,6 +214,21 @@ module.exports = async (req, res) => {
     return json(res, 200, rows);
   }
 
+  // ---- PUBLIC: removal submit ----
+  if (url === '/api/removal' && method === 'POST') {
+    if (!body.name || !body.phone || !body.nature) return json(res, 400, { error: 'name, phone & nature required' });
+    const images = body.images || [];
+    await pool.query(
+      `INSERT INTO removal_requests (name, phone, nature, removal_date, reason, warning, images) VALUES ($1,$2,$3,$4,$5,$6,$7)`,
+      [body.name, body.phone, body.nature, body.removal_date || null, body.reason || '', body.warning || '', JSON.stringify(images)]
+    );
+    return json(res, 201, { ok: true });
+  }
+  if (url === '/api/removal/list' && method === 'GET') {
+    const { rows } = await pool.query('SELECT * FROM removal_requests ORDER BY created_at DESC LIMIT 50');
+    return json(res, 200, rows);
+  }
+
   // ---- PUBLIC: inquiries submit ----
   if (url === '/api/inquiries' && method === 'POST') {
     if (!body.name || !body.message) return json(res, 400, { error: 'name & message required' });
@@ -230,7 +245,7 @@ module.exports = async (req, res) => {
     const me = await needAdmin(req, res);
     if (!me) return;
     const table = adminCrud[1];
-    const allowed = ['news', 'projects', 'departments', 'members', 'services', 'tenders', 'procedures', 'activities', 'photos', 'videos', 'slider', 'org_chart', 'complaints', 'inquiries', 'settings', 'maintenance_requests', 'container_requests', 'lighting_requests'];
+    const allowed = ['news', 'projects', 'departments', 'members', 'services', 'tenders', 'procedures', 'activities', 'photos', 'videos', 'slider', 'org_chart', 'complaints', 'inquiries', 'settings', 'maintenance_requests', 'container_requests', 'lighting_requests', 'removal_requests'];
     if (!allowed.includes(table)) return json(res, 404, { error: 'not found' });
     if (table === 'settings') {
       const { rows } = await pool.query('SELECT * FROM settings');
@@ -243,7 +258,7 @@ module.exports = async (req, res) => {
     const me = await needAdmin(req, res);
     if (!me) return;
     const table = adminCrud[1];
-    const allowed = ['news', 'projects', 'departments', 'members', 'services', 'tenders', 'procedures', 'activities', 'photos', 'videos', 'slider', 'org_chart', 'maintenance_requests', 'container_requests', 'lighting_requests'];
+    const allowed = ['news', 'projects', 'departments', 'members', 'services', 'tenders', 'procedures', 'activities', 'photos', 'videos', 'slider', 'org_chart', 'maintenance_requests', 'container_requests', 'lighting_requests', 'removal_requests'];
     if (!allowed.includes(table)) return json(res, 404, { error: 'not found' });
 
     if (table === 'settings') {
@@ -264,7 +279,7 @@ module.exports = async (req, res) => {
     const me = await needAdmin(req, res);
     if (!me) return;
     const table = adminCrud[1];
-    const allowed = ['news', 'projects', 'departments', 'members', 'services', 'tenders', 'procedures', 'activities', 'photos', 'videos', 'slider', 'org_chart', 'settings', 'maintenance_requests', 'container_requests', 'lighting_requests'];
+    const allowed = ['news', 'projects', 'departments', 'members', 'services', 'tenders', 'procedures', 'activities', 'photos', 'videos', 'slider', 'org_chart', 'settings', 'maintenance_requests', 'container_requests', 'lighting_requests', 'removal_requests'];
     if (!allowed.includes(table)) return json(res, 404, { error: 'not found' });
 
     if (table === 'settings') {
@@ -288,7 +303,7 @@ module.exports = async (req, res) => {
     const me = await needAdmin(req, res);
     if (!me) return;
     const table = adminCrud[1];
-    const allowed = ['news', 'projects', 'departments', 'members', 'services', 'tenders', 'procedures', 'activities', 'photos', 'videos', 'slider', 'org_chart', 'complaints', 'inquiries', 'maintenance_requests', 'container_requests', 'lighting_requests'];
+    const allowed = ['news', 'projects', 'departments', 'members', 'services', 'tenders', 'procedures', 'activities', 'photos', 'videos', 'slider', 'org_chart', 'complaints', 'inquiries', 'maintenance_requests', 'container_requests', 'lighting_requests', 'removal_requests'];
     if (!allowed.includes(table)) return json(res, 404, { error: 'not found' });
     const id = body.id;
     if (!id) return json(res, 400, { error: 'id required' });
