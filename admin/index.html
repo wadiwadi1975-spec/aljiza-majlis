@@ -61,6 +61,7 @@ tr:hover{background:#f9f6ef}
   <a onclick="showSection('complaints')">⚠️ الشكاوى</a>
   <a onclick="showSection('maintenance_requests')">🔧 طلبات الصيانة</a>
   <a onclick="showSection('container_requests')">🗑️ طلبات الحاويات</a>
+  <a onclick="showSection('lighting_requests')">💡 طلبات الإنارة</a>
   <a onclick="showSection('inquiries')">💬 الرسائل</a>
   <a onclick="showSection('settings')">⚙️ الإعدادات</a>
   <a onclick="logout()" style="color:#ff9999;margin-top:20px;border-top:1px solid rgba(255,255,255,.1);padding-top:14px">🚪 خروج</a>
@@ -175,7 +176,7 @@ async function loadSection(section) {
     members: '👥 الأعضاء', services: '⚙️ الخدمات', tenders: '📋 المناقصات',
     procedures: '📝 الإجراءات', activities: '📢 النشاطات', photos: '🖼️ الصور',
     videos: '🎬 الفيديو', slider: '🎞️ السلايدر', complaints: '⚠️ الشكاوى',
-    maintenance_requests: '🔧 طلبات الصيانة', container_requests: '🗑️ طلبات الحاويات', inquiries: '💬 الرسائل', settings: '⚙️ الإعدادات'
+    maintenance_requests: '🔧 طلبات الصيانة', container_requests: '🗑️ طلبات الحاويات', lighting_requests: '💡 طلبات الإنارة', inquiries: '💬 الرسائل', settings: '⚙️ الإعدادات'
   };
   document.getElementById('sectionTitle').textContent = titles[section] || section;
   var items = await api('GET', '/api/admin/' + section);
@@ -239,6 +240,7 @@ function getColumns(section) {
     complaints: [{ key: 'name', label: 'الاسم' }, { key: 'subject', label: 'الموضوع' }, { key: 'status', label: 'الحالة' }],
     maintenance_requests: [{ key: 'name', label: 'الاسم' }, { key: 'type', label: 'النوع' }, { key: 'hara', label: 'الحارة' }, { key: 'street', label: 'الشارع' }, { key: 'status', label: 'الحالة' }],
     container_requests: [{ key: 'name', label: 'الاسم' }, { key: 'location', label: 'المكان' }, { key: 'reason', label: 'السبب' }, { key: 'status', label: 'الحالة' }],
+    lighting_requests: [{ key: 'name', label: 'الاسم' }, { key: 'location', label: 'المكان' }, { key: 'quantity', label: 'العدد' }, { key: 'hara', label: 'الحارة' }, { key: 'status', label: 'الحالة' }],
     inquiries: [{ key: 'name', label: 'الاسم' }, { key: 'message', label: 'الرسالة' }, { key: 'read', label: 'الحالة' }]
   };
   return m[section] || [{ key: 'title', label: 'العنوان' }];

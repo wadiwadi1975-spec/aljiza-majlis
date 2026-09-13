@@ -349,6 +349,21 @@ a[href*="prayer"],a[href*="Prayer"],a[href*="prayer-clock"],a[href*="prayer-cloc
   </div>
 </div>
 
+<div class="modal-bg" id="lightingModal" onclick="if(event.target===this) closeLightingModal()">
+  <div class="modal" style="max-width:520px">
+    <button class="close" onclick="closeLightingModal()">×</button>
+    <h2>طلب تركيب عمود إنارة</h2>
+    <div class="form-group"><label>اسم صاحب الطلب *</label><input id="light-name" placeholder="الاسم الكامل"></div>
+    <div class="form-group"><label>رقم الهاتف *</label><input id="light-phone" dir="ltr" placeholder="09xxxxxxxx"></div>
+    <div class="form-group"><label>المكان *</label><input id="light-location" placeholder="مثال: حارة الزيتون - قرب المسجد"></div>
+    <div class="form-group"><label>الشارع *</label><input id="light-street" placeholder="اسم الشارع"></div>
+    <div class="form-group"><label>الحارة *</label><input id="light-hara" placeholder="اسم الحارة"></div>
+    <div class="form-group"><label>العدد *</label><input id="light-quantity" type="number" min="1" value="1" placeholder="عدد الأعمدة"></div>
+    <div class="form-group"><label>الأسباب *</label><textarea id="light-reason" placeholder="سبب طلب الإنارة..."></textarea></div>
+    <button class="btn btn-gold" onclick="submitLighting()" style="width:100%">إرسال الطلب</button>
+  </div>
+</div>
+
 <script>
 var SITE = {};
 
@@ -505,7 +520,8 @@ async function loadPage(page) {
       var isMaint = s.title.trim() === 'طلبات الصيانة';
       var isShakawi = s.title.trim() === 'الشكاوى';
       var isContainer = s.title.trim() === 'وضع حاوية';
-      var onclick = isMaint ? 'openMaintModal()' : isContainer ? 'openContainerModal()' : isShakawi ? "go('complaints')" : 'window.open(\'' + esc(s.link || '#') + '\',\'_blank\')';
+      var isLighting = ['الإنارة','الانارة','وحدة انارة','وحدة إنارة','تركيب عمود الانارة','تركيب عمود الإنارة'].includes(s.title.trim());
+      var onclick = isMaint ? 'openMaintModal()' : isContainer ? 'openContainerModal()' : isLighting ? 'openLightingModal()' : isShakawi ? "go('complaints')" : 'window.open(\'' + esc(s.link || '#') + '\',\'_blank\')';
       return '<div class="service-card" onclick="' + onclick + '"><div class="icon">' + iconHtml + '</div><h3>' + esc(s.title) + '</h3><p>' + esc(s.description) + '</p></div>';
     }).join('');
     var procEl = document.getElementById('procList');
@@ -705,6 +721,22 @@ async function submitContainer(){
   alert('تم إرسال طلب وضع الحاوية بنجاح');
   closeContainerModal();
   document.getElementById('cont-name').value='';document.getElementById('cont-phone').value='';document.getElementById('cont-location').value='';document.getElementById('cont-details').value='';document.getElementById('cont-reason').value='';
+}
+function openLightingModal(){ document.getElementById('lightingModal').classList.add('open'); }
+function closeLightingModal(){ document.getElementById('lightingModal').classList.remove('open'); }
+async function submitLighting(){
+  var name=document.getElementById('light-name').value.trim();
+  var phone=document.getElementById('light-phone').value.trim();
+  var location=document.getElementById('light-location').value.trim();
+  var street=document.getElementById('light-street').value.trim();
+  var hara=document.getElementById('light-hara').value.trim();
+  var quantity=document.getElementById('light-quantity').value;
+  var reason=document.getElementById('light-reason').value.trim();
+  if(!name||!phone||!location||!street||!hara||!quantity||!reason){ alert('يرجى ملء جميع الحقول المطلوبة *'); return; }
+  await api('POST','/api/lighting',{ name:name, phone:phone, location:location, street:street, hara:hara, quantity:quantity, reason:reason });
+  alert('تم إرسال طلب تركيب عمود الإنارة بنجاح');
+  closeLightingModal();
+  document.getElementById('light-name').value='';document.getElementById('light-phone').value='';document.getElementById('light-location').value='';document.getElementById('light-street').value='';document.getElementById('light-hara').value='';document.getElementById('light-quantity').value='1';document.getElementById('light-reason').value='';
 }
 
 loadHome();
