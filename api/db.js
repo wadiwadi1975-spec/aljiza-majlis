@@ -141,6 +141,9 @@ async function ensureSchema() {
       message TEXT NOT NULL,
       status TEXT DEFAULT 'new',
       reply TEXT DEFAULT '',
+      images JSONB DEFAULT '[]',
+      complaint_date DATE,
+      nature TEXT DEFAULT '',
       created_at TIMESTAMPTZ DEFAULT now()
     );
 

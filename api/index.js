@@ -160,15 +160,15 @@ module.exports = async (req, res) => {
     if (!body.name || !body.message) return json(res, 400, { error: 'name & message required' });
     const images = body.images || [];
     await pool.query(
-      `INSERT INTO complaints (name, phone, subject, message, images) VALUES ($1, $2, $3, $4, $5)`,
-      [body.name, body.phone || '', body.subject || '', body.message, JSON.stringify(images)]
+      `INSERT INTO complaints (name, phone, subject, message, images, complaint_date, nature) VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+      [body.name, body.phone || '', body.subject || '', body.message, JSON.stringify(images), body.complaint_date || null, body.nature || '']
     );
     return json(res, 201, { ok: true });
   }
 
   // ---- PUBLIC: complaints list ----
   if (url === '/api/complaints/list' && method === 'GET') {
-    const { rows } = await pool.query('SELECT id, name, phone, subject, message, COALESCE(images,\'[]\')::jsonb AS images, status, created_at FROM complaints ORDER BY created_at DESC LIMIT 50');
+    const { rows } = await pool.query('SELECT id, name, phone, subject, message, COALESCE(images,\'[]\')::jsonb AS images, complaint_date, nature, status, created_at FROM complaints ORDER BY created_at DESC LIMIT 50');
     return json(res, 200, rows);
   }
 
