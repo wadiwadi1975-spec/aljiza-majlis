@@ -216,6 +216,14 @@ a[href*="prayer"],a[href*="Prayer"],a[href*="prayer-clock"],a[href*="prayer-cloc
     <div class="sec-head"><h2>الخدمات الإلكترونية</h2><p>خدمات البلدية الإلكترونية</p></div>
     <div class="grid grid-4" id="svcGrid"></div>
   </div>
+  <div class="section">
+    <div class="sec-head"><h2>🏛️ الوزارات والجهات الحكومية</h2><p>روابط الجهات الحكومية والوزارات السورية</p></div>
+    <div class="grid grid-3" id="ministriesGrid"></div>
+  </div>
+  <div class="section">
+    <div class="sec-head"><h2>📄 الخدمات الإلكترونية</h2><p>الخدمات الرقمية والروابط الهامة</p></div>
+    <div class="grid grid-3" id="eServicesGrid"></div>
+  </div>
 </div>
 
 <!-- TENDERS -->
@@ -539,6 +547,41 @@ async function loadPage(page) {
       var isLighting = ['الإنارة','الانارة','وحدة انارة','وحدة إنارة','تركيب عمود الانارة','تركيب عمود الإنارة'].includes(s.title.trim());
       var onclick = isMaint ? 'openMaintModal()' : isContainer ? 'openContainerModal()' : isRemoval ? 'openRemovalModal()' : isLighting ? 'openLightingModal()' : isShakawi ? "go('complaints')" : 'window.open(\'' + esc(s.link || '#') + '\',\'_blank\')';
       return '<div class="service-card" onclick="' + onclick + '"><div class="icon">' + iconHtml + '</div><h3>' + esc(s.title) + '</h3><p>' + esc(s.description) + '</p></div>';
+    }).join('');
+    // الوزارات والجهات الحكومية
+    var ministries = [
+      {t:'رئاسة مجلس الوزراء',u:'https://pministry.gov.sy/'},
+      {t:'وزارة الإدارة المحلية والبيئة',u:'https://molae.gov.sy/'},
+      {t:'وزارة الداخلية',u:'https://moi.gov.sy/'},
+      {t:'وزارة العدل',u:'https://moj.gov.sy/'},
+      {t:'وزارة المالية',u:'https://www.syrianfinance.gov.sy/'},
+      {t:'وزارة الاقتصاد والصناعة',u:'https://mei.gov.sy/'},
+      {t:'وزارة الطاقة',u:'https://moenergy.gov.sy/ar'},
+      {t:'بوابة الطاقة السورية',u:'https://seg.moenergy.gov.sy/'},
+      {t:'وزارة الصحة',u:'https://www.moh.gov.sy/'},
+      {t:'وزارة التعليم العالي والبحث العلمي',u:'http://www.mohe.gov.sy/mohe/'},
+      {t:'وزارة الشؤون الاجتماعية والعمل',u:'https://mosal.gov.sy/'},
+      {t:'وزارة السياحة',u:'https://mots.gov.sy/'},
+      {t:'وزارة الثقافة',u:'https://moc.gov.sy/ar'},
+      {t:'وزارة النقل',u:'https://www.mot.gov.sy/'},
+      {t:'وزارة الرياضة والشباب',u:'https://www.mosy.sy/'},
+      {t:'وزارة الخارجية والمغتربين',u:'https://mofaex.gov.sy/'},
+      {t:'وزارة الاتصالات وتقانة المعلومات',u:'https://www.moct.gov.sy/'},
+      {t:'وزارة الدفاع',u:'https://www.mod.gov.sy/'}
+    ];
+    var mg = document.getElementById('ministriesGrid');
+    if(mg) mg.innerHTML = ministries.map(function(m){ return '<div class="service-card" onclick="window.open(\''+m.u+'\',\'_blank\')"><div class="icon">🏛️</div><h3>'+esc(m.t)+'</h3><p style="font-size:11px;word-break:break-all;color:var(--mut)">'+esc(m.u)+'</p></div>'; }).join('');
+    var eServices = [
+      {t:'وكالة الأنباء السورية (سانا)',u:'https://sana.sy/'},
+      {t:'هيئة التخطيط والإحصاء',u:'https://psc.gov.sy/site2/arabic'},
+      {t:'المديرية العامة للآثار والمتاحف',u:'https://dgam.gov.sy/'},
+      {t:'مصرف سورية المركزي',u:'https://cb.gov.sy/'},
+      {t:'البريد السوري',u:'https://syrianpost.gov.sy/spswp/'},
+      {t:'سوق دمشق للأوراق المالية',u:'http://www.dse.sy/'},
+      {t:'مركز خدمة المواطن الإلكتروني',u:'https://www.ecsc.gov.sy/'}
+    ];
+    var eg = document.getElementById('eServicesGrid');
+    if(eg) eg.innerHTML = eServices.map(function(m){ return '<div class="service-card" onclick="window.open(\''+m.u+'\',\'_blank\')"><div class="icon">📄</div><h3>'+esc(m.t)+'</h3><p style="font-size:11px;word-break:break-all;color:var(--mut)">'+esc(m.u)+'</p></div>'; }).join('');
     }).join('');
     var procEl = document.getElementById('procList');
     if (procEl) {
