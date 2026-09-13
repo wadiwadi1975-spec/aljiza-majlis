@@ -336,6 +336,19 @@ a[href*="prayer"],a[href*="Prayer"],a[href*="prayer-clock"],a[href*="prayer-cloc
   </div>
 </div>
 
+<div class="modal-bg" id="containerModal" onclick="if(event.target===this) closeContainerModal()">
+  <div class="modal" style="max-width:520px">
+    <button class="close" onclick="closeContainerModal()">×</button>
+    <h2>طلب وضع حاوية</h2>
+    <div class="form-group"><label>اسم صاحب الطلب *</label><input id="cont-name" placeholder="الاسم الكامل"></div>
+    <div class="form-group"><label>رقم الهاتف *</label><input id="cont-phone" dir="ltr" placeholder="09xxxxxxxx"></div>
+    <div class="form-group"><label>مكان الحاوية *</label><input id="cont-location" placeholder="مثال: حارة الزيتون - شارع المدرسة"></div>
+    <div class="form-group"><label>تفاصيل الحاوية</label><input id="cont-details" placeholder="مثال: حاوية 1100 لتر، قرب المنزل رقم 15"></div>
+    <div class="form-group"><label>السبب *</label><textarea id="cont-reason" placeholder="سبب طلب الحاوية..."></textarea></div>
+    <button class="btn btn-gold" onclick="submitContainer()" style="width:100%">إرسال الطلب</button>
+  </div>
+</div>
+
 <script>
 var SITE = {};
 
@@ -491,7 +504,8 @@ async function loadPage(page) {
       var iconHtml = imgFile ? '<img src="/icons/' + imgFile + '" alt="' + esc(s.title) + '" style="width:72px;height:72px;object-fit:contain">' : '<div style="font-size:48px">' + esc(s.icon) + '</div>';
       var isMaint = s.title.trim() === 'طلبات الصيانة';
       var isShakawi = s.title.trim() === 'الشكاوى';
-      var onclick = isMaint ? 'openMaintModal()' : isShakawi ? "go('complaints')" : 'window.open(\'' + esc(s.link || '#') + '\',\'_blank\')';
+      var isContainer = s.title.trim() === 'وضع حاوية';
+      var onclick = isMaint ? 'openMaintModal()' : isContainer ? 'openContainerModal()' : isShakawi ? "go('complaints')" : 'window.open(\'' + esc(s.link || '#') + '\',\'_blank\')';
       return '<div class="service-card" onclick="' + onclick + '"><div class="icon">' + iconHtml + '</div><h3>' + esc(s.title) + '</h3><p>' + esc(s.description) + '</p></div>';
     }).join('');
     var procEl = document.getElementById('procList');
@@ -677,6 +691,20 @@ async function submitMaint(){
   alert('تم إرسال طلب الصيانة بنجاح');
   closeMaintModal();
   document.getElementById('maint-type').value='';document.getElementById('maint-name').value='';document.getElementById('maint-phone').value='';document.getElementById('maint-date').value='';document.getElementById('maint-hara').value='';document.getElementById('maint-street').value='';document.getElementById('maint-details').value='';
+}
+function openContainerModal(){ document.getElementById('containerModal').classList.add('open'); }
+function closeContainerModal(){ document.getElementById('containerModal').classList.remove('open'); }
+async function submitContainer(){
+  var name=document.getElementById('cont-name').value.trim();
+  var phone=document.getElementById('cont-phone').value.trim();
+  var location=document.getElementById('cont-location').value.trim();
+  var details=document.getElementById('cont-details').value.trim();
+  var reason=document.getElementById('cont-reason').value.trim();
+  if(!name||!phone||!location||!reason){ alert('يرجى ملء الحقول المطلوبة *'); return; }
+  await api('POST','/api/container',{ name:name, phone:phone, location:location, details:details, reason:reason });
+  alert('تم إرسال طلب وضع الحاوية بنجاح');
+  closeContainerModal();
+  document.getElementById('cont-name').value='';document.getElementById('cont-phone').value='';document.getElementById('cont-location').value='';document.getElementById('cont-details').value='';document.getElementById('cont-reason').value='';
 }
 
 loadHome();
