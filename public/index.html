@@ -582,7 +582,6 @@ async function loadPage(page) {
     ];
     var eg = document.getElementById('eServicesGrid');
     if(eg) eg.innerHTML = eServices.map(function(m){ return '<div class="service-card" onclick="window.open(\''+m.u+'\',\'_blank\')"><div class="icon">📄</div><h3>'+esc(m.t)+'</h3><p style="font-size:11px;word-break:break-all;color:var(--mut)">'+esc(m.u)+'</p></div>'; }).join('');
-    }).join('');
     var procEl = document.getElementById('procList');
     if (procEl) {
       var procs = await api('GET', '/api/procedures');
