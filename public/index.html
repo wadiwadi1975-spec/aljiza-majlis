@@ -490,7 +490,8 @@ async function loadPage(page) {
       var imgFile = serviceImages[s.title] || serviceImages[s.title.trim()] || null;
       var iconHtml = imgFile ? '<img src="/icons/' + imgFile + '" alt="' + esc(s.title) + '" style="width:72px;height:72px;object-fit:contain">' : '<div style="font-size:48px">' + esc(s.icon) + '</div>';
       var isMaint = s.title.trim() === 'طلبات الصيانة';
-      var onclick = isMaint ? 'openMaintModal()' : 'window.open(\'' + esc(s.link || '#') + '\',\'_blank\')';
+      var isShakawi = s.title.trim() === 'الشكاوى';
+      var onclick = isMaint ? 'openMaintModal()' : isShakawi ? "go('complaints')" : 'window.open(\'' + esc(s.link || '#') + '\',\'_blank\')';
       return '<div class="service-card" onclick="' + onclick + '"><div class="icon">' + iconHtml + '</div><h3>' + esc(s.title) + '</h3><p>' + esc(s.description) + '</p></div>';
     }).join('');
     var procEl = document.getElementById('procList');
