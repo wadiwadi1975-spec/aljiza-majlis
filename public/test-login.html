@@ -6,6 +6,7 @@
 <input id="phone" placeholder="الهاتف" value="0999999999" style="width:100%;padding:10px;margin:8px 0;border:1px solid #ccc;border-radius:8px"><br>
 <input id="pass" type="password" placeholder="كلمة المرور" value="admin123" style="width:100%;padding:10px;margin:8px 0;border:1px solid #ccc;border-radius:8px"><br>
 <button onclick="testLogin()" style="width:100%;padding:12px;background:#094239;color:#fff;border:none;border-radius:8px;font-size:16px;cursor:pointer">دخول</button>
+<button onclick="location.href='/admin'" style="width:100%;padding:12px;background:#b9a779;color:#fff;border:none;border-radius:8px;font-size:16px;cursor:pointer;margin-top:8px">دخول لوحة التحكم ←</button>
 <pre id="result" style="text-align:left;background:#f5f5f5;padding:12px;margin-top:16px;border-radius:8px;font-size:13px;white-space:pre-wrap"></pre>
 <script>
 async function testLogin() {
@@ -29,6 +30,8 @@ async function testLogin() {
       var members = await m.json();
       log += '7. عدد الأعضاء: ' + members.length + '\n';
       log += JSON.stringify(members.map(function(x){return x.name + ' - ' + x.role}), null, 2);
+      localStorage.setItem('majlis_admin_token', data.accessToken);
+      log += '\n\n✅ تم حفظ التوكن! اضغط زر "دخول لوحة التحكم" بالأسفل';
     } else {
       log += '❌ فشل الدخول: ' + (data.error || 'خطأ غير معروف');
     }
