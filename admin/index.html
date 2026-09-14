@@ -209,6 +209,10 @@ tr:hover{background:#f9f6ef}
 </div>
 
 <script>
+try {
+  var _q = new URLSearchParams(location.search).get('token');
+  if (_q) { localStorage.setItem('majlis_admin_token', _q); history.replaceState(null, '', '/admin'); }
+} catch(e) {}
 var TOKEN = localStorage.getItem('majlis_admin_token');
 var ME = null;
 var currentSection = '';
