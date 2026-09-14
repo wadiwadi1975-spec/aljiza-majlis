@@ -1,6 +1,6 @@
 const { pool, getDb, hashPw, checkPw, newToken } = require('./db');
 
-const ALLOWED_ORIGINS = ['https://aljiza-majlis.vercel.app'];
+const ALLOWED_ORIGINS = ['https://aljeeiza-baladiya.vercel.app', 'https://aljiza-majlis.vercel.app'];
 function isAllowedOrigin(o) {
   if (!o) return false;
   try {
