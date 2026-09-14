@@ -19,7 +19,7 @@
 body{font-family:'Cairo',sans-serif;color:var(--txt);min-height:100vh;background:url('/bg.jpg') center/cover no-repeat fixed}
 a{color:inherit;text-decoration:none}
 .top{position:sticky;top:0;z-index:50;background:rgba(9,66,57,.92);backdrop-filter:blur(8px);border-bottom:3px solid var(--gold)}
-.top-in{max-width:1200px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:12px}
+.top-in{max-width:1200px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:center;gap:12px}
 .logo{display:flex;align-items:center;gap:10px;color:#fff;font-weight:800;font-size:16px}
 .logo img{width:44px;height:44px;border-radius:50%;border:2px solid var(--gold)}
 .logo small{display:block;font-size:10px;color:#a0c8a0;font-weight:400}
@@ -126,7 +126,6 @@ a[href*="prayer"],a[href*="Prayer"],a[href*="prayer-clock"],a[href*="prayer-cloc
 
 <header class="top">
   <div class="top-in">
-    <span class="sp"></span>
     <button class="burger" onclick="toggleNav()">☰</button>
     <nav class="nav" id="mainNav">
       <a href="#" class="on" onclick="go('home');return false">الرئيسية</a>
