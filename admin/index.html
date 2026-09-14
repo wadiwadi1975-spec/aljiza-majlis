@@ -64,11 +64,9 @@ tr:hover{background:#f9f6ef}
 .login-ssl{font-size:11px;color:#999;text-align:center;margin-top:16px;padding-top:14px;border-top:1px solid #eee;display:flex;align-items:center;justify-content:center;gap:6px}
 .login-smiley{position:absolute;bottom:24px;left:24px;width:44px;height:44px;background:#f0ece2;border-radius:50%;display:grid;place-items:center;font-size:22px;cursor:pointer;border:none;transition:0.2s}
 .login-smiley:hover{background:#e5e0d4}
-.login-right{flex:1;background:linear-gradient(135deg,#0d4a32 0%,#0a3c2b 50%,#082e20 100%);position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;padding:40px;text-align:center;min-height:100vh}
-.login-right::before{content:'';position:absolute;inset:0;opacity:0.08;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M0 40h80M40 0v80M0 0l80 80M80 0L0 80' stroke='white' stroke-width='.5'/%3E%3Cpath d='M20 0v80M60 0v80M0 20h80M0 60h80' stroke='white' stroke-width='.3'/%3E%3C/svg%3E");pointer-events:none}
-.login-right::after{content:'';position:absolute;inset:0;opacity:0.05;background:repeating-conic-gradient(rgba(255,255,255,.1) 0% 25%, transparent 0% 50%) 50% / 40px 40px;pointer-events:none}
-.login-eagle-wrap{position:relative;z-index:2;margin-bottom:4px}
-.login-eagle{width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 4px 20px rgba(0,0,0,0.4))}
+.login-right{flex:1;background:#0b3d2c;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;padding:40px;text-align:center;min-height:100vh}
+.login-eagle-wrap{position:relative;z-index:2;margin-bottom:8px}
+.login-eagle{width:130px;height:auto;filter:brightness(0) invert(1) sepia(1) saturate(3) hue-rotate(30deg) brightness(0.8) drop-shadow(0 4px 16px rgba(0,0,0,0.3))}
 .login-right .org-name{font-size:28px;font-weight:900;margin-bottom:4px;position:relative;z-index:2;color:#b9a779}
 .login-right .org-country{font-size:14px;opacity:0.75;margin-bottom:6px;position:relative;z-index:2}
 .login-right .org-region{font-size:13px;opacity:0.6;margin-bottom:0;position:relative;z-index:2;display:flex;align-items:center;gap:8px}
@@ -124,16 +122,12 @@ tr:hover{background:#f9f6ef}
     <div class="login-islamic-pattern">
       <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
         <defs>
-          <pattern id="p1" patternUnits="userSpaceOnUse" width="60" height="60">
-            <path d="M30 0L60 30L30 60L0 30Z" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="0.6"/>
-            <path d="M30 8L52 30L30 52L8 30Z" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
-            <path d="M30 16L44 30L30 44L16 30Z" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="0.4"/>
-            <circle cx="30" cy="30" r="4" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
-            <circle cx="0" cy="0" r="4" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
-            <circle cx="60" cy="0" r="4" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
-            <circle cx="0" cy="60" r="4" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
-            <circle cx="60" cy="60" r="4" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
-            <path d="M0 0L30 30M60 0L30 30M0 60L30 30M60 60L30 30" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.3"/>
+          <pattern id="p1" patternUnits="userSpaceOnUse" width="80" height="80">
+            <path d="M20 0h40l20 20v40l-20 20h-40l-20-20v-40z" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+            <path d="M40 10l20 20-20 20-20-20z" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.6"/>
+            <path d="M40 0v80M0 40h80" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="0.4"/>
+            <path d="M0 0l80 80M80 0l-80 80" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.4"/>
+            <circle cx="40" cy="40" r="6" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#p1)"/>
