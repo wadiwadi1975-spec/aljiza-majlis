@@ -243,7 +243,6 @@ function togglePass(id){
   el.type = el.type==='password'?'text':'password';
 }
 async function doLogin() {
-  console.log('doLogin called, loginTab:', loginTab);
   var phone='', pass='';
   if(loginTab==='phone'){
     phone = document.getElementById('lg-phone').value.trim();
@@ -255,25 +254,27 @@ async function doLogin() {
     phone = document.getElementById('lg-national').value.trim();
     pass = document.getElementById('lg-pass3').value;
   }
-  console.log('phone:', phone, 'pass:', pass);
-  if(!phone||!pass){ alert('يرجى إدخال بيانات الدخول'); return; }
+  if(!phone||!pass){ alert('يرجى إدخال رقم الهاتف وكلمة المرور'); return; }
   try {
-    var r = await api('POST', '/api/auth/login', { phone: phone, password: pass });
-    console.log('response:', r);
-    if (r.accessToken) {
-      TOKEN = r.accessToken;
-      ME = r.user;
+    var r = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone: phone, password: pass })
+    });
+    var data = await r.json().catch(function() { return {}; });
+    if (data.accessToken) {
+      TOKEN = data.accessToken;
+      ME = data.user;
       localStorage.setItem('majlis_admin_token', TOKEN);
       document.getElementById('loginPage').classList.add('hidden');
       document.getElementById('sidebar').classList.remove('hidden');
       document.getElementById('main').classList.remove('hidden');
       showSection('dashboard');
     } else {
-      alert(r.error || 'خطأ في بيانات الدخول — تأكد من الهاتف وكلمة المرور');
+      alert(data.error || 'خطأ في بيانات الدخول');
     }
   } catch(e) {
-    console.error('Login error:', e);
-    alert('خطأ في الاتصال بالخادم');
+    alert('خطأ في الاتصال: ' + e.message);
   }
 }
 
