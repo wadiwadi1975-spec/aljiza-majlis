@@ -64,20 +64,21 @@ tr:hover{background:#f9f6ef}
 .login-ssl{font-size:11px;color:#999;text-align:center;margin-top:16px;padding-top:14px;border-top:1px solid #eee;display:flex;align-items:center;justify-content:center;gap:6px}
 .login-smiley{position:absolute;bottom:24px;left:24px;width:44px;height:44px;background:#f0ece2;border-radius:50%;display:grid;place-items:center;font-size:22px;cursor:pointer;border:none;transition:0.2s}
 .login-smiley:hover{background:#e5e0d4}
-.login-right{flex:1;background:#0b3d2c;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;padding:40px;text-align:center;min-height:100vh}
+.login-right{flex:1;background:#0f4532;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;padding:40px;text-align:center;min-height:100vh}
+.login-right::before{content:'';position:absolute;inset:0;background-image:url('/bg.jpg');background-size:cover;background-position:center;opacity:0.06;pointer-events:none}
 .login-eagle-wrap{position:relative;z-index:2;margin-bottom:8px}
-.login-eagle{width:130px;height:auto;filter:brightness(0) invert(1) sepia(1) saturate(3) hue-rotate(30deg) brightness(0.8) drop-shadow(0 4px 16px rgba(0,0,0,0.3))}
-.login-right .org-name{font-size:28px;font-weight:900;margin-bottom:4px;position:relative;z-index:2;color:#b9a779}
-.login-right .org-country{font-size:14px;opacity:0.75;margin-bottom:6px;position:relative;z-index:2}
-.login-right .org-region{font-size:13px;opacity:0.6;margin-bottom:0;position:relative;z-index:2;display:flex;align-items:center;gap:8px}
-.login-right .org-region::before,.login-right .org-region::after{content:'';width:30px;height:1px;background:rgba(185,167,121,0.4)}
-.login-features{display:flex;flex-direction:column;gap:18px;width:100%;max-width:280px;position:relative;z-index:2;margin-top:32px}
+.login-eagle{width:140px;height:auto;filter:drop-shadow(0 4px 16px rgba(0,0,0,0.3))}
+.login-right .org-name{font-size:30px;font-weight:900;margin-bottom:2px;position:relative;z-index:2;color:#c9a74e}
+.login-right .org-country{font-size:14px;opacity:0.7;margin-bottom:6px;position:relative;z-index:2}
+.login-right .org-region{font-size:13px;opacity:0.55;margin-bottom:0;position:relative;z-index:2;display:flex;align-items:center;gap:8px}
+.login-right .org-region::before,.login-right .org-region::after{content:'';width:30px;height:1px;background:rgba(201,167,78,0.4)}
+.login-features{display:flex;flex-direction:column;gap:20px;width:100%;max-width:280px;position:relative;z-index:2;margin-top:36px}
 .login-feature{display:flex;align-items:center;gap:12px;justify-content:flex-start;flex-direction:row-reverse}
-.login-feature .ico{width:36px;height:36px;background:rgba(185,167,121,0.12);border:1.5px solid rgba(185,167,121,0.3);border-radius:50%;display:grid;place-items:center;flex-shrink:0}
+.login-feature .ico{width:36px;height:36px;background:rgba(201,167,78,0.1);border:1.5px solid rgba(201,167,78,0.25);border-radius:50%;display:grid;place-items:center;flex-shrink:0}
 .login-feature span{font-size:14px;font-weight:500;opacity:0.9}
 .login-dots{display:flex;gap:6px;margin-top:auto;padding-top:40px;position:relative;z-index:2}
 .login-dots .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.2)}
-.login-dots .dot.active{background:#b9a779}
+.login-dots .dot.active{background:#c9a74e}
 .login-copy{position:absolute;bottom:20px;font-size:11px;opacity:0.4;z-index:2}
 .login-islamic-pattern{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none}
 .login-islamic-pattern svg{width:100%;height:100%}
@@ -122,15 +123,24 @@ tr:hover{background:#f9f6ef}
     <div class="login-islamic-pattern">
       <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
         <defs>
-          <pattern id="p1" patternUnits="userSpaceOnUse" width="80" height="80">
-            <path d="M20 0h40l20 20v40l-20 20h-40l-20-20v-40z" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
-            <path d="M40 10l20 20-20 20-20-20z" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.6"/>
-            <path d="M40 0v80M0 40h80" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="0.4"/>
-            <path d="M0 0l80 80M80 0l-80 80" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.4"/>
-            <circle cx="40" cy="40" r="6" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+          <pattern id="islamic" patternUnits="userSpaceOnUse" width="90" height="90">
+            <!-- Outer octagon -->
+            <path d="M25 0h40l25 25v40l-25 25h-40l-25-25v-40z" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+            <!-- Inner diamond -->
+            <path d="M45 12l23 23-23 23-23-23z" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="0.8"/>
+            <!-- Cross lines -->
+            <path d="M45 0v90M0 45h90" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.6"/>
+            <!-- Diagonal lines -->
+            <path d="M0 0l90 90M90 0l-90 90" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
+            <!-- Circles at intersections -->
+            <circle cx="45" cy="45" r="5" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.6"/>
+            <circle cx="0" cy="0" r="5" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.6"/>
+            <circle cx="90" cy="0" r="5" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.6"/>
+            <circle cx="0" cy="90" r="5" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.6"/>
+            <circle cx="90" cy="90" r="5" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.6"/>
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#p1)"/>
+        <rect width="100%" height="100%" fill="url(#islamic)"/>
       </svg>
     </div>
     <div class="login-eagle-wrap">
