@@ -239,6 +239,26 @@ module.exports = async (req, res) => {
     return json(res, 201, { ok: true });
   }
 
+  // ---- ADMIN: dashboard stats ----
+  if (url === '/api/admin/stats' && method === 'GET') {
+    const me = await needAdmin(req, res);
+    if (!me) return;
+    const [newsR, projR, compR, inqR, tendR] = await Promise.all([
+      pool.query('SELECT count(*)::int AS n FROM news'),
+      pool.query('SELECT count(*)::int AS n FROM projects'),
+      pool.query('SELECT count(*)::int AS n FROM complaints WHERE status = $1', ['new']),
+      pool.query('SELECT count(*)::int AS n FROM inquiries WHERE read = false'),
+      pool.query('SELECT count(*)::int AS n FROM tenders WHERE status = $1', ['open'])
+    ]);
+    return json(res, 200, {
+      news: newsR.rows[0].n,
+      projects: projR.rows[0].n,
+      complaints: compR.rows[0].n,
+      inquiries: inqR.rows[0].n,
+      tenders: tendR.rows[0].n
+    });
+  }
+
   // ---- ADMIN: CRUD ----
   const adminCrud = url.match(/^\/api\/admin\/(\w+)$/);
   if (adminCrud && method === 'GET') {
@@ -330,26 +350,6 @@ module.exports = async (req, res) => {
     if (!me) return;
     await pool.query('UPDATE inquiries SET read = true WHERE id = $1', [inqRead[1]]);
     return json(res, 200, { ok: true });
-  }
-
-  // ---- ADMIN: dashboard stats ----
-  if (url === '/api/admin/stats' && method === 'GET') {
-    const me = await needAdmin(req, res);
-    if (!me) return;
-    const [newsR, projR, compR, inqR, tendR] = await Promise.all([
-      pool.query('SELECT count(*)::int AS n FROM news'),
-      pool.query('SELECT count(*)::int AS n FROM projects'),
-      pool.query('SELECT count(*)::int AS n FROM complaints WHERE status = $1', ['new']),
-      pool.query('SELECT count(*)::int AS n FROM inquiries WHERE read = false'),
-      pool.query('SELECT count(*)::int AS n FROM tenders WHERE status = $1', ['open'])
-    ]);
-    return json(res, 200, {
-      news: newsR.rows[0].n,
-      projects: projR.rows[0].n,
-      complaints: compR.rows[0].n,
-      inquiries: inqR.rows[0].n,
-      tenders: tendR.rows[0].n
-    });
   }
 
   json(res, 404, { error: 'Not found' });
