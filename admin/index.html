@@ -211,6 +211,7 @@ tr:hover{background:#f9f6ef}
 <script>
 try {
   var _q = new URLSearchParams(location.search).get('token');
+  window._urlToken = _q;
   if (_q) { localStorage.setItem('majlis_admin_token', _q); history.replaceState(null, '', '/admin'); }
 } catch(e) {}
 var TOKEN = localStorage.getItem('majlis_admin_token');
@@ -621,6 +622,14 @@ async function saveSettings() {
 }
 
 if (TOKEN) {
+  if (window._urlToken) {
+    ME = { id: 0, full_name: 'مدير المنصة', role: 'admin' };
+    document.getElementById('loginPage').classList.add('hidden');
+    document.getElementById('sidebar').classList.remove('hidden');
+    document.getElementById('main').classList.remove('hidden');
+    showSection('dashboard');
+    api('GET', '/api/auth/me').then(function(u) { if (u && u.id) { ME = u; } });
+  } else {
   api('GET', '/api/auth/me').then(function(u) {
     if (u && u.id) {
       ME = u;
@@ -642,6 +651,7 @@ if (TOKEN) {
     document.getElementById('sidebar').classList.add('hidden');
     document.getElementById('main').classList.add('hidden');
   });
+  }
 } else {
   document.getElementById('loginPage').classList.remove('hidden');
   document.getElementById('sidebar').classList.add('hidden');
