@@ -41,10 +41,10 @@ tr:hover{background:#f9f6ef}
 .login-box h2{color:var(--acc);margin-bottom:20px}
 .login-page{position:fixed;inset:0;width:100%;height:100vh;display:flex;font-family:'Cairo',sans-serif;z-index:100;overflow:hidden;background:#fff}
 .login-left{flex:1;background:#faf7f0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;position:relative;min-height:100vh}
-.login-back{position:absolute;top:24px;right:32px;font-size:13px;color:var(--mut);text-decoration:none;display:flex;align-items:center;gap:6px}
+.login-back{position:absolute;top:24px;right:32px;font-size:13px;color:#888;text-decoration:none;display:flex;align-items:center;gap:4px}
 .login-back:hover{color:#094239}
-.login-left h1{font-size:32px;font-weight:900;color:#094239;margin-bottom:4px;letter-spacing:-0.5px}
-.login-left .sub{font-size:13px;color:var(--mut);margin-bottom:28px}
+.login-left h1{font-size:32px;font-weight:900;color:#094239;margin-bottom:4px}
+.login-left .sub{font-size:14px;color:#999;margin-bottom:28px}
 .login-card{width:100%;max-width:440px;background:#fff;border-radius:14px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,0.06);border:1px solid #eee}
 .login-tabs{display:flex;background:#f0ece2;border-radius:10px;padding:3px;margin-bottom:20px;gap:3px}
 .login-tabs button{flex:1;padding:10px 8px;border:none;background:transparent;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;color:#8a8a7a;display:flex;align-items:center;justify-content:center;gap:5px;transition:0.2s}
@@ -64,22 +64,25 @@ tr:hover{background:#f9f6ef}
 .login-ssl{font-size:11px;color:#999;text-align:center;margin-top:16px;padding-top:14px;border-top:1px solid #eee;display:flex;align-items:center;justify-content:center;gap:6px}
 .login-smiley{position:absolute;bottom:24px;left:24px;width:44px;height:44px;background:#f0ece2;border-radius:50%;display:grid;place-items:center;font-size:22px;cursor:pointer;border:none;transition:0.2s}
 .login-smiley:hover{background:#e5e0d4}
-.login-right{flex:1;background:#0a3c2b;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;padding:40px;text-align:center;min-height:100vh}
-.login-right::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='0.5'/%3E%3Cpath d='M30 5L55 30L30 55L5 30Z' fill='none' stroke='rgba(255,255,255,0.03)' stroke-width='0.5'/%3E%3Cpath d='M30 10L50 30L30 50L10 30Z' fill='none' stroke='rgba(255,255,255,0.025)' stroke-width='0.5'/%3E%3C/svg%3E") repeat;pointer-events:none}
-.login-eagle-wrap{position:relative;z-index:1;margin-bottom:4px}
-.login-eagle{width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(0,0,0,0.3))}
-.login-right .org-name{font-size:26px;font-weight:900;margin-bottom:4px;position:relative;z-index:1;color:#b9a779}
-.login-right .org-country{font-size:14px;opacity:0.75;margin-bottom:6px;position:relative;z-index:1}
-.login-right .org-region{font-size:13px;opacity:0.6;margin-bottom:0;position:relative;z-index:1;display:flex;align-items:center;gap:8px}
+.login-right{flex:1;background:linear-gradient(135deg,#0d4a32 0%,#0a3c2b 50%,#082e20 100%);position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;padding:40px;text-align:center;min-height:100vh}
+.login-right::before{content:'';position:absolute;inset:0;opacity:0.08;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M0 40h80M40 0v80M0 0l80 80M80 0L0 80' stroke='white' stroke-width='.5'/%3E%3Cpath d='M20 0v80M60 0v80M0 20h80M0 60h80' stroke='white' stroke-width='.3'/%3E%3C/svg%3E");pointer-events:none}
+.login-right::after{content:'';position:absolute;inset:0;opacity:0.05;background:repeating-conic-gradient(rgba(255,255,255,.1) 0% 25%, transparent 0% 50%) 50% / 40px 40px;pointer-events:none}
+.login-eagle-wrap{position:relative;z-index:2;margin-bottom:4px}
+.login-eagle{width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 4px 20px rgba(0,0,0,0.4))}
+.login-right .org-name{font-size:28px;font-weight:900;margin-bottom:4px;position:relative;z-index:2;color:#b9a779}
+.login-right .org-country{font-size:14px;opacity:0.75;margin-bottom:6px;position:relative;z-index:2}
+.login-right .org-region{font-size:13px;opacity:0.6;margin-bottom:0;position:relative;z-index:2;display:flex;align-items:center;gap:8px}
 .login-right .org-region::before,.login-right .org-region::after{content:'';width:30px;height:1px;background:rgba(185,167,121,0.4)}
-.login-features{display:flex;flex-direction:column;gap:18px;width:100%;max-width:280px;position:relative;z-index:1;margin-top:32px}
+.login-features{display:flex;flex-direction:column;gap:18px;width:100%;max-width:280px;position:relative;z-index:2;margin-top:32px}
 .login-feature{display:flex;align-items:center;gap:12px;justify-content:flex-start;flex-direction:row-reverse}
 .login-feature .ico{width:36px;height:36px;background:rgba(185,167,121,0.12);border:1.5px solid rgba(185,167,121,0.3);border-radius:50%;display:grid;place-items:center;flex-shrink:0}
 .login-feature span{font-size:14px;font-weight:500;opacity:0.9}
-.login-dots{display:flex;gap:6px;margin-top:auto;padding-top:40px;position:relative;z-index:1}
+.login-dots{display:flex;gap:6px;margin-top:auto;padding-top:40px;position:relative;z-index:2}
 .login-dots .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.2)}
 .login-dots .dot.active{background:#b9a779}
-.login-copy{position:absolute;bottom:20px;font-size:11px;opacity:0.4;z-index:1}
+.login-copy{position:absolute;bottom:20px;font-size:11px;opacity:0.4;z-index:2}
+.login-islamic-pattern{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none}
+.login-islamic-pattern svg{width:100%;height:100%}
 @media(max-width:768px){.login-page{flex-direction:column}.login-right{display:none}.sidebar{width:200px}.main{margin-right:200px}.form-row{grid-template-columns:1fr}}
 </style>
 </head>
@@ -118,6 +121,24 @@ tr:hover{background:#f9f6ef}
     <button class="login-smiley" title="مساعد">😊</button>
   </div>
   <div class="login-right">
+    <div class="login-islamic-pattern">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+        <defs>
+          <pattern id="p1" patternUnits="userSpaceOnUse" width="60" height="60">
+            <path d="M30 0L60 30L30 60L0 30Z" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="0.6"/>
+            <path d="M30 8L52 30L30 52L8 30Z" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+            <path d="M30 16L44 30L30 44L16 30Z" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="0.4"/>
+            <circle cx="30" cy="30" r="4" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+            <circle cx="0" cy="0" r="4" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+            <circle cx="60" cy="0" r="4" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+            <circle cx="0" cy="60" r="4" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+            <circle cx="60" cy="60" r="4" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+            <path d="M0 0L30 30M60 0L30 30M0 60L30 30M60 60L30 30" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.3"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#p1)"/>
+      </svg>
+    </div>
     <div class="login-eagle-wrap">
       <img src="/icon-512.png" alt="شعار بلدية الجيزة" class="login-eagle">
     </div>
