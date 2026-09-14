@@ -42,35 +42,43 @@ tr:hover{background:#f9f6ef}
 .login-page{position:fixed;inset:0;width:100%;height:100vh;display:flex;font-family:'Cairo',sans-serif;z-index:100;overflow:hidden;background:#fff}
 .login-left{flex:1;background:#faf7f0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;position:relative;min-height:100vh}
 .login-back{position:absolute;top:24px;right:32px;font-size:13px;color:var(--mut);text-decoration:none;display:flex;align-items:center;gap:6px}
-.login-left h1{font-size:28px;font-weight:800;color:#094239;margin-bottom:6px}
-.login-left .sub{font-size:13px;color:var(--mut);margin-bottom:32px}
-.login-card{width:100%;max-width:420px;background:#fff;border-radius:16px;padding:28px;box-shadow:0 8px 32px rgba(0,0,0,0.08);border:1px solid #eee}
-.login-tabs{display:flex;background:#f5f0e6;border-radius:10px;padding:4px;margin-bottom:20px;gap:4px}
-.login-tabs button{flex:1;padding:10px;border:none;background:transparent;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--mut);display:flex;align-items:center;justify-content:center;gap:6px;transition:0.2s}
-.login-tabs button.on{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.1);color:#094239}
-.login-card .form-group{margin-bottom:16px;text-align:right}
-.login-card label{font-size:13px;font-weight:700;color:#094239;margin-bottom:6px;display:block}
-.login-card input{width:100%;border:1px solid #e5ddd0;border-radius:10px;padding:12px 14px;font-size:14px;font-family:inherit;background:#fff}
-.login-card input:focus{outline:none;border-color:#b9a779;box-shadow:0 0 0 3px rgba(185,167,121,0.15)}
+.login-back:hover{color:#094239}
+.login-left h1{font-size:32px;font-weight:900;color:#094239;margin-bottom:4px;letter-spacing:-0.5px}
+.login-left .sub{font-size:13px;color:var(--mut);margin-bottom:28px}
+.login-card{width:100%;max-width:440px;background:#fff;border-radius:14px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,0.06);border:1px solid #eee}
+.login-tabs{display:flex;background:#f0ece2;border-radius:10px;padding:3px;margin-bottom:20px;gap:3px}
+.login-tabs button{flex:1;padding:10px 8px;border:none;background:transparent;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;color:#8a8a7a;display:flex;align-items:center;justify-content:center;gap:5px;transition:0.2s}
+.login-tabs button.on{background:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.08);color:#094239}
+.login-card .form-group{margin-bottom:14px;text-align:right}
+.login-card label{font-size:13px;font-weight:700;color:#333;margin-bottom:6px;display:block}
+.login-card input{width:100%;border:1px solid #e0dbd0;border-radius:10px;padding:12px 14px 12px 40px;font-size:14px;font-family:inherit;background:#fff}
+.login-card input:focus{outline:none;border-color:#b9a779;box-shadow:0 0 0 3px rgba(185,167,121,0.12)}
 .login-card .input-wrap{position:relative}
-.login-card .input-wrap .icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--mut);font-size:16px}
-.login-options{display:flex;justify-content:space-between;align-items:center;margin:16px 0;font-size:13px}
-.login-options a{color:#094239;text-decoration:none}
-.login-options label{display:flex;align-items:center;gap:6px;font-weight:400;color:var(--mut);cursor:pointer}
+.login-card .input-wrap .icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#999;font-size:18px;pointer-events:none}
+.login-card .input-wrap .icon.clickable{pointer-events:all;cursor:pointer}
+.login-options{display:flex;justify-content:space-between;align-items:center;margin:14px 0;font-size:13px}
+.login-options a{color:#094239;text-decoration:none;font-weight:600}
+.login-options label{display:flex;align-items:center;gap:6px;font-weight:400;color:#777;cursor:pointer}
 .login-btn{width:100%;background:#b9a779;color:#fff;border:none;padding:14px;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;transition:0.2s}
 .login-btn:hover{background:#a68b5a}
-.login-ssl{font-size:11px;color:var(--mut);text-align:center;margin-top:16px;padding-top:16px;border-top:1px solid #eee;display:flex;align-items:center;justify-content:center;gap:6px}
-.login-right{flex:1;background:#094239;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;padding:40px;text-align:center;min-height:100vh}
-.login-right::before{content:'';position:absolute;inset:0;background-image:url('/bg.jpg');background-size:cover;background-position:center;opacity:0.08;pointer-events:none}
-.login-right .pattern{position:absolute;inset:0;opacity:0.05;background-image:radial-gradient(circle at 20% 20%, #b9a779 0%, transparent 2%), radial-gradient(circle at 80% 80%, #b9a779 0%, transparent 2%);background-size:100px 100px}
-.login-eagle{width:120px;height:120px;object-fit:contain;margin-bottom:16px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3))}
-.login-right h2{font-size:18px;font-weight:800;margin-bottom:4px;position:relative;z-index:1}
-.login-right .subtitle{font-size:12px;opacity:0.7;margin-bottom:32px;position:relative;z-index:1}
-.login-features{display:flex;flex-direction:column;gap:16px;width:100%;max-width:300px;position:relative;z-index:1}
-.login-feature{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.08);padding:12px 16px;border-radius:10px;backdrop-filter:blur(4px)}
-.login-feature .ico{width:36px;height:36px;background:rgba(185,167,121,0.2);border-radius:8px;display:grid;place-items:center;font-size:18px;flex-shrink:0}
+.login-ssl{font-size:11px;color:#999;text-align:center;margin-top:16px;padding-top:14px;border-top:1px solid #eee;display:flex;align-items:center;justify-content:center;gap:6px}
+.login-smiley{position:absolute;bottom:24px;left:24px;width:44px;height:44px;background:#f0ece2;border-radius:50%;display:grid;place-items:center;font-size:22px;cursor:pointer;border:none;transition:0.2s}
+.login-smiley:hover{background:#e5e0d4}
+.login-right{flex:1;background:#0a3c2b;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;padding:40px;text-align:center;min-height:100vh}
+.login-right::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 0L80 40L40 80L0 40Z' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3Cpath d='M40 10L70 40L40 70L10 40Z' fill='none' stroke='rgba(255,255,255,0.03)' stroke-width='1'/%3E%3C/svg%3E") repeat;pointer-events:none}
+.login-eagle-wrap{position:relative;z-index:1;margin-bottom:8px}
+.login-eagle{width:100px;height:100px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(0,0,0,0.3))}
+.login-right .org-name{font-size:18px;font-weight:800;margin-bottom:4px;position:relative;z-index:1}
+.login-right .org-sub{font-size:11px;opacity:0.6;margin-bottom:2px;position:relative;z-index:1;letter-spacing:1px}
+.login-right .org-country{font-size:12px;opacity:0.65;margin-bottom:28px;position:relative;z-index:1}
+.login-features{display:flex;flex-direction:column;gap:14px;width:100%;max-width:260px;position:relative;z-index:1}
+.login-feature{display:flex;align-items:center;gap:12px;justify-content:flex-end}
+.login-feature .ico{width:38px;height:38px;background:rgba(185,167,121,0.15);border:1px solid rgba(185,167,121,0.25);border-radius:50%;display:grid;place-items:center;font-size:17px;flex-shrink:0}
 .login-feature span{font-size:13px;font-weight:600}
-.login-copy{position:absolute;bottom:20px;font-size:11px;opacity:0.5}
+.login-dots{display:flex;gap:6px;margin-top:40px;position:relative;z-index:1}
+.login-dots .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.25)}
+.login-dots .dot.active{background:#b9a779}
+.login-copy{position:absolute;bottom:20px;font-size:11px;opacity:0.45;z-index:1}
 @media(max-width:768px){.login-page{flex-direction:column}.login-right{display:none}.sidebar{width:200px}.main{margin-right:200px}.form-row{grid-template-columns:1fr}}
 </style>
 </head>
@@ -78,44 +86,50 @@ tr:hover{background:#f9f6ef}
 
 <div class="login-page" id="loginPage">
   <div class="login-left">
-    <a href="/" class="login-back">العودة للرئيسية <span>›</span></a>
-    <img src="/icon-512.png" alt="بلدية الجيزة" style="width:80px;height:80px;object-fit:contain;margin-bottom:16px;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.15))">
+    <a href="/" class="login-back">&#8250; العودة للرئيسية</a>
     <h1>تسجيل الدخول</h1>
-    <p style="font-size:13px;color:#b9a779;font-weight:800;margin-bottom:24px">خاص بأعضاء المجلس البلدي</p>
+    <p class="sub">سجل دخولك للوصول إلى خدماتك الحكومية</p>
     <div class="login-card">
       <div class="login-tabs">
-        <button onclick="switchLoginTab('national')"><span>وطني</span> <span>🪪</span></button>
-        <button onclick="switchLoginTab('phone')" class="on"><span>هاتف</span> <span>📞</span></button>
-        <button onclick="switchLoginTab('email')"><span>بريد</span> <span>✉️</span></button>
+        <button onclick="switchLoginTab('national')"><span>وطني</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M7 20v-1"/></svg></button>
+        <button onclick="switchLoginTab('phone')" class="on"><span>هاتف</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></button>
+        <button onclick="switchLoginTab('email')"><span>بريد</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></button>
       </div>
       <div id="loginFormPhone">
-        <div class="form-group"><label>رقم الهاتف</label><div class="input-wrap"><input id="lg-phone" dir="ltr" placeholder="أدخل رقم هاتفك"><span class="icon">📞</span></div></div>
-        <div class="form-group"><label>كلمة المرور *</label><div class="input-wrap"><input id="lg-pass" type="password" placeholder="أدخل كلمة المرور"><span class="icon" onclick="togglePass('lg-pass')" style="cursor:pointer">👁️</span></div></div>
+        <div class="form-group"><label>رقم الهاتف</label><div class="input-wrap"><input id="lg-phone" dir="ltr" placeholder="أدخل رقم هاتفك"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span></div></div>
+        <div class="form-group"><label>كلمة المرور *</label><div class="input-wrap"><input id="lg-pass" type="password" placeholder="أدخل كلمة المرور"><span class="icon clickable" onclick="togglePass('lg-pass')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span></div></div>
       </div>
       <div id="loginFormEmail" class="hidden">
-        <div class="form-group"><label>البريد الإلكتروني</label><div class="input-wrap"><input id="lg-email" dir="ltr" placeholder="أدخل بريدك الإلكتروني"><span class="icon">✉️</span></div></div>
-        <div class="form-group"><label>كلمة المرور *</label><div class="input-wrap"><input id="lg-pass2" type="password" placeholder="أدخل كلمة المرور"><span class="icon" onclick="togglePass('lg-pass2')" style="cursor:pointer">👁️</span></div></div>
+        <div class="form-group"><label>البريد الإلكتروني</label><div class="input-wrap"><input id="lg-email" dir="ltr" placeholder="أدخل بريدك الإلكتروني"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span></div></div>
+        <div class="form-group"><label>كلمة المرور *</label><div class="input-wrap"><input id="lg-pass2" type="password" placeholder="أدخل كلمة المرور"><span class="icon clickable" onclick="togglePass('lg-pass2')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span></div></div>
       </div>
       <div id="loginFormNational" class="hidden">
-        <div class="form-group"><label>الرقم الوطني</label><div class="input-wrap"><input id="lg-national" dir="ltr" placeholder="أدخل الرقم الوطني"><span class="icon">🪪</span></div></div>
-        <div class="form-group"><label>كلمة المرور *</label><div class="input-wrap"><input id="lg-pass3" type="password" placeholder="أدخل كلمة المرور"><span class="icon" onclick="togglePass('lg-pass3')" style="cursor:pointer">👁️</span></div></div>
+        <div class="form-group"><label>الرقم الوطني</label><div class="input-wrap"><input id="lg-national" dir="ltr" placeholder="أدخل الرقم الوطني"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M7 20v-1"/></svg></span></div></div>
+        <div class="form-group"><label>كلمة المرور *</label><div class="input-wrap"><input id="lg-pass3" type="password" placeholder="أدخل كلمة المرور"><span class="icon clickable" onclick="togglePass('lg-pass3')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span></div></div>
       </div>
       <div class="login-options">
         <label><input type="checkbox" id="remember"> تذكرني</label>
         <a href="#" onclick="alert('تواصل مع الإدارة لاستعادة كلمة المرور');return false">نسيت كلمة المرور؟</a>
       </div>
-      <button class="login-btn" onclick="doLogin()">تسجيل الدخول <span>←</span></button>
-      <div class="login-ssl">🔒 اتصال آمن ومشفّر بتقنية SSL</div>
+      <button class="login-btn" onclick="doLogin()">تسجيل الدخول <span>&#8592;</span></button>
+      <div class="login-ssl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> اتصال آمن ومشفّر بتقنية SSL</div>
     </div>
+    <button class="login-smiley" title="مساعد">😊</button>
   </div>
   <div class="login-right">
-    <div class="pattern"></div>
+    <div class="login-eagle-wrap">
+      <img src="/icon-512.png" alt="شعار بلدية الجيزة" class="login-eagle">
+    </div>
+    <div class="org-name">بلدية الجيزة</div>
+    <div class="org-sub">AL-JIZA MUNICIPALITY</div>
+    <div class="org-country">الجمهورية العربية السورية</div>
     <div class="login-features">
-      <div class="login-feature"><span class="ico">🛡️</span><span>اتصال آمن ومشفّر</span></div>
-      <div class="login-feature"><span class="ico">👆</span><span>تحقق من الهوية</span></div>
-      <div class="login-feature"><span class="ico">🔒</span><span>حماية بياناتك الشخصية</span></div>
+      <div class="login-feature"><span>اتصال آمن ومشفّر</span><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b9a779" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span></div>
+      <div class="login-feature"><span>تحقق من الهوية</span><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b9a779" stroke-width="2"><path d="M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 4"/><path d="M5 19.5C5.5 18 6 15 6 12c0-3.5 2.5-6 6-6 2 0 3.5 1 4.5 2"/><path d="M12 12a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/><path d="M17 21l2-2-2-2"/><path d="M21 17l-2-2 2-2"/></svg></span></div>
+      <div class="login-feature"><span>حماية بياناتك الشخصية</span><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b9a779" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span></div>
     </div>
     <div class="login-copy">جميع الحقوق محفوظة</div>
+    <div class="login-dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
   </div>
 </div>
 
