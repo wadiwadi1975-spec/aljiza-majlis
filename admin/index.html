@@ -123,24 +123,30 @@ tr:hover{background:#f9f6ef}
     <div class="login-islamic-pattern">
       <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
         <defs>
-          <pattern id="islamic" patternUnits="userSpaceOnUse" width="90" height="90">
-            <!-- Outer octagon -->
-            <path d="M25 0h40l25 25v40l-25 25h-40l-25-25v-40z" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-            <!-- Inner diamond -->
-            <path d="M45 12l23 23-23 23-23-23z" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="0.8"/>
-            <!-- Cross lines -->
-            <path d="M45 0v90M0 45h90" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.6"/>
-            <!-- Diagonal lines -->
-            <path d="M0 0l90 90M90 0l-90 90" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
-            <!-- Circles at intersections -->
-            <circle cx="45" cy="45" r="5" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.6"/>
-            <circle cx="0" cy="0" r="5" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.6"/>
-            <circle cx="90" cy="0" r="5" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.6"/>
-            <circle cx="0" cy="90" r="5" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.6"/>
-            <circle cx="90" cy="90" r="5" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.6"/>
+          <pattern id="islamic" patternUnits="userSpaceOnUse" width="120" height="120">
+            <!-- Main octagon -->
+            <path d="M35 0h50l35 35v50l-35 35h-50l-35-35v-50z" fill="none" stroke="rgba(255,255,255,0.09)" stroke-width="1.2"/>
+            <!-- Inner rotated square -->
+            <path d="M60 10l40 30-10 40-40-10-30-30z" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.8"/>
+            <!-- Vertical & horizontal -->
+            <path d="M60 0v120M0 60h120" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
+            <!-- Diagonals -->
+            <path d="M0 0l120 120M120 0l-120 120" fill="none" stroke="rgba(255,255,255,0.035)" stroke-width="0.5"/>
+            <!-- Center circle -->
+            <circle cx="60" cy="60" r="8" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
+            <!-- Corner circles -->
+            <circle cx="0" cy="0" r="8" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
+            <circle cx="120" cy="0" r="8" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
+            <circle cx="0" cy="120" r="8" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
+            <circle cx="120" cy="120" r="8" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
+            <!-- Mid-edge circles -->
+            <circle cx="60" cy="0" r="5" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+            <circle cx="60" cy="120" r="5" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+            <circle cx="0" cy="60" r="5" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+            <circle cx="120" cy="60" r="5" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#islamic)"/>
+        <rect width="100%" height="100%" fill="url(%23islamic)"/>
       </svg>
     </div>
     <div class="org-name">بلدية الجيزة</div>
