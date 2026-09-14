@@ -84,7 +84,29 @@ tr:hover{background:#f9f6ef}
 .login-eagle-wrap{position:relative;z-index:2;margin-bottom:8px}
 .login-islamic-pattern{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none}
 .login-islamic-pattern svg{width:100%;height:100%}
-@media(max-width:768px){.login-page{flex-direction:column}.login-right{display:none}.sidebar{width:200px}.main{margin-right:200px}.form-row{grid-template-columns:1fr}}
+@media(max-width:768px){
+  body{flex-direction:column}
+  .sidebar{position:static;width:100%;padding:10px;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+  .sidebar h2{width:100%;border:none;padding:8px}
+  .sidebar a{padding:8px 12px;font-size:12px;border-radius:8px}
+  .main{margin-right:0;padding:14px}
+  .login-page{flex-direction:column}.login-right{display:none}
+  .login-left{padding:24px 16px}
+  .login-card{padding:18px}
+  .form-row{grid-template-columns:1fr}
+  #tableArea{overflow-x:auto}
+  table{min-width:620px}
+  .stats-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+}
+@media(max-width:480px){
+  .main{padding:10px}
+  .main h1{font-size:18px}
+  .card{padding:14px}
+  .login-left h1{font-size:26px}
+  .login-left .sub{font-size:12px}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .sidebar a{padding:7px 9px;font-size:11px}
+}
 </style>
 </head>
 <body>
