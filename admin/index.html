@@ -596,10 +596,27 @@ async function saveSettings() {
 }
 
 if (TOKEN) {
-  document.getElementById('loginPage').classList.add('hidden');
-  document.getElementById('sidebar').classList.remove('hidden');
-  document.getElementById('main').classList.remove('hidden');
-  showSection('dashboard');
+  api('GET', '/api/auth/me').then(function(u) {
+    if (u && u.id) {
+      ME = u;
+      document.getElementById('loginPage').classList.add('hidden');
+      document.getElementById('sidebar').classList.remove('hidden');
+      document.getElementById('main').classList.remove('hidden');
+      showSection('dashboard');
+    } else {
+      TOKEN = null;
+      localStorage.removeItem('majlis_admin_token');
+      document.getElementById('loginPage').classList.remove('hidden');
+      document.getElementById('sidebar').classList.add('hidden');
+      document.getElementById('main').classList.add('hidden');
+    }
+  }).catch(function() {
+    TOKEN = null;
+    localStorage.removeItem('majlis_admin_token');
+    document.getElementById('loginPage').classList.remove('hidden');
+    document.getElementById('sidebar').classList.add('hidden');
+    document.getElementById('main').classList.add('hidden');
+  });
 } else {
   document.getElementById('loginPage').classList.remove('hidden');
   document.getElementById('sidebar').classList.add('hidden');
