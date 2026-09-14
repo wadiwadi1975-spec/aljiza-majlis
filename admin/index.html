@@ -319,14 +319,18 @@ function showSection(section) {
 }
 
 async function loadDashboard() {
-  var r = await api('GET', '/api/admin/stats');
-  document.getElementById('dashStats').innerHTML = [
-    [r.news || 0, 'أخبار'],
-    [r.projects || 0, 'مشاريع'],
-    [r.complaints || 0, 'شكاوى جديدة'],
-    [r.inquiries || 0, 'رسائل غير مقروءة'],
-    [r.tenders || 0, 'مناقصات مفتوحة']
-  ].map(function(x) { return '<div class="stat-card"><div class="num">' + x[0] + '</div><div class="lbl">' + x[1] + '</div></div>'; }).join('');
+  try {
+    var r = await api('GET', '/api/admin/stats');
+    document.getElementById('dashStats').innerHTML = [
+      [r.news || 0, 'أخبار'],
+      [r.projects || 0, 'مشاريع'],
+      [r.complaints || 0, 'شكاوى جديدة'],
+      [r.inquiries || 0, 'رسائل غير مقروءة'],
+      [r.tenders || 0, 'مناقصات مفتوحة']
+    ].map(function(x) { return '<div class="stat-card"><div class="num">' + x[0] + '</div><div class="lbl">' + x[1] + '</div></div>'; }).join('');
+  } catch(e) {
+    document.getElementById('dashStats').innerHTML = '<div style="padding:20px;text-align:center;color:#999">مرحباً بك في لوحة التحكم</div>';
+  }
 }
 
 async function loadSection(section) {
@@ -338,8 +342,12 @@ async function loadSection(section) {
     maintenance_requests: '🔧 طلبات الصيانة', container_requests: '🗑️ طلبات الحاويات', lighting_requests: '💡 طلبات الإنارة', removal_requests: '🏗️ طلبات الإزالة', inquiries: '💬 الرسائل', settings: '⚙️ الإعدادات'
   };
   document.getElementById('sectionTitle').textContent = titles[section] || section;
-  var items = await api('GET', '/api/admin/' + section);
-  renderTable(section, items);
+  try {
+    var items = await api('GET', '/api/admin/' + section);
+    renderTable(section, items || []);
+  } catch(e) {
+    document.getElementById('tableArea').innerHTML = '<div style="text-align:center;color:#999;padding:30px">خطأ في تحميل البيانات</div>';
+  }
 }
 
 function renderTable(section, items) {
