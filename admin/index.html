@@ -97,14 +97,14 @@ tr:hover{background:#f9f6ef}
     <div class="login-card">
       <div class="login-tabs">
         <button onclick="switchLoginTab('national')"><span>وطني</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M7 20v-1"/></svg></button>
-        <button onclick="switchLoginTab('phone')"><span>هاتف</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></button>
-        <button onclick="switchLoginTab('email')" class="on"><span>بريد</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></button>
+        <button onclick="switchLoginTab('phone')" class="on"><span>هاتف</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></button>
+        <button onclick="switchLoginTab('email')"><span>بريد</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></button>
       </div>
-      <div id="loginFormPhone" class="hidden">
+      <div id="loginFormPhone">
         <div class="form-group"><label>رقم الهاتف</label><div class="input-wrap"><input id="lg-phone" dir="ltr" placeholder="أدخل رقم هاتفك"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span></div></div>
         <div class="form-group"><label>كلمة المرور *</label><div class="input-wrap"><input id="lg-pass" type="password" placeholder="أدخل كلمة المرور"><span class="icon clickable" onclick="togglePass('lg-pass')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span></div></div>
       </div>
-      <div id="loginFormEmail">
+      <div id="loginFormEmail" class="hidden">
         <div class="form-group"><label>البريد الإلكتروني *</label><div class="input-wrap"><input id="lg-email" dir="ltr" placeholder="أدخل بريدك الإلكتروني"><span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span></div></div>
         <div class="form-group"><label>كلمة المرور *</label><div class="input-wrap"><input id="lg-pass2" type="password" placeholder="أدخل كلمة المرور"><span class="icon clickable" onclick="togglePass('lg-pass2')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span></div></div>
       </div>
@@ -224,7 +224,7 @@ async function api(method, url, data) {
 
 function esc(s) { return String(s || '').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
-var loginTab = 'email';
+var loginTab = 'phone';
 function switchLoginTab(tab){
   loginTab = tab;
   document.querySelectorAll('.login-tabs button').forEach(function(b){ b.classList.remove('on'); });
