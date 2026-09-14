@@ -255,13 +255,22 @@ async function doLogin() {
     pass = document.getElementById('lg-pass3').value;
   }
   if(!phone||!pass){ alert('يرجى إدخال رقم الهاتف وكلمة المرور'); return; }
+  var btn = document.querySelector('.login-btn');
+  var oldTxt = btn ? btn.innerHTML : '';
   try {
+    if (btn) { btn.innerHTML = 'جاري الدخول...'; btn.disabled = true; }
+    var ctrl = new AbortController();
+    var timer = setTimeout(function(){ ctrl.abort(); }, 15000);
     var r = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ phone: phone, password: pass })
+      body: JSON.stringify({ phone: phone, password: pass }),
+      signal: ctrl.signal
     });
+    clearTimeout(timer);
     var data = await r.json().catch(function() { return {}; });
+    if (btn) { btn.innerHTML = oldTxt; btn.disabled = false; }
+    if (r.status !== 200) { alert('خطأ ' + r.status + ': ' + (data.error || 'بيانات الدخول غير صحيحة')); return; }
     if (data.accessToken) {
       TOKEN = data.accessToken;
       ME = data.user;
@@ -274,7 +283,10 @@ async function doLogin() {
       alert(data.error || 'خطأ في بيانات الدخول');
     }
   } catch(e) {
-    alert('خطأ في الاتصال: ' + e.message);
+    var btn2 = document.querySelector('.login-btn');
+    if (btn2) { btn2.disabled = false; }
+    if (e.name === 'AbortError') { alert('انتهت المهلة: الخادم لا يستجيب خلال 15 ثانية'); }
+    else { alert('خطأ في الاتصال: ' + e.message); }
   }
 }
 
