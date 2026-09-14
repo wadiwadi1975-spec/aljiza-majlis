@@ -270,7 +270,7 @@ async function doLogin() {
     clearTimeout(timer);
     var data = await r.json().catch(function() { return {}; });
     if (btn) { btn.innerHTML = oldTxt; btn.disabled = false; }
-    if (r.status !== 200) { alert('خطأ ' + r.status + ': ' + (data.error || 'بيانات الدخول غير صحيحة')); return; }
+    if (r.status !== 200) { alert('فشل الدخول (' + r.status + '): ' + (data.error || '') + '\nالهاتف المرسل: [' + phone + ']\nطول كلمة المرور: ' + pass.length); return; }
     if (data.accessToken) {
       TOKEN = data.accessToken;
       ME = data.user;
