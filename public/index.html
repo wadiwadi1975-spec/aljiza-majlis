@@ -82,6 +82,11 @@ a{color:inherit;text-decoration:none}
 .chairman .txt p{font-size:14px;line-height:2;color:var(--gold)}
 .chairman .txt .name{color:#fff;font-weight:700;font-size:15px;margin-top:10px}
 .footer{background:linear-gradient(180deg,rgba(9,66,57,.95),rgba(6,48,37,.95));color:#b8d8b8;padding:40px 20px 20px;margin-top:40px}
+.deck{position:relative;max-width:520px;height:360px;margin:0 auto;cursor:pointer}
+.deck-card{position:absolute;inset:0;border-radius:14px;overflow:hidden;border:4px solid #fff;box-shadow:0 10px 30px rgba(0,0,0,.25);transition:transform .45s ease,opacity .3s ease;background:#fff}
+.deck-card img{width:100%;height:100%;object-fit:cover;display:block}
+.deck-cap{text-align:center;margin-top:14px;color:var(--mut);font-size:14px;min-height:22px}
+.deck-hint{text-align:center;font-size:12px;color:var(--mut);margin-top:4px}
 .footer .inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:30px}
 .footer h4{color:var(--gold);margin-bottom:12px;font-size:16px}
 .footer p,.footer li{font-size:13px;line-height:2}
@@ -134,6 +139,7 @@ a[href*="prayer"],a[href*="Prayer"],a[href*="prayer-clock"],a[href*="prayer-cloc
 }
 @media(max-width:480px){
   .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  .deck{height:280px}
   .sec-head h2{font-size:20px}
   .card .body{padding:12px}
   .modal{padding:16px}
@@ -190,6 +196,12 @@ a[href*="prayer"],a[href*="Prayer"],a[href*="prayer-clock"],a[href*="prayer-cloc
   <div class="section">
     <div class="sec-head"><h2>كلمة رئيس البلدية</h2></div>
     <div class="chairman" id="chairman"></div>
+  </div>
+
+  <div class="section">
+    <div class="sec-head"><h2>صور من الجيزة</h2><p>آثار البلدة بعدسة مجلس البلدية — اضغط على الصورة لتقليب الألبوم</p></div>
+    <div class="deck" id="photoDeck" onclick="flipDeck(event)"></div>
+    <div class="deck-cap" id="deckCap"></div>
   </div>
 
   <div class="section">
@@ -885,7 +897,54 @@ async function submitRemoval(){
   document.getElementById('rem-name').value='';document.getElementById('rem-phone').value='';document.getElementById('rem-nature').value='';document.getElementById('rem-date').value='';document.getElementById('rem-reason').value='';document.getElementById('rem-warning').value='';document.getElementById('rem-images').value='';document.getElementById('rem-preview').innerHTML='';
 }
 
+var DECK=[
+  {f:'1',c:'أطلال بازلتية واسعة في الجيزة'},
+  {f:'2',c:'ممر مقنطر داخل بناء حجري'},
+  {f:'3',c:'بناء بازلتي قديم'},
+  {f:'4',c:'جدران بازلتية'},
+  {f:'5',c:'واجهة بناء حجري'},
+  {f:'6',c:'قنطرة حجرية'},
+  {f:'7',c:'ركام بازلتي وأقواس'},
+  {f:'8',c:'زاوية بناء أثري'},
+  {f:'10',c:'غرفة مقببة من الداخل'},
+  {f:'11',c:'إطلالة عبر مدخل حجري'}
+];
+function buildDeck(){
+  var box=document.getElementById('photoDeck');
+  if(!box||box.children.length) return;
+  box.innerHTML=DECK.map(function(p){
+    return '<div class="deck-card" data-cap="'+p.c+'"><img loading="lazy" src="/gallery/'+p.f+'.jpg" alt="'+p.c+'"></div>';
+  }).join('');
+  layoutDeck();
+}
+function layoutDeck(){
+  var box=document.getElementById('photoDeck');
+  var kids=box.children;
+  for(var i=0;i<kids.length;i++){
+    var r=(i%2?1:-1)*Math.min(i*1.6,5);
+    kids[i].style.zIndex=100-i;
+    kids[i].style.opacity=i>5?0:1;
+    kids[i].style.transform='translateY('+(-i*10)+'px) scale('+(1-i*0.045)+') rotate('+r+'deg)';
+  }
+  document.getElementById('deckCap').textContent=kids[0].dataset.cap;
+}
+function flipDeck(e){
+  if(e) e.stopPropagation();
+  var box=document.getElementById('photoDeck');
+  if(!box||!box.children.length) return;
+  var f=box.firstElementChild;
+  f.style.transition='transform .22s ease,opacity .22s ease';
+  f.style.transform+=' translateX(90px)';
+  f.style.opacity=0;
+  setTimeout(function(){
+    box.appendChild(f);
+    f.style.transition='';
+    layoutDeck();
+  },230);
+}
+
 loadHome();
+try{buildDeck();}catch(e){}
 </script>
 </body>
 </html>
